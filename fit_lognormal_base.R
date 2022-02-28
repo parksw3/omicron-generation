@@ -35,10 +35,4 @@ fit_lognormal_base_50_nsgtf_within <- fitfun_lognormal(data=data_50_nsgtf_within
                                                        rho=rho, 
                                                        r=r_nsgtf)
 
-#fit_lognormal_base_50_sgtf_within 
-
-#confint(fit_lognormal_base_50_sgtf_within, method="quad")
-
-#fit_lognormal_base_50_nsgtf_within
-
 save("fit_lognormal_base_50_sgtf_within", "fit_lognormal_base_50_nsgtf_within", file="fit_lognormal_base.rda")

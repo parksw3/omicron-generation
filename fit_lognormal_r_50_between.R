@@ -12,16 +12,16 @@ rho <- 0.75
 
 serialdata <- read_xlsx("serial-netherlands.xlsx")
 
-serialdata_50_sgtf_within <- serialdata %>%
-  filter(week==50, strain=="SGTF", household=="within")
+serialdata_50_sgtf_between <- serialdata %>%
+  filter(week==50, strain=="SGTF", household=="between")
 
-serialdata_50_nsgtf_within <- serialdata %>%
-  filter(week==50, strain=="non-SGTF", household=="within")
+serialdata_50_nsgtf_between <- serialdata %>%
+  filter(week==50, strain=="non-SGTF", household=="between")
 
-data_50_sgtf_within <- rep(serialdata_50_sgtf_within$serial, serialdata_50_sgtf_within$n)
-data_50_nsgtf_within <- rep(serialdata_50_nsgtf_within$serial, serialdata_50_nsgtf_within$n)
+data_50_sgtf_between <- rep(serialdata_50_sgtf_between$serial, serialdata_50_sgtf_between$n)
+data_50_nsgtf_between <- rep(serialdata_50_nsgtf_between$serial, serialdata_50_nsgtf_between$n)
 
-fit_lognormal_r_50_nsgtf_within <- lapply(r_nsgtf, function(r) {
+fit_lognormal_r_50_nsgtf_between <- lapply(r_nsgtf, function(r) {
   print(r)
   moment_0_nsgtf <- integrate(function(z) {
     dweibull(z, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r * z)
@@ -41,13 +41,13 @@ fit_lognormal_r_50_nsgtf_within <- lapply(r_nsgtf, function(r) {
   logsd_inc_nsgtf <- sqrt(log(var_inc_nsgtf/mean_inc_nsgtf^2 + 1))
   logmean_inc_nsgtf <- log(mean_inc_nsgtf/exp(logsd_inc_nsgtf^2/2))
   
-  ff <- fitfun_lognormal(data=data_50_nsgtf_within, 
+  ff <- fitfun_lognormal(data=data_50_nsgtf_between, 
                          logmean_gen=coef(fit_lognormal_base_50_nsgtf_within)[[1]], 
                          logsd_gen=coef(fit_lognormal_base_50_nsgtf_within)[[2]], 
-                         logmean_inc=logmean_inc_nsgtf, 
-                         logsd_inc=logsd_inc_nsgtf, 
-                         rho=rho, 
-                         r=r)
+                   logmean_inc=logmean_inc_nsgtf, 
+                   logsd_inc=logsd_inc_nsgtf, 
+                   rho=rho, 
+                   r=r)
   
   mean <- exp(coef(ff)[[1]]+coef(ff)[[2]]^2/2)
   
@@ -66,12 +66,14 @@ fit_lognormal_r_50_nsgtf_within <- lapply(r_nsgtf, function(r) {
     est=c(coef(ff)[[1]], coef(ff)[[2]], mean),
     lwr=c(cc[1,1], cc[2,1], mean - 1.96 * sd_mean),
     upr=c(cc[1,2], cc[2,2], mean + 1.96 * sd_mean),
-    type="Delta"
+    type="Delta",
+    week=50,
+    household="between"
   )
 }) %>%
   bind_rows
 
-fit_lognormal_r_50_sgtf_within <- lapply(r_sgtf, function(r) {
+fit_lognormal_r_50_sgtf_between <- lapply(r_sgtf, function(r) {
   print(r)
   moment_0_sgtf <- integrate(function(z) {
     dweibull(z, shape=backward_shape_sgtf, scale=backward_scale_sgtf) * exp(r * z)
@@ -91,9 +93,9 @@ fit_lognormal_r_50_sgtf_within <- lapply(r_sgtf, function(r) {
   logsd_inc_sgtf <- sqrt(log(var_inc_sgtf/mean_inc_sgtf^2 + 1))
   logmean_inc_sgtf <- log(mean_inc_sgtf/exp(logsd_inc_sgtf^2/2))
   
-  ff <- fitfun_lognormal(data=data_50_sgtf_within, 
+  ff <- fitfun_lognormal(data=data_50_sgtf_between, 
                          logmean_gen=coef(fit_lognormal_base_50_sgtf_within)[[1]], 
-                         logsd_gen=coef(fit_lognormal_base_50_sgtf_within)[[1]], 
+                         logsd_gen=coef(fit_lognormal_base_50_sgtf_within)[[2]], 
                          logmean_inc=logmean_inc_sgtf, 
                          logsd_inc=logsd_inc_sgtf, 
                          rho=rho, 
@@ -116,9 +118,11 @@ fit_lognormal_r_50_sgtf_within <- lapply(r_sgtf, function(r) {
     est=c(coef(ff)[[1]], coef(ff)[[2]], mean),
     lwr=c(cc[1,1], cc[2,1], mean - 1.96 * sd_mean),
     upr=c(cc[1,2], cc[2,2], mean + 1.96 * sd_mean),
-    type="Omicron"
+    type="Omicron",
+    week=50,
+    household="between"
   )
 }) %>%
   bind_rows
 
-save("fit_lognormal_r_50_sgtf_within", "fit_lognormal_r_50_nsgtf_within", file="fit_lognormal_r.rda")
+save("fit_lognormal_r_50_sgtf_between", "fit_lognormal_r_50_nsgtf_between", file="fit_lognormal_r_50_between.rda")

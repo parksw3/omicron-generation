@@ -11,9 +11,11 @@ fitfun_lognormal_nll <- function(logmean_gen=1,
     return(Inf)
   }
   
-  ss <- serialfun_lognormal(data, logmean_gen=logmean_gen, logsd_gen=logsd_gen, 
+  ss <- try(serialfun_lognormal(data, logmean_gen=logmean_gen, logsd_gen=logsd_gen, 
                             logmean_inc=logmean_inc, 
-                            logsd_inc=logsd_inc, rho=rho, r=r, alphan=alphan)
+                            logsd_inc=logsd_inc, rho=rho, r=r, alphan=alphan))
+  
+  if (inherits(ss, "try-error")) return(Inf)
   
   if (debug) print(-sum(log(ss)))
   

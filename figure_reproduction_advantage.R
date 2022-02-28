@@ -75,13 +75,22 @@ gfit1 <- gam(log(delta_cases)~s(time, bs="cs"), data=variant4, method="REML")
 gfit2 <- gam(log(omicron_cases)~s(time, bs="cs"), data=variant4, method="REML")
 
 gfit1_p1 <- predict(gfit1, newdata = data.frame(time=seq(1, 10, by=1/14)), type = "lpmatrix")
+gfit1_p2 <- predict(gfit1, newdata = data.frame(time=seq(1, 10, by=1/14)+0.01), type = "lpmatrix")
 gfit2_p1 <- predict(gfit2, newdata = data.frame(time=seq(1, 10, by=1/14)), type = "lpmatrix")
+gfit2_p2 <- predict(gfit2, newdata = data.frame(time=seq(1, 10, by=1/14)+0.01), type = "lpmatrix")
+
+gfit1_Xp <- (gfit1_p2 - gfit1_p1) / 0.01/7
+gfit2_Xp <- (gfit2_p2 - gfit2_p1) / 0.01/7
 
 set.seed(101)
 gfit1_sim <- rmvnorm(nsample, mean = coef(gfit1), sigma = vcov(gfit1))
 gfit2_sim <- rmvnorm(nsample, mean = coef(gfit2), sigma = vcov(gfit2))
 lognormal_sim1 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_50_nsgtf_within)[1:2], sigma=vcov(fit_lognormal_base_50_nsgtf_within))
 lognormal_sim2 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_50_sgtf_within)[1:2], sigma=vcov(fit_lognormal_base_50_sgtf_within))
+
+gfit1_post <- apply(gfit1_sim, 1, function(x) {gfit1_Xp %*% x})
+gfit2_post <- apply(gfit2_sim, 1, function(x) {gfit2_Xp %*% x})
+advantage_post <- gfit2_post - gfit1_post
 
 advantagedata <- lapply(1:nsample, function(x) {
   i1 <- c(exp(gfit1_p1 %*% c(gfit1_sim[x,]))/14)
@@ -100,6 +109,7 @@ advantagedata <- lapply(1:nsample, function(x) {
     R_delta=R_delta,
     R_omicron=R_omicron,
     R_advantage=R_omicron/R_delta,
+    r_advantage=tail(advantage_post[,x], -n),
     sim=x,
     time=tail(seq(1, 10, by=1/14), -n)
   )
@@ -115,10 +125,12 @@ advantagesumm <- advantagedata %>%
     upr=quantile(value, 0.975)
   ) %>%
   mutate(
-    key=factor(key, labels=c("Advantage", "Delta", "Omicron"))
+    key=factor(key,
+               levels=c("r_advantage", "R_advantage", "R_delta", "R_omicron"),
+               labels=c("radvantage", "Advantage", "Delta", "Omicron"))
   )
 
-g1 <- ggplot(advantagesumm) +
+g1 <- ggplot(filter(advantagesumm, key!="radvantage")) +
   geom_hline(yintercept=1, lty=2) +
   geom_ribbon(aes(time, ymin=lwr, ymax=upr, fill=key), alpha=0.2) +
   geom_line(aes(time, median, col=key), lwd=0.8) +

@@ -177,6 +177,8 @@ g4 <- ggplot(all_growth) +
     legend.title = element_blank()
   )
 
+all_growth %>% filter(type=="Delta")
+
 gtot <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
 
 ggsave("figure_epidemic.pdf", gtot, width=12, height=8)

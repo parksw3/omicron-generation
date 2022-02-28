@@ -14,7 +14,8 @@ mean_sgtf <- exp(logmean_sgtf + logsd_sgtf^2/2)
 simulate_generation_household2 <- simulate_generation_household %>%
   mutate(
     k=paste0("k=", k),
-    ratio=paste0("Reproduction number ratio: ", ratio)
+    ratio=paste0("Reproduction number ratio: ", ratio),
+    type=factor(type, labels=c("Egocentric", "Local"))
   )
 
 g1 <- ggplot(simulate_generation_household2) +
@@ -22,7 +23,7 @@ g1 <- ggplot(simulate_generation_household2) +
   geom_hline(yintercept=mean_sgtf, lty = "dotted", col="orange") +
   geom_ribbon(aes(household, ymin=lwr, ymax=upr, fill=strain, col=strain, lty=type), alpha=0.1) +
   geom_line(aes(household, mean, col=strain, lty=type)) +
-  scale_x_continuous("Household sizes", breaks=1:5*4) +
+  scale_x_continuous("Network sizes", breaks=1:5*4) +
   scale_y_continuous("Mean generation interval (days)") +
   scale_color_manual("Variant", values=c("black", "orange")) +
   scale_fill_manual("Variant", values=c("black", "orange")) +

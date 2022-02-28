@@ -48,24 +48,24 @@ serialfun_lognormal_numer <- function(x,
                                       logsd_inc=0.5,
                                       rho=0.5,
                                       r=0.1,
-                                      alpha1min=-20,
+                                      alpha1min=-30,
                                       alphan=0.5e2,
-                                      epsilon=1e-2) {
-  alpha1vec <- seq(alpha1min, min(-epsilon, x-epsilon), length.out=alphan)
+                                      epsilon=1e-3) {
+  alpha1vec <- head(seq(alpha1min, min(0, x), length.out=alphan)-epsilon, -1)
   
   ss <- sapply(alpha1vec, function(a1) {
-    alpha2vec <- seq(a1+epsilon, x, length.out=alphan)
+    alpha2vec <- seq(a1+epsilon, x-epsilon, length.out=alphan)
     
-    sum(head(serialfun_lognormal_internal(x, a1, alpha2vec, 
+    sum(serialfun_lognormal_internal(x, a1, alpha2vec, 
                                           logmean_gen=logmean_gen,
                                           logsd_gen=logsd_gen,
                                           logmean_inc=logmean_inc,
                                           logsd_inc=logsd_inc,
                                           rho=rho,
-                                          r=r), -1) * diff(alpha2vec))  
+                                          r=r) * diff(alpha2vec)[1])  
   })
   
-  sum(head(ss, -1) * diff(alpha1vec))
+  sum(ss * diff(alpha1vec)[1])
 }
 
 serialfun_lognormal <- function(x, 
@@ -75,10 +75,10 @@ serialfun_lognormal <- function(x,
                                 logsd_inc=0.5,
                                 rho=0.5,
                                 r=0.1,
-                                alpha1min=-40,
+                                alpha1min=-30,
                                 alphan=0.5e2,
                                 epsilon=1e-3,
-                                xmin=-20,
+                                xmin=-10,
                                 xmax=20,
                                 xby=0.2) {
   xvec <- seq(xmin, xmax, by=xby)
@@ -175,26 +175,27 @@ serialfun_he_numer <- function(x,
                                logmean_inc=1,
                                logsd_inc=0.5,
                                r=0.1,
-                               alpha1min=-20,
-                               alphan=1e2,
-                               epsilon=1e-2) {
-  alpha1vec <- seq(alpha1min, min(-epsilon, x-epsilon), length.out=alphan)
+                               alpha1min=-30,
+                               alphan=0.5e2,
+                               epsilon=1e-3) {
+  if (x <= -inf_shift) return(0)
+  
+  alpha1vec <- head(seq(alpha1min, min(0, x), length.out=alphan)-epsilon, -1)
   
   ss <- sapply(alpha1vec, function(a1) {
-    if (x <= -inf_shift) return(0)
     
-    alpha2vec <- seq(max(-inf_shift, a1), x, length.out=alphan)
+    alpha2vec <- seq(max(-inf_shift, a1)+epsilon, x-epsilon, length.out=alphan)
     
-    sum(head(serialfun_he_internal(x, a1, alpha2vec, 
+    sum(serialfun_he_internal(x, a1, alpha2vec, 
                                    inf_shape=inf_shape,
                                    inf_mean=inf_mean,
                                    inf_shift=inf_shift,
                                    logmean_inc=logmean_inc,
                                    logsd_inc=logsd_inc,
-                                   r=r), -1) * diff(alpha2vec))  
+                                   r=r) * diff(alpha2vec)[1])  
   })
   
-  sum(head(ss, -1) * diff(alpha1vec))
+  sum(ss * diff(alpha1vec)[1])
 }
 
 serialfun_he <- function(x, 
@@ -204,7 +205,7 @@ serialfun_he <- function(x,
                          logmean_inc=1,
                          logsd_inc=0.5,
                          r=0.1,
-                         alpha1min=-40,
+                         alpha1min=-30,
                          alphan=0.5e2,
                          epsilon=1e-3,
                          xmax=20,
