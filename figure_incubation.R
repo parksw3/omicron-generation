@@ -6,6 +6,9 @@ source("sample_incubation.R")
 rvec_nsgtf <- seq(-0.1, 0, length.out=11)
 rvec_sgtf <- seq(0.1, 0.2, length.out=11)
 
+r_nsgtf <- -0.05
+r_sgtf <- 0.15
+
 corrected_mean_nsgtf <- lapply(1:length(rvec_nsgtf), function(x) {
   numer <- sapply(1:nsample, function(y) {
     integrate(function(z) {
@@ -54,14 +57,26 @@ corrected_mean_sgtf <- lapply(1:length(rvec_sgtf), function(x) {
 }) %>%
   bind_rows
 
-observed_nsgtf <- data.frame(
+observed_nsgtf <- tibble(
   time=seq(0, 14, by=0.1),
-  density=dweibull(seq(0, 14, by=0.1), shape=backward_shape_nsgtf, scale=backward_scale_nsgtf)
+  density=dweibull(time, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf)
 )
 
-observed_sgtf <- data.frame(
+observed_sgtf <- tibble(
   time=seq(0, 14, by=0.1),
-  density=dweibull(seq(0, 14, by=0.1), shape=backward_shape_sgtf, scale=backward_scale_sgtf)
+  density=dweibull(time, shape=backward_shape_sgtf, scale=backward_scale_sgtf)
+)
+
+corrected_nsgtf <- tibble(
+  time=seq(0, 28, by=0.1),
+  density0=dweibull(time, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r_nsgtf * time),
+  density=density0/sum(density0*0.1)
+)
+
+corrected_sgtf <- tibble(
+  time=seq(0, 28, by=0.1),
+  density0=dweibull(time, shape=backward_shape_sgtf, scale=backward_scale_sgtf) * exp(r_sgtf * time),
+  density=density0/sum(density0*0.1)
 )
 
 g1 <- ggplot(observed_nsgtf) +
@@ -76,7 +91,18 @@ g1 <- ggplot(observed_nsgtf) +
     legend.title = element_blank()
   )
 
-g2 <- ggplot(corrected_mean_nsgtf) +
+g2 <- ggplot(corrected_nsgtf) +
+  geom_line(aes(time, density, col="Delta"), lwd=1) +
+  geom_line(data=corrected_sgtf, aes(time, density, col="Omicron"), lwd=1) +
+  scale_x_continuous("Forward incubation period (days)", expand=c(0, 0), limits=c(0, 14)) +
+  scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.23)) +
+  scale_color_manual(values=c("black", "orange")) +
+  theme(
+    panel.grid = element_blank(),
+    legend.position = "none"
+  )
+
+g3 <- ggplot(corrected_mean_nsgtf) +
   geom_line(aes(r, median), lwd=1) +
   geom_line(aes(r, lwr))  +
   geom_line(aes(r, upr)) +
@@ -85,7 +111,7 @@ g2 <- ggplot(corrected_mean_nsgtf) +
   geom_line(data=corrected_mean_sgtf, aes(r-0.2, upr), lty=2, col="orange") +
   scale_x_continuous("Delta growth rate (1/day)",
                      sec.axis = sec_axis(trans=~.+0.2, "Omicron growth rate (1/day)")) +
-  scale_y_continuous("Corrected mean incubation period (days)") +
+  scale_y_continuous("Mean forward incubation period (days)") +
   theme(
     panel.grid = element_blank(),
     axis.line.x.top = element_line(color="orange"),
@@ -94,6 +120,6 @@ g2 <- ggplot(corrected_mean_nsgtf) +
     axis.title.x.top = element_text(color="orange")
   )
 
-gfinal <- ggarrange(g1, g2, nrow=1, labels=c("A", "B"), draw=FALSE)
+gfinal <- ggarrange(g1, g2, g3, nrow=1, labels=c("A", "B", "C"), draw=FALSE)
 
-ggsave("figure_incubation.pdf", gfinal, width=8, height=4)
+ggsave("figure_incubation.pdf", gfinal, width=12, height=4)

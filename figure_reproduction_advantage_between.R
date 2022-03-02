@@ -8,7 +8,7 @@ library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(mgcv)
 library(mvtnorm)
 library(egg)
-load("fit_lognormal_base.rda")
+load("fit_lognormal_base_50_between.rda")
 
 weekbreak <- as.Date("2021-12-19") + 7 * (-4:6)
 
@@ -85,14 +85,15 @@ gfit2_Xp <- (gfit2_p2 - gfit2_p1) / 0.01/7
 set.seed(101)
 gfit1_sim <- rmvnorm(nsample, mean = coef(gfit1), sigma = vcov(gfit1))
 gfit2_sim <- rmvnorm(nsample, mean = coef(gfit2), sigma = vcov(gfit2))
-lognormal_sim1 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_50_nsgtf_within)[1:2], sigma=vcov(fit_lognormal_base_50_nsgtf_within))
-lognormal_sim2 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_50_sgtf_within)[1:2], sigma=vcov(fit_lognormal_base_50_sgtf_within))
+lognormal_sim1 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_50_nsgtf_between)[1:2], sigma=vcov(fit_lognormal_base_50_nsgtf_between))
+lognormal_sim2 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_50_sgtf_between)[1:2], sigma=vcov(fit_lognormal_base_50_sgtf_between))
 
 gfit1_post <- apply(gfit1_sim, 1, function(x) {gfit1_Xp %*% x})
 gfit2_post <- apply(gfit2_sim, 1, function(x) {gfit2_Xp %*% x})
 advantage_post <- gfit2_post - gfit1_post
 
 advantagedata <- lapply(1:nsample, function(x) {
+  if (lognormal_sim2[x,2] < 0) return(NULL)
   i1 <- c(exp(gfit1_p1 %*% c(gfit1_sim[x,]))/14)
   i2 <- c(exp(gfit2_p1 %*% c(gfit2_sim[x,]))/14)
   
@@ -185,4 +186,4 @@ g4 <- ggplot(advantagesumm2) +
 
 gfinal <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
 
-ggsave("figure_reproduction_advantage.pdf", gfinal, width=8, height=6)
+ggsave("figure_reproduction_advantage_between.pdf", gfinal, width=8, height=6)
