@@ -3,9 +3,9 @@ library(readxl)
 library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(egg)
 source("serialfun.R")
-load("calculate_incubation_mle.rda")
-load("fit_he_r.rda")
-load("fit_he_base.rda")
+load("rdaout/calculate_incubation_mle.rda")
+load("rdaout/fit_he_r.rda")
+load("rdaout/fit_he_base.rda")
 
 serialdata <- read_xlsx("serial-netherlands.xlsx")
 

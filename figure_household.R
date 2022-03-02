@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggplot2); theme_set(theme_bw(base_family = "Times"))
-load("fit_lognormal_base.rda")
-load("simulate_generation_household.rda")
+load("rdaout/fit_lognormal_base.rda")
+load("rdaout/simulate_generation_household.rda")
 
 logmean_nsgtf <- coef(fit_lognormal_base_50_nsgtf_within)[1]
 logsd_nsgtf <- coef(fit_lognormal_base_50_nsgtf_within)[2]

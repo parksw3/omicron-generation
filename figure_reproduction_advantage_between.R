@@ -8,7 +8,7 @@ library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(mgcv)
 library(mvtnorm)
 library(egg)
-load("fit_lognormal_base_50_between.rda")
+load("rdaout/fit_lognormal_base_50_between.rda")
 
 weekbreak <- as.Date("2021-12-19") + 7 * (-4:6)
 
