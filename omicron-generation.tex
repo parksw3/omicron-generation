@@ -88,19 +88,19 @@
 \begin{flushleft}{
 	\Large
 	\textbf\newline{
-		Epidemic dynamics (and network structures) affect differences in incubation-period and generation-interval distributions of SARS-CoV-2 variants
+		Epidemic dynamics shape inferences of the differences in incubation-period and generation-interval distributions of the Delta and Omicron variants
 	}
 }
 \bigskip
 
-\section*{Summary}
+\section*{Abstract}
 
-\begin{itemize}
-  \item Neglecting growth rate differences can exaggerate or diminish the observed differences in epidemiological distributions (e.g., incubation period distribution and generation-interval distribution) of SARS-CoV-2 variants
-  \item Accounting for growth rate differences yield similar incubation period distribution estimates for Delta and Omicron variants
-  \item Despite similaries in the incubation period distributions, we generally estimate shorter mean generation intervals for the Omicron variant (2.7--3.9 days) than for the Delta variant (3.9--4.5 days).
-  \item Higher reproduction number of the Omicron variant can lead to a faster depletion of susceptible contacts, esepcially within a household, resulting in shorter realized generation intervals. Simulations suggest that the estimated differences in the mean generation interval are consistent with differences driven by susceptible depletion effects in small networks.
-\end{itemize}
+Estimating the differences in the incubation-period and serial-interval distributions of SARS-CoV-2 variants is critical to understanding changes in their transmission dynamics and therefore controlling their outbreaks.
+However, these comparisons are inherently difficult due to their dependence on epidemic growth rates---for example, when an epidemic is growing exponentially, we are more likely to observe individuals who have been infected recently, decreasing the mean observed incubation period and thereby increasing the mean observed serial interval.
+Here, we analyze serial-interval data describing transmissions of the Delta and Omicron variants from Netherlands at the end of December 2021, during which the number of infections caused by the Delta variant decreased as the number of Omicron infections increased. 
+Accounting for growth rate differences of two variants, we estimate similar mean incubation periods (3.8--4.5 days) for both variants but a shorter mean generation interval for the Omicron variant (3.3 days; 95\% CI: 2.8--3.7 days) than for the Delta variant (4.2 days; 95\% CI: 4.0--4.4 days).
+These differences may reflect higher reproduction numbers of the Omicron variant, which can drive faster susceptible depletion among close contacts.
+Neglecting differences in the generation-interval distributions can further bias in estimates of transmission advantages of the Omicron variant.
 
 \end{flushleft}
 
@@ -345,22 +345,39 @@ Finally, we estimate that the transmission advantage of the Omicron variant decr
 Neglecting differences in the generation-interval distributions can result in $\approx 10\%$ bias in estimates of the transmission advantage.
 
 The generation-interval distribution describes changes in the individual-level transmission dynamics over the course of infection and therefore provides cruicial information for epidemic control.
+A few studies have estimated the generation-interval distributions of SARS-CoV-2 infections from serial-interval data, but most of them neglect the effects of epidemic growth rates \citep{ganyani2020estimating,he2020temporal,zhao2021estimating,hart2022generation}---these practices can be largely attributed to historical work that concluded that serial and generation intervals have the same means based on the assumption that infectors and infectees have identical incubation period distributions \citep{svensson2007note,britton2019estimation,lehtinen2021relationship}.
+Here, we build on our previous work \citep{park2021forward}, which demonstrated theoretically that forward serial-interval distributions depends on epidemic growth rates, and further confirm that estimates of the forward generation-interval distributions are indeed sensitive to epidemic growth rates.
+Accounting for the growth-rate effects is especially important when comparing serial and generation intervals of different variants or from different time periods.
+These effects are also pertinent to all epidemiological inferences of past events from a cohort of infected individuals who experienced the succeeding event at the same time---this includes inferences of other delay distributions, such as incubation-period distributions, as well as viral load trajectories \citep{hay2021estimating}.
 
+To our knowledge, our study is the first to estimate the generation-interval distribution of the Omicron variant.
+Although we estimate a shorter mean generation interval for the Omicron variant, we find the generation-interval distribution of the Omicron and Delta variants have similar modes (around 2.5 days), implying that the realized transmissibility of the Omicron variant decays faster.
+We tentatively hypothesize that these differences may be primarily driven by the network effect: a higher reproduction numbers of the Omicron variant leads to faster susceptible depletion among close contacts, which in turn prevents long generation intervals from generating infections \citep{park2020inferring,hart2022generation}. 
+While the network effect is expected to be strongest among household contacts, it is also applicable to other forms of contact structres that involve repeated contacts between the same group of individuals (beacuse only the first infectious contact results in infection).
+The network effect may also explain a decrease in the mean generation interval between week 50 and 51, especially among household transmission pairs, as a higher proportion of individuals within households would have been infected with either the Delta or Omicron variants.
+Other factors, such as more stringent intervention measures against the Omicron variant \citep{backer2021omicron} and shoter clearance phase of the Omicron variant \citep{hay2022viral}, also likely contributed to shortening of the generation intervals.
+
+While our study indicate that the Omicron variant has a shorter mean realized generation interval than that of the Delta variant, it is still uncertain how much their infectiousness profiles differ intrinsically.
+In particular, similarities in the incubation-period distributions of the Delta and Omicron variants suggest that the differences in their intrinsic infectiousness profile may be smaller than the estimated differences in their realized generation-interval distributions.
+Nonetheless, our estimates of the realized generation-interval distributions better describe the epidemic dynamics, implicitly accouting for intervention and behavioral effects, and are therefore should be used to estimate current reproduction numbers (rather than a counterfactual intrinsic generation interval distribution, which may have a longer mean).
+
+Our study also has important implications for estimating transmission advantages of new SARS-CoV-2 variants.
+In the example we consider, neglecting differences in the generation-interval distributions leads to $\approx 10\%$ bias in the estimates of the reproduction number ratios; however, the degree of ratio is expected to be sensitive to the assumed generation-interval distribution of the resident variant.
+For example, \cite{pearson2021bounding} estimated a much higher reproduction ratios ($> 4$ fold) in South Africa but also assumed a longer mean generation interval for the Delta and Omicron variants (6.4 vs 5.2 days, respectively).
+With our generation-interval estimates, we estimate that the reproduction number ratio of 2.8 assuming $r=-0.06$ and $r=0.26$ for the Delta and Omicron variants, respectively---these growth rates were chosen to match the 4-fold reproduction number ratios with the estimated growth rate differences of $0.32/\mathrm{day}$ for the Gauteng province, South Africa \cite{pearson2021bounding}.
+We also show that both growth rate differences and the reproduction number ratios decreased over time---this result further corroborates are earlier theoretical framework, which showed that growth rate differences changes over the course of an epidemic even when the reproduction number ratios remain constant \citep{park2021roles}.
+
+We primarily rely on case data to understand epidemic patterns of the Delta and Omicron variants.
+In doing so, we implicitly assume thta the delay between infection and reports is fixed.
+However, changes in case trajectories are sensitive to testing patterns and therefore may not accurately reflect patterns of infections.
+While this limitation does not affect our generation-interval estimates, our inferences of the transmission advantages of the Omicron variant should be interpreted with care.
+
+Monitoring changes in key epidemiological parameters is critical to understanding the evolution of SARS-CoV-2 and predicting its future dynamics \citep{kraemer2021monitoring}.
+Our study sythesizes previously developed theoretical framework on serial- and generation-interval distributions and presents methodological advances in monitoring epidemiological parameters;
+however, uncertainty remains in the intrinsic infectiousness profiles of SARS-CoV-2 variants, especially among asymptomatically infected individuals \citep{park2020time}.
+Future studies extending our framework and combining more detailed epidemiological data will be critical to narrowing down these uncertainties.
 
 \pagebreak
-
-\section*{Supplementary Materials}
-
-\begin{figure}[!th]
-\includegraphics[width=\textwidth]{figure_compare_he.pdf}
-\caption{
-\textbf{Estimated relationship between forward incubation and generation-interval distributions of Delta and Omicron variants.}
-We model relationships between incubation and generation intervals using a shifted gamma distribution as suggested by \cite{he2020temporal} as a sensitivity analysis.
-We obtain similar mean generation-interval estimates, but the predited bivariate relationships (C--D) are considerably different.
-This model also gives overall worse fits to the observed serial-interval distribution.
-See Figure 3 in the main text for details.
-}
-\end{figure}
 
 \bibliography{omicron.bib}
 
