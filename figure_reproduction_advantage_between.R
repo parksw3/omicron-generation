@@ -1,3 +1,4 @@
+library(bbmle)
 library(vroom)
 library(readxl)
 library(tidyr)

@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
-\usepackage[top=1in,left=1in, right = 1in, footskip=1in]{geometry}
+% \usepackage[top=1in,left=1in, right = 1in, footskip=1in]{geometry}
+\usepackage[top=1in,footskip=1in]{geometry}
 
 \usepackage{graphicx}
 \usepackage{xspace}
@@ -111,18 +112,17 @@ Neglecting differences in the generation-interval distributions can further bias
 Estimating transmission advantages of new SARS-CoV-2 variants is critical to predicting and controlling the course of the ongoing COVID-19 pandemic.
 Transmission advantages of invading variants are typically characterized by the ratios of reproduction numbers, $\Rinv/\Rres$, and the differences in growth rates, $\rinv-\rres$.
 These two quantities are linked by the generation-interval distributions of the resident and invading variants.
-For example, an invading variant with shorter generation intervals---defined as the time between infection of the infector and the infectee---will exhibit faster epidemic growth ($\rinv > \rres > 0$) even if their reproduction numbers are identical  $\Rinv = \Rres$.
+For example, an invading variant with shorter generation intervals---defined as the time between infection of the infector and the infectee---will exhibit faster epidemic growth ($\rinv > \rres > 0$) even if their reproduction numbers are identical  $\Rinv = \Rres > 1$.
 
-There is currently a lack of generation-interval estimates of SARS-CoV-2 variants, in part, due to difficulties in observing actual infection events.
-Instead, many researchers primarily focus on comparisons of other transmission intervals, such as time between symptom onsets (also referred to as serial intervals) or testing \citep{abbott2022test} of the infector and the infectee.
-However, transmission-interval distributions are subject to dynamical biases and may not be an accurate proxy for the generation-interval distribution.
-For example, when the epidemic is growing, a cohort of infectors who developed symptoms at the same time are more likely to have been infected recently, shortening their incubation periods---in other words, their incubation periods will be shorter, on average, than their infectees, causing the mean serial interval to be longer than the mean generation interval \citep{park2021forward}.
-Therefore, the observed differences (or the lack thereof) in transmission-interval distributions of the invading and resident variants can exaggerate or undermine true differences in their generation-interval distributions, depending on their growth rate differences.
+Estimating generation-interval is hard, largely due to difficulties in observing actual infection events.
+Many researchers primarily focus on comparisons of other transmission intervals, such as time between symptom onsets (also referred to as serial intervals) or between testing events \citep{abbott2022test} of the infector and the infectee.
+However, transmission-interval distributions are subject to dynamical effects which can bias estimation.
+For example, when the epidemic is growing, a cohort of infectors who developed symptoms at the same time are more likely to have been infected recently, shortening their incubation periods---in other words, their incubation periods will be shorter, on average, than those of their infectees, causing the mean serial interval to be longer than the mean generation interval \citep{park2021forward}.
+Therefore, observed differences in transmission-interval distributions between variants can give a biased picture of true differences in their generation-interval distributions, especially if their growth rates differ.
 
 Here, we re-analyze serial-interval data collected by \citep{backer2021omicron}, representing within- and between-household transmissions of the Delta and Omicron variants from the Netherlands between 13 and 26 December 2021.
-The authors of the original article reported shorter serial intervals (3.5 vs 4.1 days) and incubation periods (3.2 vs 4.4 days) for transmission pairs with and without S gene target failures, but they neglected growth rate differences in their inference.
-We first discuss epidemiological context in the Netherlands during the study period and provide corrected estimates for the incubation period.
-We combine incubation-period estimates with serial-interval data to infer generation-interval distributions of the Delta and Omicron variants.
+The authors of the original article reported shorter serial intervals (3.5 vs 4.1 days) and incubation periods (3.2 vs 4.4 days) for transmission pairs with S-gene target failure (mostly omicron during the study period) and without (mostly delta), but did not consider growth rate differences in their inference.
+Here, we discuss the epidemiological context in the Netherlands during the study period and take dynamics into account to provide corrected estimates for the incubation periods and generation-interval distributions of the Delta and Omicron variants.
 
 \section{Methods}
 
