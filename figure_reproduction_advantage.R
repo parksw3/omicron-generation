@@ -177,13 +177,25 @@ g3 <- ggplot(advantagesumm2) +
   )
 
 g4 <- ggplot(advantagesumm2) +
-  geom_path(aes(R_omicron, R_advantage), lwd=1, arrow = arrow(length=unit(0.30,"cm")), col="Orange") +
+  geom_path(aes(R_omicron, R_advantage), lwd=1, arrow = arrow(length=unit(0.30,"cm")), col="black") +
   scale_x_log10("Omicron reproduction number") +
   scale_y_log10("Reproduction number ratio") +
   theme(
     panel.grid = element_blank()
   )
 
-gfinal <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
+g5 <- ggplot(advantagesumm2) +
+  geom_path(aes(R_delta, R_omicron), lwd=1, arrow = arrow(length=unit(0.30,"cm")), col="black") +
+  scale_x_log10("Delta reproduction number") +
+  scale_y_log10("Omicron reproduction number") +
+  theme(
+    panel.grid = element_blank()
+  )
 
-ggsave("figure_reproduction_advantage.pdf", gfinal, width=8, height=6)
+gfinal <- ggarrange(g1, g2, nrow=1, labels=c("A", "B"), draw=FALSE)
+
+ggsave("figure_reproduction_advantage.pdf", gfinal, width=8, height=3)
+
+gsupp <- ggarrange(g5, g3, g4, nrow=1, labels=c("A", "B", "C"), draw=FALSE)
+
+ggsave("figure_reproduction_advantage_phase.pdf", gsupp, width=9, height=3)

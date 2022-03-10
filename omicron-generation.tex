@@ -139,7 +139,7 @@ See original article for details of data collection.
 
 \subsection{Estimating epidemic growth rates}
 
-To estimate the differences in growth rates of the Delta and Omicron variants, we first estimate the number of COVID-19 cases caused by each variant by multiplying reported weekly cidence numbers of cases by the proportion of Delta and Omicron variants detected---we use weekly time series to smooth over patterns of testing and reporting within each week. 
+To estimate the differences in growth rates of the Delta and Omicron variants, we first estimate the number of COVID-19 cases caused by each variant by multiplying reported weekly numbers of cases by the proportion of Delta and Omicron variants detected---we use weekly time series to smooth over patterns of testing and reporting within each week. 
 We then fit a generalized additive model \citep{wood2001mgcv} to to the logged weekly case estimates to obtain smooth trajectories for case time series.
 %% More specifically, we model the logged weekly numbers of cases caused by each variant as a function of time using a shrinkage version of a cubic spline with restricted maximum likelihood.
 %% JD: clarified previous s. Don't think we need this, with the cite.
@@ -275,7 +275,7 @@ In contrast, the rapid growth in the number of COVID-19 cases caused by the Omic
 When we account for these growth rate differences and re-estimate the forward incubation periods, we find that both variants have similar incubation period distributions (\fref{incubation}B)---for illustrative purposes, we assume $r=-0.05/\mathrm{day}$ and $r=0.15/\mathrm{day}$ for the Delta and Omicron variants, respectively.
 Although the exact estimate of the mean forward incubation periods of both variants are sensitive to the assumed growth/decay rates, we find similar means across a plausible ranges of growth rates with unclear differences between two variants (\fref{incubation}C).
 For example, the mean forward incubation period of the Delta variant changes from 3.8 days (95\% CI: 3.5--4.1 days) to 4.4 days (95\% CI: 4.0--4.8 days) as we change the assumed values of $r$ from $-0.1/\mathrm{days}$ to $0/\mathrm{days}$.
-The mean forward incubation period of the Omicron variant changes from 3.8 days (95\% CI: 3.3--4.4 days) to 4.5 days (95\% CI: 3.8--5.6 days) as we change the assumed values of $r$ from $0.1/\mathrm{days}$ to $0.2/\mathrm{days}$.
+The mean forward incubation period of the Omicron variant changes from 3.8 days (95\% CI: 3.4--4.4 days) to 4.5 days (95\% CI: 3.9--5.5 days) as we change the assumed values of $r$ from $0.1/\mathrm{days}$ to $0.2/\mathrm{days}$.
 
 \begin{figure}[!th]
 \includegraphics[width=\textwidth]{figure_incubation.pdf}
@@ -320,13 +320,16 @@ We estimate the reproduction number ratios stayed roughly constant at around 2.2
 However, if we neglect differences in the generation-interval distributions and solely rely on the generation-interval-distribution estimate for the Delta variant, we over-estimate the reproduction number of the Omicron variant and therefore is transmission advantage (\fref{reproduction}B).
 In this case, the reproduction ratio decreases from 2.5 (95\% CI: 2.2--2.8) to 1.5 (95\% CI: 1.2--1.8), corresponding to roughly 7--13\% bias.
 
+In both cases, the decrease in the reproduction number ratio coincides with the decrease in the reproduction number of the Omicron variant, implying that epidemiological changes driving the dynamic had larger effects on the transmission of the Omicron variant than on the transmission of Delta variant;
+a larger reduction in the reproduction number of the Omicron variant also caused its growth rate to decrease faster, causing changes in the growth rate difference (\fref{epidemic}D).
+
+
 \begin{figure}[!th]
 \includegraphics[width=\textwidth]{figure_reproduction_advantage.pdf}
 \caption{
 \textbf{Estimated time-varying reproduction number advantages of the Omicron variant.}
 (A) Estimated instantaneous reproduction numbers and their ratios over time while accounting for differences in the generation-interval distributions.
 (B) Estimated instantaneous reproduction numbers and their ratios over time while assuming identical generation-interval distributions.
-(C--D) Phase diagrams of the reproduction ratio against instantaneous reproduction numbers of the Delta (C) and Omicron (D) variants.
 The instantaneous reproduction number of each variant is estimated using the renewal equation by shifting the smoothed case curves by one week (\fref{epidemic}C).
 The intrinsic generation-interval distribution is approximated by the maximum likelihood estimates of the generation-interval distributions for within-household transmission pairs based on $r=-0.05$ for the Delta variant (black) and $r=0.15$ for the Omicron variant (orange).
 Purple lines represent the ratio between the effective reproduction numbers of the Delta and Omicron variants.
@@ -334,12 +337,6 @@ Lines and shaded regions represent medians and corresponding 95\% confidence int
 \label{fig:reproduction}
 }
 \end{figure}
-
-Comparing phase diagrams of the reproduction ratio against instantaneous reproduction numbers of the Delta (\fref{reproduction}C) and Omicron (\fref{reproduction}D) variants helps us better understand the reduction in transmission advantage over time.
-As the reproduction number of the Delta variant decreases, the reproduction number ratio initially increases and stays constant. 
-Then, the reproduction number ratio and the reproduction number of the Delta variant both decreases at the same time, and the reproduction number of the Delta variant increases slightly near the end (\fref{reproduction}C).
-Similarly, the decrease in the reproduction number ratio coincides with the decrease in the reproduction number of the Omicron variant, implying that epidemiological changes driving the dynamic had larger effects on the transmission of the Omicron variant than on the transmission of Delta variant (\fref{reproduction}D);
-larger reduction in the reproduction number of the Omicron variant also caused its growth rate to decrease faster, causing changes in the growth rate difference (\fref{epidemic}D).
 
 \section{Discussion}
 
