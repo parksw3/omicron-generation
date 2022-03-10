@@ -139,24 +139,28 @@ See original article for details of data collection.
 
 \subsection{Estimating epidemic growth rates}
 
-To estimate the differences in growth rates of the Delta and Omicron variants, we first calculate the number of COVID-19 cases caused by each variant by multiplying the weekly numbers of cases by the proportion of Delta and Omicron variants detected---we use weekly, instead of daily, time series to remove changes in the numbers of cases caused testing patterns.
-We then fit a generalized linear model to obtain smooth trajectories for case time series \citep{wood2001mgcv}.
-More specifically, we model the logged weekly numbers of cases caused by each variant as a function of time using a shrinkage version of a cubic spline with restricted maximum likelihood.
+To estimate the differences in growth rates of the Delta and Omicron variants, we first estimate the number of COVID-19 cases caused by each variant by multiplying reported weekly cidence numbers of cases by the proportion of Delta and Omicron variants detected---we use weekly time series to smooth over patterns of testing and reporting within each week. 
+We then fit a generalized additive model \citep{wood2001mgcv} to to the logged weekly case estimates to obtain smooth trajectories for case time series.
+%% More specifically, we model the logged weekly numbers of cases caused by each variant as a function of time using a shrinkage version of a cubic spline with restricted maximum likelihood.
+%% JD: clarified previous s. Don't think we need this, with the cite.
 Finally, we take the derivative of the predicted logged numbers of cases caused by each variant to obtain time-varying growth rate estimates.
 
-To obtain confidence intervals on the estimated time-varying growth rates, we generate 1000 parameter sets using estimated spline coefficients and the corresponding variance-covariance matrices as means and variance-covariance matrices of multivariate normal distributions.
-We calculate time-varying growth rates from each parameter set and take 95\% equi-tailed quantiles to generate 95\% confidence limits. 
+To obtain confidence intervals on the estimated time-varying growth rates, we generate 1000 parameter sets by resampling spline coefficients from a multivariate normal distribution using the estimated variance-covariance matrices.
+We calculate time-varying growth rates from each parameter set and use equi-tailed quantiles to generate 95\% confidence limits. 
 
 \subsection{Estimating forward incubation-period distributions from backward incubation-period distributions}
 
-\cite{backer2021omicron} estimated the incubation periods from 513 individuals (258 Omicron and 255 Delta cases), who showed symptom onsets between 1 December 2021 and 2 January 2022.
-They used the methods of \cite{backer2020incubation}, which estimates incubation period by inferring probability distributions of time of infection for each individual from their known exposure dates (and then taking the difference between symptom onset time and potential infection times). 
-This method further assumes a uniform distribution over exposure intervals.
+\cite{backer2021omicron} estimated the incubation periods from 513 individuals (258 Omicron and 255 Delta cases), with symptom onsets between 1 December 2021 and 2 January 2022.
+They used the methods of \cite{backer2020incubation}, which estimates incubation period by inferring distributions of time of infection for each individual from their known exposure dates, using a uniform distribution, and compares this to a known symptom-onset time.
+\jd{Simplified. OK?}
 
-In practice, incubation periods (and any other epidemiological delays) can be measured in two ways.
+In practice, incubation periods (and other epidemiological delays) can be measured in two ways.
 The forward incubation periods are measured from a cohort of individuals who were infected at the same time. 
-We expect this forward incubation-period distribution $f_I(\tau)$ to remain constant over the course of an epidemic and therefore provide accurate descriptions of incubation periods.
-On the other hand, the backward incubation periods, measured from a cohort of individuals, who developed symptoms at the same time, are sensitive to epidemic growth.
+We expect this forward incubation-period distribution $f_I(\tau)$ to remain constant over the course of an epidemic and provide reliable estimates of the distribution across individuals. 
+Backward incubation periods are measured from a cohort of individuals who developed symptoms at the same time. 
+We expect the backward incubation-period distribution to be sensitive to epidemic dynamics.
+The difference arises because forward incubation periods look forward from the reference point towards symptom development, which is an individual-level process, while backward incubation periods look backwards towards an infection event, which requires an interaction with an infectious individual.
+
 In particular, when incidence of infection is growing exponentially, we are more likely to observe shorter backward incubation periods because there will be relatively more individuals who were infected recently.
 Specifically, the backward incubation-period distribution $b_I(\tau)$ corresponds to:
 \begin{equation}
@@ -164,16 +168,18 @@ b_I(\tau) =\frac{ \exp(-r\tau) f_I(\tau)}{\int_0^\infty \exp(-r x) f_I(x)  \dx},
 \label{eq:backward}
 \end{equation}
 where $r$ represents the epidemic growth rate.
-The method of \cite{backer2020incubation} effectively estimates the backward incubation-period distribution as it does not take growth rates into account.
+The method of \cite{backer2020incubation} starts from observed symptom onsets, and estimates the backward incubation-period distribution without taking growth rates into account.
 
-To account for growth rate differences between the Delta and Omicron variants, we take the backward incubation-period distributions, estimated by \cite{backer2021omicron}, and calculate the corresponding forward incubation-period distributions by inverting \eref{backward}:
+We adjust for observed growth rate of each variant by taking the backward incubation-period distributions estimated by \cite{backer2021omicron} and calculating the corresponding forward incubation-period distributions by inverting \eref{backward}:
 \begin{equation}
 f_I(\tau) = \frac{\exp(r\tau) b_I(\tau) }{\int_0^\infty \exp(rx)  b_I(x)\dx},
 \label{eq:forward}
 \end{equation}
 where $b_I(\tau)$ is assumed to follow a Weibull distribution.
+\jd{Can this be explained better? Is this what backer assumed? We don't seem to say so.}
 To further account for uncertainties in the original parameter estimates, we rely on a sampling scheme, similar to the one we used for the growth rate analysis (in Section 2.2).
-First, we approximate the previously-inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a Gamma distribution---we parameterize the Gamma distribution such that (i) its mean matches the median estimates and (ii) the probability that a random variable following the specified Gamma distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
+First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a Gamma distribution---we parameterize the Gamma distribution such that (i) its mean matches the median estimates and (ii) the probability that a random variable following the specified Gamma distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
+\jd{Why do we match a mean to a median?, sounds crazy.}
 We draw 1000 samples of the shape and scale parameters (for the backward distribution $b_I(\tau)$) from the specified Gamma distributions and estimate the corresponding forward distribution using \eref{forward}.
 We take 95\% equi-tailed quantiles to obtain 95\% confidence intervals. 
 
@@ -186,12 +192,13 @@ In this case, the forward serial interval $\tau_s$ can be expressed in the form 
 \tau_s =  - \tau_{i, 1} + \tau_{g} + \tau_{i, 2},
 \label{eq:serial}
 \end{equation}
-where $\tau_{i, 1}$ represents the backward incubation period of the infector (because all infectors developed symptoms at the same time), $\tau_{g|i,1}$ represents the forward generation interval, and $\tau_{i, 2},$ represents the forward incubation period of the infectee.
-When incidence of infection is growing exponentially, infectors are more likely to have shorter incubation periods than their infectees on average, $\mathbb E[\tau_{i, 1}] < \mathbb E[\tau_{i, 2}]$, causing the mean forward serial interval to be longer than the mean forward generation interval ($\mathbb E[\tau_s] > \mathbb E[\tau_{g}]$).
+where $\tau_{i, 1}$ represents the backward incubation period of the infector (because all infectors developed symptoms at the same time), $\tau_{g|i,1}$ \jd{why does notation here not match equation?} represents the forward generation interval, and $\tau_{i, 2},$ represents the forward incubation period of the infectee.
+When incidence of infection is growing exponentially, infectors in a given cohort are more likely to have shorter incubation periods than their infectees on average, $\mathbb E[\tau_{i, 1}] < \mathbb E[\tau_{i, 2}]$, causing the mean forward serial interval to be longer than the mean forward generation interval ($\mathbb E[\tau_s] > \mathbb E[\tau_{g}]$).
 
 We further note that the mean forward generation interval $\mathbb E[\tau_{g}]$ defined in \eref{serial} is also likely shorter than the mean forward generation interval $\mathbb E[\hat{\tau}_{g}]$ that we wish to estimate because infectors with shorter incubation periods (due to exponential growth) also transmit faster.
 To illustrate this point, we write $f_{G|I}(\tau_g|\tau_{i,1})$ to represent forward generation-interval distribution conditional on the incubation period.
 Then, we can see that the mean forward generation interval $\mathbb E[\tau_{g}]$ defined in \eref{serial} depends on the exponential growth rate:
+
 \begin{align}
 \mathbb E[\tau_{g}] &= \int_0^\infty \int_0^\infty x_g f_{G|I}(x_g|x_{i,1}) b_I(x_{i,1}) \dd x_g x_{i, 1}\\
 &= \frac{\int_0^\infty \int_0^\infty x_g \exp(-rx_{i,1})  f_{G|I}(x_g|x_{i,1}) f_I(x_{i,1}) \dd x_g x_{i, 1}}{\int_0^\infty  \exp(-r x) f_I(x) \dx}
