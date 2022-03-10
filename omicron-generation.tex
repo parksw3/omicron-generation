@@ -112,7 +112,7 @@ Neglecting differences in the generation-interval distributions can further bias
 Estimating transmission advantages of new SARS-CoV-2 variants is critical to predicting and controlling the course of the ongoing COVID-19 pandemic.
 Transmission advantages of invading variants are typically characterized by the ratios of reproduction numbers, $\Rinv/\Rres$, and the differences in growth rates, $\rinv-\rres$.
 These two quantities are linked by the generation-interval distributions of the resident and invading variants.
-For example, an invading variant with shorter generation intervals---defined as the time between infection of the infector and the infectee---will exhibit faster epidemic growth ($\rinv > \rres > 0$) even if their reproduction numbers are identical  $\Rinv = \Rres > 1$.
+For example, an invading variant with shorter generation intervals---defined as the time between infection of the infector and the infectee---will exhibit faster epidemic growth ($\rinv > \rres > 0$) even if their reproduction numbers are identical ($\Rinv = \Rres > 1$).
 
 Estimating generation-interval is hard, largely due to difficulties in observing actual infection events.
 Many researchers primarily focus on comparisons of other transmission intervals, such as time between symptom onsets (also referred to as serial intervals) or between testing events \citep{abbott2022test} of the infector and the infectee.
@@ -152,7 +152,6 @@ We calculate time-varying growth rates from each parameter set and use equi-tail
 
 \cite{backer2021omicron} estimated the incubation periods from 513 individuals (258 Omicron and 255 Delta cases), with symptom onsets between 1 December 2021 and 2 January 2022.
 They used the methods of \cite{backer2020incubation}, which estimates incubation period by inferring distributions of time of infection for each individual from their known exposure dates, using a uniform distribution, and compares this to a known symptom-onset time.
-\jd{Simplified. OK?}
 
 In practice, incubation periods (and other epidemiological delays) can be measured in two ways.
 The forward incubation periods are measured from a cohort of individuals who were infected at the same time. 
@@ -172,15 +171,14 @@ The method of \cite{backer2020incubation} starts from observed symptom onsets, a
 
 We adjust for observed growth rate of each variant by taking the backward incubation-period distributions estimated by \cite{backer2021omicron} and calculating the corresponding forward incubation-period distributions by inverting \eref{backward}:
 \begin{equation}
-f_I(\tau) = \frac{\exp(r\tau) b_I(\tau) }{\int_0^\infty \exp(rx)  b_I(x)\dx},
+f_I(\tau) = \frac{\exp(r\tau) b_I(\tau) }{\int_0^\infty \exp(rx) b_I(x)\dx}.
 \label{eq:forward}
 \end{equation}
-where $b_I(\tau)$ is assumed to follow a Weibull distribution.
-\jd{Can this be explained better? Is this what backer assumed? We don't seem to say so.}
-To further account for uncertainties in the original parameter estimates, we rely on a sampling scheme, similar to the one we used for the growth rate analysis (in Section 2.2).
-First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a Gamma distribution---we parameterize the Gamma distribution such that (i) its mean matches the median estimates and (ii) the probability that a random variable following the specified Gamma distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
-\jd{Why do we match a mean to a median?, sounds crazy.}
-We draw 1000 samples of the shape and scale parameters (for the backward distribution $b_I(\tau)$) from the specified Gamma distributions and estimate the corresponding forward distribution using \eref{forward}.
+We model the backward incubation-period distribution $b_I(\tau)$ using a Weibull distribution based on the assumptions of \cite{backer2021omicron}.
+To account for uncertainties in the original parameter estimates, we rely on a sampling scheme, similar to the one we used for the growth rate analysis (in Section 2.2).
+First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a lognormal distribution---we parameterize the lognormal distribution such that (i) its median matches the median estimates and (ii) the probability that a random variable following the specified Gamma distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
+\jd{Why do we match a mean to a median?, sounds crazy.} \swp{I changed to lognormal and now match median. I was just doing something quick and dirty when I did this...}
+We draw 1000 samples of the shape and scale parameters (for the backward distribution $b_I(\tau)$) from the specified lognormal distributions and estimate the corresponding forward distribution using \eref{forward}.
 We take 95\% equi-tailed quantiles to obtain 95\% confidence intervals. 
 
 \subsection{Estimating forward generation-interval distributions from forward serial-interval distributions}
