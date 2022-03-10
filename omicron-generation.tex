@@ -291,18 +291,20 @@ Middle lines represent median estimates, and lower and upper lines represent cor
 
 Our corrected estimates of the forward incubation period distributions further allow us to infer the forward generation-interval distributions.
 For illustrative purposes, we first focus on within-household serial intervals from infectors who developed symptoms during week 50 (13-–19 December, 2021).
-\citep{backer2021omicron} previously reported shorter mean serial interval of the Omicron variant (3.5 days) than that of the Delta variant (4.5 days) for this cohort, but the overall shapes of the distributions are similar (\fref{serial}A).
+\citep{backer2021omicron} previously reported shorter mean serial interval of the Omicron variant (3.5 days) than that of the Delta variant (4.1 days) for this cohort, but the overall shapes of the distributions are similar (\fref{serial}A).
 However, when we account for growth rate differences (assuming $r=-0.05/\mathrm{day}$ and $r=0.15/\mathrm{day}$ for the Delta and Omicron variants, respectively), the estimated mean forward generation interval exhibits a larger difference (\fref{serial}B): 3.3 days (95\% CI: 2.8--3.7 days) for the Omicron variant and 4.2 days (95\% CI: 4.0--4.4 days).
 Notably, both variants have similar mode, but the transmissibility of the omicron variant decays much faster (\fref{serial}B).
+We note that the mean forward generation interval of the Omicron (and Delta) variant is shorter (longer) than its mean serial interval due to the effect of a growing (declining) epidemic.
+Instead, if we neglect growth rate differences and assume $r= 0/\mathrm{day}$ for both variants, the estimated shape of the generation-interval distributions become more similar and the differences in their means become smaller (Supplementary Figure S1): 3.5 days (95\% CI: 3.1--3.9 days) for the Omicron variant and 4.1 days (95\% CI: 3.9--4.3 days).
 
-While we estimate shorter mean forward generation intervals for the Omicron variant across all stratification (\fref{serial}C), the differences in the mean generation intervals are unclear for between-household pairs.
+We estimate shorter mean forward generation intervals for the Omicron variant across all stratification (\fref{serial}C), but the differences in the mean generation intervals are unclear for between-household pairs.
 Consistent with the original study, which also reported shorter mean forward serial intervals for between-household pairs \citep{backer2021omicron}, we estimate shorter mean forward generation intervals for between-household pairs.
 We also estimate a reduction in the mean forward generation intervals from week 50 to week 51. 
 
 \begin{figure}[!th]
 \includegraphics[width=\textwidth]{figure_compare.pdf}
 \caption{
-\textbf{Estimated relationship between forward incubation and generation-interval distributions of Delta and Omicron variants.}
+\textbf{Estimated forward generation-interval distributions of Delta and Omicron variants.}
 (A) Observed and fitted forward serial-interval distributions for within-household transmission pairs in the Netherlands for the Delta (black) and Omicron (orange) variants \citep{backer2021omicron}.
 Serial intervals are calculated for infectors who developed symptoms on week 50 (13 and 19 December, 2021).
 Points represent the observed data.
@@ -379,6 +381,20 @@ Monitoring changes in key epidemiological parameters is critical to understandin
 Our study synthesizes previously developed theoretical framework on serial- and generation-interval distributions and presents methodological advances in monitoring epidemiological parameters;
 however, uncertainty remains in the intrinsic infectiousness profiles of SARS-CoV-2 variants, especially among asymptomatically infected individuals \citep{park2020time}.
 Future studies extending our framework and combining more detailed epidemiological data will be critical to narrowing down these uncertainties.
+
+\pagebreak
+
+\section*{Supplementary Materials}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\begin{figure}[!th]
+\includegraphics[width=\textwidth]{figure_compare_r_0.pdf}
+\caption{
+\textbf{Estimated forward generation-interval distributions of Delta and Omicron variants while neglecting growth rate differences.}
+See Figure 3 in the main text for figure caption.
+}
+\end{figure}
 
 \pagebreak
 
