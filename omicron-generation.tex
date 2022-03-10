@@ -203,13 +203,17 @@ Then, we can see that the mean forward generation interval $\mathbb E[\tau_{g}]$
 \mathbb E[\tau_{g}] &= \int_0^\infty \int_0^\infty x_g f_{G|I}(x_g|x_{i,1}) b_I(x_{i,1}) \dd x_g x_{i, 1}\\
 &= \frac{\int_0^\infty \int_0^\infty x_g \exp(-rx_{i,1})  f_{G|I}(x_g|x_{i,1}) f_I(x_{i,1}) \dd x_g x_{i, 1}}{\int_0^\infty  \exp(-r x) f_I(x) \dx}
 \end{align}
-On the other hand, the mean forward generation interval of our interest does not depend on the exponential growth rate:
+
+\jd{What's going on here? I'm having trouble wading through the equations, but I guess the idea is that $\tau_g$ is the mean generation interval for a symptom-based cohort, and that what we want is the mean for an infection-based cohort. Can we say that more clearly? Can we also work on accompanying notation? In particular, I don't like giving the weird one the more-normal name.}
+On the other hand, the mean forward generation interval of our interest \jd{“of our interest” requires some explanation, and maybe some thought} does not depend on the exponential growth rate:
 \begin{equation}
 \mathbb E[\hat{\tau}_{g}] = \int_0^\infty \int_0^\infty x_g f_{G|I}(x_g|x_{i,1}) f_I(x_{i,1}) \dd x_g x_{i, 1}.\\
 \label{eq:meangen}
 \end{equation}
 Therefore, while we generally expect the mean forward generation interval to be shorter than the mean forward serial interval for a growing epidemic, correlation between symptom onset and transmissibility can also have opposite effects.
+\jd{I'm not quite following here. Can we disentangle the two effects a bit better?}
 
+\jd{Didn't we just finish modeling incubation periods with both Weibull and lognormal? Is there a simpler way?}
 Here, we model forward incubation-period $f_I(\tau)$ and generation-interval $f_G(\tau)$ distributions with lognormal distributions.
 Both distributions are parameterized by log means, $\mu_I$ and $\mu_G$, and log variances, $\sigma_I^2$ and $\sigma_G^2$.
 Then, given the correlation coefficient $\rho$, the forward generation-interval distribution conditional conditional on the incubation period $f_{G|I}(\tau|\tau_{i,1})$ has a mean of $\mu_G + \sigma_G \rho (\log(\tau_{i, 1}) - \mu_I)/\sigma_I$ and a log variance of $\sigma_G^2 (1 - \rho^2)$.
