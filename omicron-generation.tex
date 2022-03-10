@@ -47,14 +47,11 @@
 \usepackage{color}
 
 \newcommand{\Rx}[1]{\ensuremath{{\mathcal R}_{#1}}\xspace} 
-\newcommand{\Ro}{\Rx{0}}
-\newcommand{\Rc}{\Rx{\mathrm{c}}}
-\newcommand{\Rs}{\Rx{\mathrm{s}}}
+\newcommand{\RR}{\ensuremath{{\mathcal R}}\xspace}
 \newcommand{\Rres}{\Rx{\mathrm{res}}}
 \newcommand{\Rinv}{\Rx{\mathrm{inv}}}
-\newcommand{\RR}{\ensuremath{{\mathcal R}}\xspace}
 \newcommand{\Rhat}{\ensuremath{{\hat\RR}}}
-\newcommand{\Rintrinsic}{\ensuremath{{\mathcal R}_{\textrm{\tiny intrinsic}}}\xspace}
+\newcommand{\Rt}{\ensuremath{{\mathcal R}(t)}\xspace}
 \newcommand{\tsub}[2]{#1_{{\textrm{\tiny #2}}}}
 \newcommand{\dd}[1]{\ensuremath{\, \mathrm{d}#1}}
 \newcommand{\dtau}{\dd{\tau}}
@@ -207,37 +204,42 @@ When epidemic is growing is exponentially, we have two opposing effects affectin
 First, infectors in a given cohort are more likely to have shorter incubation periods than their infectees on average, $\mathbb E[\tau_{i, 1}] < \mathbb E[\tau_{i, 2}]$, causing the mean forward serial interval to be longer than the mean symptom-based generation interval ($\mathbb E[\tau_s] > \mathbb E[\tau_{g, \mathrm{symp}}]$).
 Second, the mean symptom-based generation interval will be shorter than the mean infection-based generation interval: $E[\tau_{g, \mathrm{inf}} > \mathbb E[\tau_{g, \mathrm{symp}}]$.
 Therefore, the difference between the mean serial interval and the mean infection-based generation interval is difficult to predict in general; in most cases, however, we expect the former effect to dominate, causing the mean serial interval to be longer than the mean infection-based generation interval: $\mathbb E[\tau_s] > E[\tau_{g, \mathrm{inf}}$ \citep{park2021forward}.
-Hereafter, we use the term ``forward generation-interval'' to refer to the infection-based generation-interval distribution (measured from a cohort of infectors who were infected at the same infection time) for simplicity and drop the subscript $\mathrm{inf}$.
+For simplicity, we will use the term ``forward generation-interval'' to refer to the infection-based generation-interval distribution (measured from a cohort of infectors who were infected at the same infection time), and drop the subscript $\mathrm{inf}$.
 
-Here, we model forward incubation-period $f_I(\tau)$ and generation-interval $f_G(\tau)$ distributions with lognormal distributions.
-Both distributions are parameterized by log means, $\mu_I$ and $\mu_G$, and log variances, $\sigma_I^2$ and $\sigma_G^2$.
-Then, given the correlation coefficient $\rho$, the forward generation-interval distribution conditional conditional on the incubation period $f_{G|I}(\tau|\tau_{i,1})$ has a mean of $\mu_G + \sigma_G \rho (\log(\tau_{i, 1}) - \mu_I)/\sigma_I$ and a log variance of $\sigma_G^2 (1 - \rho^2)$.
+We model the forward incubation-period $f_I(\tau)$ and generation-interval $f_G(\tau)$ distributions using a bivariate lognormal distribution.
+The joint distribution is parameterized by log means, $\mu_I$ and $\mu_G$, log variances, $\sigma_I^2$ and $\sigma_G^2$, and the correlation coefficient $\rho$.
+Thus, the forward generation-interval distribution conditional on the incubation period $f_{G|I}(\tau|\tau_{i,1})$ has a mean of $\mu_G + \sigma_G \rho (\log(\tau_{i, 1}) - \mu_I)/\sigma_I$ and a log variance of $\sigma_G^2 (1 - \rho^2)$.
+\jd{There is some scale mixing going on here and I can't figure it all out. Did you mean to write ``log mean'' just above? That might fix most of it, but then you would need to also say that $\rho$ is the log-scale correlation, or something like that.}
 Assuming that the incidence of infection is changing exponentially at rate $r$, the forward serial-interval distribution $f_S(\tau)$ for a cohort of infectors who developed symptoms at time $t = 0$ can be calculated by integrating across infection time of the infector $\alpha_1 < 0$ and of the infectee $\alpha_2 > \alpha_1$ \citep{park2021forward}:
 \begin{equation}
 f_S(\tau) = \frac{1}{\phi} \int_{-\infty}^0\int_{\alpha_1}^\tau \exp(r \alpha_1) f_{G|I}(\alpha_2 - \alpha_1|- \alpha_1) f_I(- \alpha_1) f_I(\tau - \alpha_2) \dd \alpha_2 \dd \alpha_1,
 \label{eq:forwardserial}
 \end{equation}
-where $\phi$ represents the normalization constant to satisfy $\int f_S(x) \dx = 1$;
+where $\phi$ is a normalization constant chosen so that $\int f_S(x) \dx = 1$;
 $-\alpha_1$ corresponds to the incubation period of the infector;
 $\alpha_2 - \alpha_1$ corresponds to the generation interval;
 and $\tau - \alpha_2$ corresponds to the incubation period of the infectee.
 
 For a given value of $r$, we first estimate the forward incubation-period distribution from the backward distribution, previously estimated by \cite{backer2021omicron}, using \eref{forward}.
 We then approximate the forward incubation-period distribution with a lognormal distribution by matching the mean and standard deviation.
-Using this incubation-period distribution, we fit \fref{forwardserial} to the observed serial-interval data by minimizing the negative log-likelihood.
+Using this incubation-period distribution, we fit \eref{forwardserial} to the observed serial-interval data by minimizing the negative log-likelihood.
 We then calculate the mean forward generation interval using \eref{meangen} and approximate the 95\% confidence interval using the Delta method.
-We assume $\rho = 0.75$ throughout based on \cite{sender2021unmitigated}---since we do not have individual-level data on infection and symptom onset times, we expect this parameter to be practically unidentifiable.
+\jd{Fixed one eref, but failed to fix the other.}
+We assume $\rho = 0.75$ throughout based on \cite{sender2021unmitigated}---since we do not have individual-level data on infection and symptom onset times, we expect this parameter to be unidentifiable in practice.
+\jd{Consider more discussion and/or sensitivity explorations.}
 
 \subsection{Estimating instantaneous reproduction number}
 
-We use our estimates of the generation-interval distributions to infer instantaneous reproduction numbers $\mathcal R(t)$ of the Delta and Omicron variant, as well as the ratio between two reproduction numbers.
+We use our estimates of the generation-interval distributions to infer instantaneous reproduction numbers \Rt\ of the Delta and Omicron variant, as well as the ratio between two reproduction numbers.
 Estimating the instantaneous reproduction number---defined as the average number of secondary infections that a primary case will generate if epidemiological conditions remain constant \citep{fraser2007estimating}---requires the intrinsic generation-interval distribution $g(\tau)$:
+\jd{We should think about this, too -- is it really just the forward if it's \Rt?}
 \begin{equation}
-\mathcal R(t) = \frac{i(t)}{\int_0^\infty i(t-x) g(x) \dx},
+\Rt = \frac{i(t)}{\int_0^\infty i(t-x) g(x) \dx},
 \end{equation}
 where $i(t)$ represents incidence of infection.
 Here, we approximate the intrinsic generation-interval distribution with the forward generation-interval that we estimate for week 50---when epidemic is growing or decaying exponentially, we expect the forward generation-interval to be a good proxy for the intrinsic generation-interval distribution \citep{champredon2015intrinsic, park2020inferring}.
-Then, the instantaneous reproduction number is estimated using the renewal equation \citep{fraser2007estimating}:
+%% Then, the instantaneous reproduction number is estimated using the renewal equation \citep{fraser2007estimating}: This looks like an orphan to me  \jd
+\jd{Another point that may need a bit more discussion:}
 Incidence of infection is approximated by shifting the smoothed case trajectories by one week to account for reporting delays.
 Confidence intervals are calculated by sampling parameters of the smoothed case trajectories as well as the generation-interval distributions from multivariate normal distributions and repeating the analysis 1000 times.
 
