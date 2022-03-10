@@ -176,10 +176,9 @@ f_I(\tau) = \frac{\exp(r\tau) b_I(\tau) }{\int_0^\infty \exp(rx) b_I(x)\dx}.
 \end{equation}
 We model the backward incubation-period distribution $b_I(\tau)$ using a Weibull distribution based on the assumptions of \cite{backer2021omicron}.
 To account for uncertainties in the original parameter estimates, we rely on a sampling scheme, similar to the one we used for the growth rate analysis (in Section 2.2).
-First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a lognormal distribution---we parameterize the lognormal distribution such that (i) its median matches the median estimates and (ii) the probability that a random variable following the specified Gamma distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
-\jd{Why do we match a mean to a median?, sounds crazy.} \swp{I changed to lognormal and now match median. I was just doing something quick and dirty when I did this...}
+First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a lognormal distribution---we parameterize the lognormal distribution such that (i) its median matches the median of the posterior distributions and (ii) the probability that a random variable following the specified Gamma distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
 We draw 1000 samples of the shape and scale parameters (for the backward distribution $b_I(\tau)$) from the specified lognormal distributions and estimate the corresponding forward distribution using \eref{forward}.
-We take 95\% equi-tailed quantiles to obtain 95\% confidence intervals. 
+We take 95\% equi-tailed quantiles to obtain 95\% confidence intervals.
 
 \subsection{Estimating forward generation-interval distributions from forward serial-interval distributions}
 
@@ -187,31 +186,29 @@ Dynamical biases in the serial-interval distributions are more complex because t
 For example, \cite{backer2021omicron} measured the forward serial-interval distributions from cohorts of infectors who developed symptoms during the same week.
 In this case, the forward serial interval $\tau_s$ can be expressed in the form \citep{park2021forward}:
 \begin{equation}
-\tau_s =  - \tau_{i, 1} + \tau_{g} + \tau_{i, 2},
+\tau_s =  - \tau_{i, 1} + \tau_{g, \mathrm{symp}} + \tau_{i, 2},
 \label{eq:serial}
 \end{equation}
-where $\tau_{i, 1}$ represents the backward incubation period of the infector (because all infectors developed symptoms at the same time), $\tau_{g|i,1}$ \jd{why does notation here not match equation?} represents the forward generation interval, and $\tau_{i, 2},$ represents the forward incubation period of the infectee.
-When incidence of infection is growing exponentially, infectors in a given cohort are more likely to have shorter incubation periods than their infectees on average, $\mathbb E[\tau_{i, 1}] < \mathbb E[\tau_{i, 2}]$, causing the mean forward serial interval to be longer than the mean forward generation interval ($\mathbb E[\tau_s] > \mathbb E[\tau_{g}]$).
+where $\tau_{i, 1}$ represents the backward incubation period of the infector (because all infectors developed symptoms at the same time), and $\tau_{i, 2},$ represents the forward incubation period of the infectee.
+Here, $\tau_{g, \mathrm{symp}}$ represents the generation interval between the infector and the infectee; we use the subscript $\mathrm{symp}$ to indicate that these generation intervals are measured from infectors who developed symptoms at the same time.
 
-We further note that the mean forward generation interval $\mathbb E[\tau_{g}]$ defined in \eref{serial} is also likely shorter than the mean forward generation interval $\mathbb E[\hat{\tau}_{g}]$ that we wish to estimate because infectors with shorter incubation periods (due to exponential growth) also transmit faster.
-To illustrate this point, we write $f_{G|I}(\tau_g|\tau_{i,1})$ to represent forward generation-interval distribution conditional on the incubation period.
-Then, we can see that the mean forward generation interval $\mathbb E[\tau_{g}]$ defined in \eref{serial} depends on the exponential growth rate:
-
+The symptom-based generation-interval distribution describing \eref{serial} gives a biased picture because infectors who developed symptoms at the same time will have shorter incubation periods (when epidemic is growing) and therefore transmit earlier.
+This symptom-based generation-interval distribution depends on the backward incubation-period distribution:
 \begin{align}
-\mathbb E[\tau_{g}] &= \int_0^\infty \int_0^\infty x_g f_{G|I}(x_g|x_{i,1}) b_I(x_{i,1}) \dd x_g x_{i, 1}\\
-&= \frac{\int_0^\infty \int_0^\infty x_g \exp(-rx_{i,1})  f_{G|I}(x_g|x_{i,1}) f_I(x_{i,1}) \dd x_g x_{i, 1}}{\int_0^\infty  \exp(-r x) f_I(x) \dx}
+f_{G, \mathrm{symptom}}(\tau) &= \int_0^\infty f_{G|I}(\tau|x) b_I(x) \dx,
+\end{align}
+where $f_{G|I}(\tau|x)$ represents the forward generation-interval distribution conditional on a known value of the incubation period, $x$.
+Instead, the forward generation-interval distribution measured from a cohort of individuals who were infected at the time is expected to provide reliable estimates of the distribution across individuals (because their incubation-period distribution is expected to remain constant over time):
+\begin{align}
+f_{G, \mathrm{inf}}(\tau) &= \int_0^\infty f_{G|I}(\tau|x) f_I(x) \dx.
 \end{align}
 
-\jd{What's going on here? I'm having trouble wading through the equations, but I guess the idea is that $\tau_g$ is the mean generation interval for a symptom-based cohort, and that what we want is the mean for an infection-based cohort. Can we say that more clearly? Can we also work on accompanying notation? In particular, I don't like giving the weird one the more-normal name.}
-On the other hand, the mean forward generation interval of our interest \jd{“of our interest” requires some explanation, and maybe some thought} does not depend on the exponential growth rate:
-\begin{equation}
-\mathbb E[\hat{\tau}_{g}] = \int_0^\infty \int_0^\infty x_g f_{G|I}(x_g|x_{i,1}) f_I(x_{i,1}) \dd x_g x_{i, 1}.\\
-\label{eq:meangen}
-\end{equation}
-Therefore, while we generally expect the mean forward generation interval to be shorter than the mean forward serial interval for a growing epidemic, correlation between symptom onset and transmissibility can also have opposite effects.
-\jd{I'm not quite following here. Can we disentangle the two effects a bit better?}
+When epidemic is growing is exponentially, we have two opposing effects affecting the relationship between the mean serial and generation interval.
+First, infectors in a given cohort are more likely to have shorter incubation periods than their infectees on average, $\mathbb E[\tau_{i, 1}] < \mathbb E[\tau_{i, 2}]$, causing the mean forward serial interval to be longer than the mean symptom-based generation interval ($\mathbb E[\tau_s] > \mathbb E[\tau_{g, \mathrm{symp}}]$).
+Second, the mean symptom-based generation interval will be shorter than the mean infection-based generation interval: $E[\tau_{g, \mathrm{inf}} > \mathbb E[\tau_{g, \mathrm{symp}}]$.
+Therefore, the difference between the mean serial interval and the mean infection-based generation interval is difficult to predict in general; in most cases, however, we expect the former effect to dominate, causing the mean serial interval to be longer than the mean infection-based generation interval: $\mathbb E[\tau_s] > E[\tau_{g, \mathrm{inf}}$ \citep{park2021forward}.
+Hereafter, we use the term ``forward generation-interval'' to refer to the infection-based generation-interval distribution (measured from a cohort of infectors who were infected at the same infection time) for simplicity and drop the subscript $\mathrm{inf}$.
 
-\jd{Didn't we just finish modeling incubation periods with both Weibull and lognormal? Is there a simpler way?}
 Here, we model forward incubation-period $f_I(\tau)$ and generation-interval $f_G(\tau)$ distributions with lognormal distributions.
 Both distributions are parameterized by log means, $\mu_I$ and $\mu_G$, and log variances, $\sigma_I^2$ and $\sigma_G^2$.
 Then, given the correlation coefficient $\rho$, the forward generation-interval distribution conditional conditional on the incubation period $f_{G|I}(\tau|\tau_{i,1})$ has a mean of $\mu_G + \sigma_G \rho (\log(\tau_{i, 1}) - \mu_I)/\sigma_I$ and a log variance of $\sigma_G^2 (1 - \rho^2)$.
