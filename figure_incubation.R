@@ -104,11 +104,11 @@ g2 <- ggplot(corrected_nsgtf) +
 
 g3 <- ggplot(corrected_mean_nsgtf) +
   geom_line(aes(r, median), lwd=1) +
-  geom_line(aes(r, lwr))  +
-  geom_line(aes(r, upr)) +
+  geom_line(aes(r, lwr), lwd=1)  +
+  geom_line(aes(r, upr), lwd=1) +
   geom_line(data=corrected_mean_sgtf, aes(r-0.2, median), lty=2, col="orange", lwd=1)  +
-  geom_line(data=corrected_mean_sgtf, aes(r-0.2, lwr), lty=2, col="orange")  +
-  geom_line(data=corrected_mean_sgtf, aes(r-0.2, upr), lty=2, col="orange") +
+  geom_line(data=corrected_mean_sgtf, aes(r-0.2, lwr), lty=2, col="orange", lwd=1)  +
+  geom_line(data=corrected_mean_sgtf, aes(r-0.2, upr), lty=2, col="orange", lwd=1) +
   scale_x_continuous("Delta growth rate (1/day)",
                      sec.axis = sec_axis(trans=~.+0.2, "Omicron growth rate (1/day)")) +
   scale_y_continuous("Mean forward incubation period (days)") +
