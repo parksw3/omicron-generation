@@ -131,8 +131,10 @@ Both data are publicly available on the National Institute for Public Health and
 
 Serial interval data are taken from the supplementary material of \cite{backer2021omicron}.
 The data are aggregated by the length of the serial interval in days and do not include additional individual-level information, such as exposure dates or symptom onset dates.
-The data consists of 2529 transmission pairs and are further stratified by the presence of S gene target failure, week of infectors' symptom onset date (week 50 and 51), and the type of transmission (within or between households).
+The data consists of 2529 transmission pairs and are further stratified by the presence of S gene target failure (SGTF), week of infectors' symptom onset date (weeks 50 and 51), and the type of transmission (within or between households).
+In the main text, we combine data from weeks 50 and 51 and instead present a stratified analysis in Supplementary Material.
 For simplicity, we refer to transmission pairs with and without S gene target failure as Omicron and Delta transmission pairs, respectively.
+Incubation period data are not publicly available with the original article; instead, we rely on previously-estimated incubation-period distributions by \cite{backer2021omicron} to derive growth-rate-adjusted .
 See original article for details of data collection.
 
 \subsection{Estimating epidemic growth rates}
@@ -151,7 +153,7 @@ We calculate time-varying growth rates from each parameter set and use equi-tail
 \cite{backer2021omicron} estimated the incubation periods from 513 individuals (258 Omicron and 255 Delta cases), with symptom onsets between 1 December 2021 and 2 January 2022.
 They used the methods of \cite{backer2020incubation}, which estimates incubation period by inferring distributions of time of infection for each individual from their known exposure dates, using a uniform distribution, and compares this to a known symptom-onset time.
 
-In practice, incubation periods (and other epidemiological delays) can be measured in two ways.
+In practice, incubation periods (and other epidemiological delays) can be measured in two ways: forward and backward.
 The forward incubation periods are measured from a cohort of individuals who were infected at the same time. 
 We expect this forward incubation-period distribution $f_I(\tau)$ to remain constant over the course of an epidemic and provide reliable estimates of the distribution across individuals. 
 Backward incubation periods are measured from a cohort of individuals who developed symptoms at the same time. 
@@ -167,14 +169,18 @@ b_I(\tau) =\frac{ \exp(-r\tau) f_I(\tau)}{\int_0^\infty \exp(-r x) f_I(x)  \dx},
 where $r$ represents the epidemic growth rate.
 The method of \cite{backer2020incubation} starts from observed symptom onsets, and estimates the backward incubation-period distribution without taking growth rates into account.
 
-We adjust for observed growth rate of each variant by taking the backward incubation-period distributions estimated by \cite{backer2021omicron} and calculating the corresponding forward incubation-period distributions by inverting \eref{backward}:
+For a given growth rate $r$, the corresponding forward incubation-period distributions can be calculated by inverting \eref{backward}:
 \begin{equation}
 f_I(\tau) = \frac{\exp(r\tau) b_I(\tau) }{\int_0^\infty \exp(rx) b_I(x)\dx}.
 \label{eq:forward}
 \end{equation}
-We model the backward incubation-period distribution $b_I(\tau)$ using a Weibull distribution based on the assumptions of \cite{backer2021omicron}.
+Since incubation-period data are not provided, we are not able to fit \eref{forward} directly; 
+instead we take the backward incubation-period distributions $b_I(x)$ estimated by \cite{backer2021omicron}, which was originally assumed to follow a Weibull distribution, and apply \eref{forward}.
+In particular, \cite{backer2021omicron} estimated the scale and shape parameters of the Weibull distribution to be 4.93 (95\% CI: 4.51--5.37) and 1.83 (95\% CI: 1.59--2.08), respectively, for the non-SGTF cases, and 3.60 (95\% CI: 3.23--3.98) and 1.50 ((95\% CI: 1.32--1.70), respectively, for SGTF cases.
+
+We also model the backward incubation-period distribution $b_I(\tau)$ using a Weibull distribution based on the assumptions of \cite{backer2021omicron}.
 To account for uncertainties in the original parameter estimates, we rely on a sampling scheme, similar to the one we used for the growth rate analysis (in Section 2.2).
-First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a lognormal distribution---we parameterize the lognormal distribution such that (i) its median matches the median of the posterior distributions and (ii) the probability that a random variable following the specified Gamma distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
+First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a lognormal distribution---we parameterize the lognormal distribution such that (i) its median matches the median of the posterior distributions and (ii) the probability that a random variable following the specified lognormal distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
 We draw 1000 samples of the shape and scale parameters (for the backward distribution $b_I(\tau)$) from the specified lognormal distributions and estimate the corresponding forward distribution using \eref{forward}.
 We take 95\% equi-tailed quantiles to obtain 95\% confidence intervals.
 
