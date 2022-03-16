@@ -80,11 +80,12 @@ corrected_sgtf <- tibble(
 )
 
 g1 <- ggplot(observed_nsgtf) +
-  geom_line(aes(time, density, col="Delta"), lwd=1) +
-  geom_line(data=observed_sgtf, aes(time, density, col="Omicron"), lwd=1) +
+  geom_line(aes(time, density, col="Delta", lty="Delta"), lwd=1) +
+  geom_line(data=observed_sgtf, aes(time, density, col="Omicron", lty="Omicron"), lwd=1) +
   scale_x_continuous("Observed incubation period (days)", expand=c(0, 0)) +
   scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.23)) +
-  scale_color_manual(values=c("black", "orange")) +
+  scale_color_manual("", values=c("black", "orange")) +
+  scale_linetype_discrete("") +
   theme(
     panel.grid = element_blank(),
     legend.position = c(0.8, 0.8),
@@ -93,7 +94,7 @@ g1 <- ggplot(observed_nsgtf) +
 
 g2 <- ggplot(corrected_nsgtf) +
   geom_line(aes(time, density, col="Delta"), lwd=1) +
-  geom_line(data=corrected_sgtf, aes(time, density, col="Omicron"), lwd=1) +
+  geom_line(data=corrected_sgtf, aes(time, density, col="Omicron"), lwd=1, lty=2) +
   scale_x_continuous("Forward incubation period (days)", expand=c(0, 0), limits=c(0, 14)) +
   scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.23)) +
   scale_color_manual(values=c("black", "orange")) +
@@ -106,20 +107,22 @@ g3 <- ggplot(corrected_mean_nsgtf) +
   geom_line(aes(r, median), lwd=1) +
   geom_line(aes(r, lwr), lwd=1)  +
   geom_line(aes(r, upr), lwd=1) +
-  geom_line(data=corrected_mean_sgtf, aes(r-0.2, median), lty=2, col="orange", lwd=1)  +
-  geom_line(data=corrected_mean_sgtf, aes(r-0.2, lwr), lty=2, col="orange", lwd=1)  +
-  geom_line(data=corrected_mean_sgtf, aes(r-0.2, upr), lty=2, col="orange", lwd=1) +
-  scale_x_continuous("Delta growth rate (1/day)",
-                     sec.axis = sec_axis(trans=~.+0.2, "Omicron growth rate (1/day)")) +
-  scale_y_continuous("Mean forward incubation period (days)") +
+  scale_x_continuous("Delta growth rate (1/day)") +
+  scale_y_continuous("Mean forward incubation period (days)", limits=c(3.3, 5.6)) +
   theme(
-    panel.grid = element_blank(),
-    axis.line.x.top = element_line(color="orange"),
-    axis.ticks.x.top = element_line(color="orange"),
-    axis.text.x.top = element_text(color="orange"),
-    axis.title.x.top = element_text(color="orange")
+    panel.grid = element_blank()
   )
 
-gfinal <- ggarrange(g1, g2, g3, nrow=1, labels=c("A", "B", "C"), draw=FALSE)
+g4 <- ggplot(corrected_mean_sgtf) +
+  geom_line(aes(r, median), lty=2, col="orange", lwd=1) +
+  geom_line(aes(r, lwr), lty=2, col="orange", lwd=1)  +
+  geom_line(aes(r, upr), lty=2, col="orange", lwd=1) +
+  scale_x_continuous("Omicron growth rate (1/day)") +
+  scale_y_continuous("Mean forward incubation period (days)", limits=c(3.3, 5.6)) +
+  theme(
+    panel.grid = element_blank()
+  )
 
-ggsave("figure_incubation.pdf", gfinal, width=12, height=4)
+gfinal <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
+
+ggsave("figure_incubation.pdf", gfinal, width=8, height=6)

@@ -8,6 +8,7 @@ library(mgcv)
 library(mvtnorm)
 library(egg)
 
+datevec <- seq(as.Date("2021-11-28"), as.Date("2022-01-30"), by=1)
 weekbreak <- as.Date("2021-12-19") + 7 * (-4:6)
 
 nsample <- 1000
@@ -101,10 +102,10 @@ g2 <- ggplot(variant3) +
 gfit1 <- gam(log(delta_cases)~s(time, bs="cs"), data=variant4, method="REML")
 gfit2 <- gam(log(omicron_cases)~s(time, bs="cs"), data=variant4, method="REML")
 
-gfit1_p1 <- predict(gfit1, newdata = data.frame(time=seq(1, 10, by=0.1)), type = "lpmatrix")
-gfit1_p2 <- predict(gfit1, newdata = data.frame(time=seq(1, 10, by=0.1)+0.01), type = "lpmatrix")
-gfit2_p1 <- predict(gfit2, newdata = data.frame(time=seq(1, 10, by=0.1)), type = "lpmatrix")
-gfit2_p2 <- predict(gfit2, newdata = data.frame(time=seq(1, 10, by=0.1)+0.01), type = "lpmatrix")
+gfit1_p1 <- predict(gfit1, newdata = data.frame(time=seq(1, 10, by=1/7)), type = "lpmatrix")
+gfit1_p2 <- predict(gfit1, newdata = data.frame(time=seq(1, 10, by=1/7)+0.01), type = "lpmatrix")
+gfit2_p1 <- predict(gfit2, newdata = data.frame(time=seq(1, 10, by=1/7)), type = "lpmatrix")
+gfit2_p2 <- predict(gfit2, newdata = data.frame(time=seq(1, 10, by=1/7)+0.01), type = "lpmatrix")
 
 gfit1_Xp <- (gfit1_p2 - gfit1_p1) / 0.01/7
 gfit2_Xp <- (gfit2_p2 - gfit2_p1) / 0.01/7
@@ -118,23 +119,27 @@ gfit2_post <- apply(gfit2_sim, 1, function(x) {gfit2_Xp %*% x})
 advantage_post <- gfit2_post - gfit1_post
 
 delta_growth <- data.frame(
-  time=seq(1, 10, by=0.1),
+  time=seq(1, 10, by=1/7),
   median=apply(gfit1_post, 1, median),
   lwr=apply(gfit1_post, 1, quantile, 0.025),
   upr=apply(gfit1_post, 1, quantile, 0.975),
   type="Delta"
 )
 
+mean(delta_growth$median[datevec >= "2021-12-01" & datevec <= "2022-01-02"])
+
 omicron_growth <- data.frame(
-  time=seq(1, 10, by=0.1),
+  time=seq(1, 10, by=1/7),
   median=apply(gfit2_post, 1, median),
   lwr=apply(gfit2_post, 1, quantile, 0.025),
   upr=apply(gfit2_post, 1, quantile, 0.975),
   type="Omicron"
 )
 
+mean(omicron_growth$median[datevec >= "2021-12-01" & datevec <= "2022-01-02"])
+
 advantage_growth <- data.frame(
-  time=seq(1, 10, by=0.1),
+  time=seq(1, 10, by=1/7),
   median=apply(advantage_post, 1, median),
   lwr=apply(advantage_post, 1, quantile, 0.025),
   upr=apply(advantage_post, 1, quantile, 0.975),

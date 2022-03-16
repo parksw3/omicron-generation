@@ -161,12 +161,11 @@ We expect the backward incubation-period distribution to be sensitive to epidemi
 The difference arises because forward incubation periods look forward from the reference point towards symptom development, which is an individual-level process, while backward incubation periods look backwards towards an infection event, which requires an interaction with an infectious individual.
 
 In particular, when incidence of infection is growing exponentially, we are more likely to observe shorter backward incubation periods because there will be relatively more individuals who were infected recently.
-Specifically, the backward incubation-period distribution $b_I(\tau)$ corresponds to:
+Assuming that incidence is changing exponentially at a constant rate $r$ across the study period, the backward incubation-period distribution $b_I(\tau)$ corresponds to:
 \begin{equation}
-b_I(\tau) =\frac{ \exp(-r\tau) f_I(\tau)}{\int_0^\infty \exp(-r x) f_I(x)  \dx},
+b_I(\tau) =\frac{ \exp(-r\tau) f_I(\tau)}{\int_0^\infty \exp(-r x) f_I(x)  \dx}.
 \label{eq:backward}
 \end{equation}
-where $r$ represents the epidemic growth rate.
 The method of \cite{backer2020incubation} starts from observed symptom onsets, and estimates the backward incubation-period distribution without taking growth rates into account.
 
 For a given growth rate $r$, the corresponding forward incubation-period distributions can be calculated by inverting \eref{backward}:
@@ -183,10 +182,22 @@ To account for uncertainties in the original parameter estimates, we rely on a s
 First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a lognormal distribution---we parameterize the lognormal distribution such that (i) its median matches the median of the posterior distributions and (ii) the probability that a random variable following the specified lognormal distribution falls between the lower and upper credible limits matches 95\% \citep{park2020reconciling}.
 We draw 1000 samples of the shape and scale parameters (for the backward distribution $b_I(\tau)$) from the specified lognormal distributions and estimate the corresponding forward distribution using \eref{forward}.
 We take 95\% equi-tailed quantiles to obtain 95\% confidence intervals.
+We repeat the analysis across plausible ranges of $r$ for the Delta and Omicron variants separately (discussed later).
 
 \subsection{Estimating forward generation-interval distributions from forward serial-interval distributions}
 
-Dynamical biases in the serial-interval distributions are more complex because the serial interval depends on the incubation periods of the infector and the infectee as well as the generation interval between them.
+\begin{figure}[!tp]
+\includegraphics[width=\textwidth]{figure_diagram.pdf}
+\caption{
+\textbf{Schematic diagrams of serial and generation intervals from symptom- and infection-based infector cohorts.}
+(A) Serial intervals are typically measured from the cohort of infectors who develop symptoms at the same time. 
+In this case, infectors will have shorter incubation periods than their infectees on average; the corresponding generation intervals will be also short because infectors with short incubation periods will transmit earlier.
+(B) Generation intervals are better measured from the cohort of infectors who are infected at the same time because their incubation periods will be unbiased.
+\label{fig:diagram}
+}
+\end{figure}
+
+Dynamical biases in the serial-interval distributions are more complex because the serial interval depends on the incubation periods of the infector and the infectee as well as the generation interval between them (\fref{diagram}).
 For example, \cite{backer2021omicron} measured the forward serial-interval distributions from cohorts of infectors who developed symptoms during the same week.
 In this case, the forward serial interval $\tau_s$ can be expressed in the form \citep{park2021forward}:
 \begin{equation}
@@ -196,13 +207,13 @@ In this case, the forward serial interval $\tau_s$ can be expressed in the form 
 where $\tau_{i, 1}$ represents the backward incubation period of the infector (because all infectors developed symptoms at the same time), and $\tau_{i, 2},$ represents the forward incubation period of the infectee.
 Here, $\tau_{g, \mathrm{symp}}$ represents the generation interval between the infector and the infectee; we use the subscript $\mathrm{symp}$ to indicate that these generation intervals are measured from infectors who developed symptoms at the same time.
 
-The symptom-based generation-interval distribution describing \eref{serial} gives a biased picture because infectors who developed symptoms at the same time will have shorter incubation periods (when epidemic is growing) and therefore transmit earlier.
+The symptom-based generation-interval distribution describing \eref{serial} gives a biased picture because infectors who developed symptoms at the same time will have shorter incubation periods (when epidemic is growing) and therefore transmit earlier (\fref{diagram}A).
 This symptom-based generation-interval distribution depends on the backward incubation-period distribution:
 \begin{align}
 f_{G, \mathrm{symptom}}(\tau) &= \int_0^\infty f_{G|I}(\tau|x) b_I(x) \dx,
 \end{align}
 where $f_{G|I}(\tau|x)$ represents the forward generation-interval distribution conditional on a known value of the incubation period, $x$.
-Instead, the forward generation-interval distribution measured from a cohort of individuals who were infected at the time is expected to provide reliable estimates of the distribution across individuals (because their incubation-period distribution is expected to remain constant over time):
+Instead, the forward generation-interval distribution measured from a cohort of individuals who were infected at the time is expected to provide reliable estimates of the distribution across individuals (because their incubation-period distribution is expected to remain constant over time, \fref{diagram}B):
 \begin{align}
 f_{G, \mathrm{inf}}(\tau) &= \int_0^\infty f_{G|I}(\tau|x) f_I(x) \dx.
 \label{eq:meangen}
@@ -210,9 +221,9 @@ f_{G, \mathrm{inf}}(\tau) &= \int_0^\infty f_{G|I}(\tau|x) f_I(x) \dx.
 
 When epidemic is growing is exponentially, we have two opposing effects affecting the relationship between the mean serial and generation interval.
 First, infectors in a given cohort are more likely to have shorter incubation periods than their infectees on average, $\mathbb E[\tau_{i, 1}] < \mathbb E[\tau_{i, 2}]$, causing the mean forward serial interval to be longer than the mean symptom-based generation interval ($\mathbb E[\tau_s] > \mathbb E[\tau_{g, \mathrm{symp}}]$).
-Second, the mean symptom-based generation interval will be shorter than the mean infection-based generation interval: $E[\tau_{g, \mathrm{inf}} > \mathbb E[\tau_{g, \mathrm{symp}}]$.
-Therefore, the difference between the mean serial interval and the mean infection-based generation interval is difficult to predict in general; in most cases, however, we expect the former effect to dominate, causing the mean serial interval to be longer than the mean infection-based generation interval: $\mathbb E[\tau_s] > E[\tau_{g, \mathrm{inf}}$ \citep{park2021forward}.
-For simplicity, we will use the term ``forward generation-interval'' to refer to the infection-based generation-interval distribution (measured from a cohort of infectors who were infected at the same infection time), and drop the subscript $\mathrm{inf}$.
+Second, the mean symptom-based generation interval will be shorter than the mean infection-based generation interval: $E[\tau_{g, \mathrm{inf}}] > \mathbb E[\tau_{g, \mathrm{symp}}]$.
+Therefore, the difference between the mean serial interval and the mean infection-based generation interval is difficult to predict in general; in most cases, however, we expect the former effect to dominate, causing the mean serial interval to be longer than the mean infection-based generation interval: $\mathbb E[\tau_s] > E[\tau_{g, \mathrm{inf}}]$ \citep{park2021forward}.
+For simplicity, we will use the term ``forward generation-interval'' to refer to the infection-based generation-interval distribution (measured from a cohort of infectors who were infected at the same infection time, \fref{diagram}B), and drop the subscript $\mathrm{inf}$.
 
 We model the forward incubation-period $f_I(\tau)$ and generation-interval $f_G(\tau)$ distributions using a bivariate lognormal distribution.
 The joint distribution is parameterized by log means, $\mu_I$ and $\mu_G$, log variances, $\sigma_I^2$ and $\sigma_G^2$, and the correlation coefficient on a log scale $\rho$.
@@ -226,6 +237,9 @@ where $\phi$ is a normalization constant chosen so that $\int f_S(x) \dx = 1$;
 $-\alpha_1$ corresponds to the incubation period of the infector;
 $\alpha_2 - \alpha_1$ corresponds to the generation interval;
 and $\tau - \alpha_2$ corresponds to the incubation period of the infectee.
+As discussed earlier in Section 2.3, this method assumes that the incidence is changing exponentially at a constant rate $r$ across the study period.
+As we show later in the results section, the exponential growth rate changes over the study period, including weeks 50 and 51;
+for illustrative purpose, we choose values of $r$ that represent the dynamics of Delta and Omicron infections during this period and repeat the analysis across plausible ranges of $r$ (discussed later in detail).
 
 For a given value of $r$, we first estimate the forward incubation-period distribution from the backward distribution, previously estimated by \cite{backer2021omicron}, using \eref{forward}.
 We then approximate the forward incubation-period distribution with a lognormal distribution by matching the mean and standard deviation.
@@ -257,9 +271,11 @@ Confidence intervals are calculated by sampling parameters of the smoothed case 
 The first known Omicron case in the Netherlands was sampled on 19 November 2021 \citep{backer2021omicron}, during a period when COVID-19 incidence was decreasing (\fref{epidemic}A).
 As the Omicron variant continued to spread and increase in proportion (\fref{epidemic}B), the number of COVID-19 cases started to increase (\fref{epidemic}A).
 Multiplying the proportion of each variant with the number of reported COVID-19 cases further allows us to estimate the epidemiological dynamics of each (\fref{epidemic}C).
-The number of COVID-19 cases caused by the Delta variant continued to decrease throughout the study period with time-varying growth rates decreasing from $r \approx -0.01/\mathrm{day}$ to $r \approx -0.09/\mathrm{day}$ by the week of January 16, 2022, and increasing back up to $r \approx -0.04/\mathrm{day}$.
-The number of COVID-19 cases caused by the Omicron variant increased rapidly but decelerated over time with time-varying growth rates decreasing from $r=0.18/\mathrm{day}$ on the week of December 19, 2021, to $r=0.04/\mathrm{day}$.
+The number of COVID-19 cases caused by the Delta variant continued to decrease throughout the study period with time-varying growth rates decreasing from $r \approx -0.01/\mathrm{day}$ to $r \approx -0.09/\mathrm{day}$ by the week of January 16, 2022, and increasing back up to $r \approx -0.04/\mathrm{day}$ by the end of January, 2022.
+The number of COVID-19 cases caused by the Omicron variant increased rapidly but decelerated over time with time-varying growth rates decreasing from $r=0.18/\mathrm{day}$ on the week of December 19, 2021, to $r=0.04/\mathrm{day}$ by the end of January, 2022.
 Finally, we find that the growth-rate difference between the Delta and Omicron variants decreased over time.
+Hereafter, we choose $r=-0.05/\mathrm{day}$ for the Delta variant and $r=0.15/\mathrm{day}$ for the Omicron variant as our nominal growth rates---these growth rates correspond to the mean growth rates between 1 December 2021 and 2 January 2022, during which the incubation-period data were collected.
+We then evaluate the growth-rate effects across $r=-0.1/\mathrm{day}$--$0.0/\mathrm{day}$ for the Delta variant and $r=0.1/\mathrm{day}$--$0.2/\mathrm{day}$ for the Omicron variant as a sensitivity analysis.
 
 \begin{figure}[!ht]
 \includegraphics[width=\textwidth]{figure_epidemic.pdf}
@@ -302,7 +318,7 @@ Middle lines represent median estimates, and lower and upper lines represent cor
 
 Our corrected estimates of the forward incubation-period distributions further allow us to infer the forward generation-interval distributions.
 For illustrative purposes, we first focus on within-household serial intervals from infectors who developed symptoms during week 50 (13-–19 December, 2021)---\citep{backer2021omicron} reported shorter mean serial interval of the Omicron variant (3.5 days) than that of the Delta variant (4.1 days) for this cohort (\fref{serial}A).
-When we account for growth-rate differences (assuming $r=-0.05/\mathrm{day}$ and $r=0.15/\mathrm{day}$ for the Delta and Omicron variants, respectively), the estimated mean forward generation interval exhibits a larger difference (\fref{serial}B): 3.3 days (95\% CI: 2.8--3.7 days) for the Omicron variant and 4.2 days (95\% CI: 4.0--4.4 days).
+When we account for growth-rate differences (assuming $r=-0.05/\mathrm{day}$ and $r=0.15/\mathrm{day}$ for the Delta and Omicron variants, respectively), the estimated mean forward generation interval exhibits a larger difference (\fref{serial}B): 3.3 days (95\% CI: 2.8--3.7 days) for the Omicron variant and 4.2 days (95\% CI: 4.0--4.4 days) for the Delta variant.
 Notably, both variants have similar mode, but the transmissibility of the omicron variant is estimated to decay much faster (\fref{serial}B).
 Note that the mean forward generation interval of the Omicron (respectively, Delta) variant is shorter (longer) than its mean serial interval due to the effect of a growing (declining) epidemic.
 The estimated differences of the mean generation interval increase if we assume that generation intervals and incubation periods are less correlated (and therefore, lower values of $\rho$; Supplementary Figure S1).
@@ -416,7 +432,7 @@ For illustrative purposes we use within-household serial-interval data from the 
 \includegraphics[width=\textwidth]{figure_compare_r_0.pdf}
 \caption{
 \textbf{Estimated forward generation-interval distributions of Delta and Omicron variants while neglecting growth-rate differences.}
-See Figure 3 in the main text for figure caption.
+See Figure 4 in the main text for figure caption.
 }
 \end{figure}
 
