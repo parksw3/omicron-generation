@@ -104,9 +104,8 @@ g2 <- ggplot(corrected_nsgtf) +
   )
 
 g3 <- ggplot(corrected_mean_nsgtf) +
+  geom_ribbon(aes(r, ymin=lwr, ymax=upr), alpha=0.2) + 
   geom_line(aes(r, median), lwd=1) +
-  geom_line(aes(r, lwr), lwd=1)  +
-  geom_line(aes(r, upr), lwd=1) +
   scale_x_continuous("Delta growth rate (1/day)") +
   scale_y_continuous("Mean forward incubation period (days)", limits=c(3.3, 5.6)) +
   theme(
@@ -114,9 +113,8 @@ g3 <- ggplot(corrected_mean_nsgtf) +
   )
 
 g4 <- ggplot(corrected_mean_sgtf) +
+  geom_ribbon(aes(r, ymin=lwr, ymax=upr), alpha=0.2, fill="orange") + 
   geom_line(aes(r, median), lty=2, col="orange", lwd=1) +
-  geom_line(aes(r, lwr), lty=2, col="orange", lwd=1)  +
-  geom_line(aes(r, upr), lty=2, col="orange", lwd=1) +
   scale_x_continuous("Omicron growth rate (1/day)") +
   scale_y_continuous("Mean forward incubation period (days)", limits=c(3.3, 5.6)) +
   theme(
