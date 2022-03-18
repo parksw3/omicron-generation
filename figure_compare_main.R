@@ -10,11 +10,12 @@ load("rdaout/fit_lognormal_base_comb_within.rda")
 load("rdaout/fit_lognormal_base_comb_between.rda")
 load("rdaout/fit_lognormal_comb_within_r.rda")
 load("rdaout/fit_lognormal_comb_between_r.rda")
-# load("rdaout/fit_lognormal_base.rda")
-# load("rdaout/fit_lognormal_r.rda")
-# load("rdaout/fit_lognormal_r_50_between.rda")
-# load("rdaout/fit_lognormal_r_51_between.rda")
-# load("rdaout/fit_lognormal_r_51.rda")
+
+filter(fit_lognormal_r_comb_nsgtf_within, param=="mean", r==-0.05)
+filter(fit_lognormal_r_comb_sgtf_within, param=="mean", round(r, 2)==0.15)
+
+filter(fit_lognormal_r_comb_nsgtf_between, param=="mean", r==-0.05)
+filter(fit_lognormal_r_comb_sgtf_between, param=="mean", round(r, 2)==0.15)
 
 serialdata <- read_xlsx("serial-netherlands.xlsx")
 
@@ -30,12 +31,16 @@ serialdata_comb_sgtf_within <- serialdata %>%
     n=sum(n)
   )
 
+t.test(rep(serialdata_comb_sgtf_within$serial, serialdata_comb_sgtf_within$n))
+
 serialdata_comb_nsgtf_within <- serialdata %>%
   filter(strain=="non-SGTF", household=="within") %>%
   group_by(serial, strain, household) %>%
   summarize(
     n=sum(n)
   )
+
+t.test(rep(serialdata_comb_nsgtf_within$serial, serialdata_comb_nsgtf_within$n))
 
 serialdata_comb_sgtf_between <- serialdata %>%
   filter(strain=="SGTF", household=="between") %>%
@@ -44,12 +49,16 @@ serialdata_comb_sgtf_between <- serialdata %>%
     n=sum(n)
   )
 
+t.test(rep(serialdata_comb_sgtf_between$serial, serialdata_comb_sgtf_between$n))
+
 serialdata_comb_nsgtf_between <- serialdata %>%
   filter(strain=="non-SGTF", household=="between") %>%
   group_by(serial, strain, household) %>%
   summarize(
     n=sum(n)
   )
+
+t.test(rep(serialdata_comb_nsgtf_between$serial, serialdata_comb_nsgtf_between$n))
 
 serial_density_lognormal_nsgtf_within <- data.frame(
   x=xvec,
@@ -135,8 +144,7 @@ g2 <- ggplot(genden_nsgtf_within) +
 
 g3 <- ggplot(filter(fit_lognormal_r_comb_nsgtf_within, param=="mean")) +
   geom_line(aes(r, est), lwd=1) +
-  geom_line(aes(r, lwr), lwd=1) +
-  geom_line(aes(r, upr), lwd=1) +
+  geom_ribbon(aes(r, ymin=lwr, ymax=upr), alpha=0.2) + 
   scale_x_continuous("Delta growth rate (1/day)") +
   scale_y_continuous("Mean within-household\ngeneration interval (days)", limits=c(2.4, 4.1)) +
   theme(
@@ -145,8 +153,7 @@ g3 <- ggplot(filter(fit_lognormal_r_comb_nsgtf_within, param=="mean")) +
 
 g4 <- ggplot(filter(fit_lognormal_r_comb_sgtf_within, param=="mean")) +
   geom_line(aes(r, est), lwd=1, lty=2, col="orange") +
-  geom_line(aes(r, lwr), lwd=1, lty=2, col="orange") +
-  geom_line(aes(r, upr), lwd=1, lty=2, col="orange") +
+  geom_ribbon(aes(r, ymin=lwr, ymax=upr), alpha=0.2, fill="orange") + 
   scale_x_continuous("Omicron growth rate (1/day)") +
   scale_y_continuous("Mean within-household\ngeneration interval (days)", limits=c(2.4, 4.1)) +
   theme(
@@ -183,8 +190,7 @@ g6 <- ggplot(genden_nsgtf_between) +
 
 g7 <- ggplot(filter(fit_lognormal_r_comb_nsgtf_between, param=="mean")) +
   geom_line(aes(r, est), lwd=1) +
-  geom_line(aes(r, lwr), lwd=1) +
-  geom_line(aes(r, upr), lwd=1) +
+  geom_ribbon(aes(r, ymin=lwr, ymax=upr), alpha=0.2) + 
   scale_x_continuous("Delta growth rate (1/day)") +
   scale_y_continuous("Mean between-household\ngeneration interval (days)", limits=c(2.4, 4.1)) +
   theme(
@@ -193,8 +199,7 @@ g7 <- ggplot(filter(fit_lognormal_r_comb_nsgtf_between, param=="mean")) +
 
 g8 <- ggplot(filter(fit_lognormal_r_comb_sgtf_between, param=="mean")) +
   geom_line(aes(r, est), lwd=1, lty=2, col="orange") +
-  geom_line(aes(r, lwr), lwd=1, lty=2, col="orange") +
-  geom_line(aes(r, upr), lwd=1, lty=2, col="orange") +
+  geom_ribbon(aes(r, ymin=lwr, ymax=upr), alpha=0.2, fill="orange") + 
   scale_x_continuous("Omicron growth rate (1/day)") +
   scale_y_continuous("Mean between-household\ngeneration interval (days)", limits=c(2.4, 4.1)) +
   theme(

@@ -9,7 +9,7 @@ library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(mgcv)
 library(mvtnorm)
 library(egg)
-load("rdaout/fit_lognormal_base_50_between.rda")
+load("rdaout/fit_lognormal_base_comb_between.rda")
 
 weekbreak <- as.Date("2021-12-19") + 7 * (-4:6)
 
@@ -86,8 +86,8 @@ gfit2_Xp <- (gfit2_p2 - gfit2_p1) / 0.01/7
 set.seed(101)
 gfit1_sim <- rmvnorm(nsample, mean = coef(gfit1), sigma = vcov(gfit1))
 gfit2_sim <- rmvnorm(nsample, mean = coef(gfit2), sigma = vcov(gfit2))
-lognormal_sim1 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_50_nsgtf_between)[1:2], sigma=vcov(fit_lognormal_base_50_nsgtf_between))
-lognormal_sim2 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_50_sgtf_between)[1:2], sigma=vcov(fit_lognormal_base_50_sgtf_between))
+lognormal_sim1 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_comb_nsgtf_between)[1:2], sigma=vcov(fit_lognormal_base_comb_nsgtf_between))
+lognormal_sim2 <- rmvnorm(nsample, mean=coef(fit_lognormal_base_comb_sgtf_between)[1:2], sigma=vcov(fit_lognormal_base_comb_sgtf_between))
 
 gfit1_post <- apply(gfit1_sim, 1, function(x) {gfit1_Xp %*% x})
 gfit2_post <- apply(gfit2_sim, 1, function(x) {gfit2_Xp %*% x})
@@ -165,26 +165,6 @@ g1 <- ggplot(filter(advantagesumm, key %in% c("R_advantage", "R_delta", "R_omicr
     legend.position = "none"
   )
 
-advantagesumm2 <- advantagesumm %>%
-  select(-lwr, -upr) %>%
-  spread(key, median)
+gfinal <- ggarrange(g1, g2, nrow=1, labels=c("A", "B"), draw=FALSE)
 
-g3 <- ggplot(advantagesumm2) +
-  geom_path(aes(R_delta, R_advantage), lwd=1, arrow = arrow(length=unit(0.30,"cm"))) +
-  scale_x_log10("Delta reproduction number") +
-  scale_y_log10("Reproduction number ratio") +
-  theme(
-    panel.grid = element_blank()
-  )
-
-g4 <- ggplot(advantagesumm2) +
-  geom_path(aes(R_omicron, R_advantage), lwd=1, arrow = arrow(length=unit(0.30,"cm")), col="Orange") +
-  scale_x_log10("Omicron reproduction number") +
-  scale_y_log10("Reproduction number ratio") +
-  theme(
-    panel.grid = element_blank()
-  )
-
-gfinal <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
-
-ggsave("figure_reproduction_advantage_between.pdf", gfinal, width=8, height=6)
+ggsave("figure_reproduction_advantage_between.pdf", gfinal, width=8, height=3)
