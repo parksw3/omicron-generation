@@ -115,11 +115,11 @@ For example, an invading variant with shorter generation intervals---defined as 
 Estimating the generation-interval distribution is challenging, in part, due to difficulties in observing actual infection events.
 Many researchers primarily focus on comparisons of other transmission intervals, such as the time between symptom onsets (also referred to as serial intervals) or between testing events \citep{abbott2022test} of the infector and the infectee.
 Each of these transmission-interval distributions are subject to dynamical effects which, can bias estimation.
-For example, when the epidemic is growing, a cohort of infectors who developed symptoms at the same time are more likely to have been infected recently, shortening their incubation periods---in other words, their incubation periods will be shorter, on average, than those of their infectees, causing the mean serial interval to be longer than the mean generation interval \citep{park2021forward}.
+For example, when the epidemic is growing, a cohort of infectors who developed symptoms at the same time are more likely to have been infected recently---in other words, their incubation periods will be shorter, on average, than those of their infectees, causing the mean serial interval to be longer than the mean generation interval \citep{park2021forward}.
 Therefore, observed differences in transmission-interval distributions between variants are not necessarily equivalent to differences in the underlying generation-interval distributions, especially if their growth rates differ.
 
 Here, we re-analyze serial-interval data collected by \citep{backer2021omicron}, representing within- and between-household transmissions of the Delta and Omicron variants from the Netherlands between 13 and 26 December 2021.
-The study found shorter mean serial intervals (3.5 vs 4.1 days) and mean incubation periods (3.2 vs 4.4 days) for transmission pairs with S-gene target failure (mostly Omicron during the study period) and without (mostly Delta), but did not consider growth-rate differences in their inference:
+The study found shorter mean serial intervals (3.5 vs 4.1 days) and mean incubation periods (3.2 vs 4.4 days) for transmission pairs with S-gene target failure (mostly Omicron during the study period) than without (mostly Delta), but did not consider growth-rate differences in their inference:
 during this period, the Omicron cases were increasing, whereas the Delta cases were decreasing.
 Here, we take the epidemiological context in the Netherlands during the study period into account to provide corrected estimates for the incubation periods and generation-interval distributions of the Delta and Omicron variants.
 We show that using up-to-date generation-interval distributions is critical to accurately estimating the reproduction advantage (i.e., the ratio between the reproduction numbers of the invading and resident variants) of emerging SARS-CoV-2 variants.
@@ -212,7 +212,7 @@ This symptom-based generation-interval distribution depends on the backward incu
 \begin{align}
 f_{G, \mathrm{symptom}}(\tau) &= \int_0^\infty f_{G|I}(\tau|x) b_I(x) \dx,
 \end{align}
-where $f_{G|I}(\tau|x)$ represents the forward generation-interval distribution conditional on a known value of the incubation period, $x$.
+where $f_{G|I}(\tau|x)$ represents the forward generation-interval distribution conditional on a known value of the incubation period, $x$, and $b_I(x)$ represents the backward incubation-period distribution.
 Instead, the forward generation-interval distribution measured from a cohort of individuals who were infected at the time is expected to provide reliable estimates of the distribution across individuals (because their incubation-period distribution is expected to remain constant over time, \fref{diagram}B):
 \begin{align}
 f_{G, \mathrm{inf}}(\tau) &= \int_0^\infty f_{G|I}(\tau|x) f_I(x) \dx.
