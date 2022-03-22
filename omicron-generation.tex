@@ -248,7 +248,8 @@ The main difference between our model and previous models that neglect dynamical
 For a given value of $r$, we first estimate the forward incubation-period distribution from the backward distribution, previously estimated by \cite{backer2021omicron}, using \eref{forward}.
 We then approximate the forward incubation-period distribution with a lognormal distribution by matching the mean and standard deviation.
 Using this incubation-period distribution, we fit \eref{forwardserial} to the observed serial-interval data by minimizing the negative log-likelihood.
-We then calculate the mean forward generation interval using \eref{meangen} and approximate the 95\% confidence interval using the Delta method.
+We then calculate the mean forward generation interval using \eref{meangen}.
+The 95\% confidence intervals are calculated by taking the estimated variance-covariance matrix for the log-mean and -standard deviation parameters of the log normal distributions and calculating the corresponding variance-covariance for the overall mean using Taylor expansion---this method is also known as the Delta method \citep{oehlert1992note}.
 We assume $\rho = 0.75$ throughout based on \cite{sender2021unmitigated}---since we do not have individual-level data on infection and symptom onset times, we expect this parameter to be unidentifiable in practice.
 In Supplementary Material, we explore how assumptions about $\rho$ affect inferences of the generation-interval distribution.
 
