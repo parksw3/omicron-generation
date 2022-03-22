@@ -82,7 +82,7 @@ corrected_sgtf <- tibble(
 g1 <- ggplot(observed_nsgtf) +
   geom_line(aes(time, density, col="Delta", lty="Delta"), lwd=1) +
   geom_line(data=observed_sgtf, aes(time, density, col="Omicron", lty="Omicron"), lwd=1) +
-  scale_x_continuous("Observed incubation period (days)", expand=c(0, 0)) +
+  scale_x_continuous("Observed (backward) incubation period (days)", expand=c(0, 0)) +
   scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.23)) +
   scale_color_manual("", values=c("black", "orange")) +
   scale_linetype_discrete("") +
@@ -95,7 +95,7 @@ g1 <- ggplot(observed_nsgtf) +
 g2 <- ggplot(corrected_nsgtf) +
   geom_line(aes(time, density, col="Delta"), lwd=1) +
   geom_line(data=corrected_sgtf, aes(time, density, col="Omicron"), lwd=1, lty=2) +
-  scale_x_continuous("Forward incubation period (days)", expand=c(0, 0), limits=c(0, 14)) +
+  scale_x_continuous("Inferred (forward) incubation period (days)", expand=c(0, 0), limits=c(0, 14)) +
   scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.23)) +
   scale_color_manual(values=c("black", "orange")) +
   theme(
