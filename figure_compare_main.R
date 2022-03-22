@@ -1,7 +1,7 @@
 library(bbmle)
 library(dplyr)
 library(readxl)
-library(ggplot2); theme_set(theme_bw(base_family = "Times"))
+library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(egg)
 library(gridExtra)
 source("serialfun.R")
@@ -119,21 +119,21 @@ g1 <- ggplot(serialdata_comb_nsgtf_within) +
   geom_point(data=serialdata_comb_sgtf_within, aes(serial+0.1, n/sum(n), col="Omicron", shape="Omicron"), size=3) +
   geom_line(data=serial_density_lognormal_nsgtf_within, aes(x, y, col="Delta", lty="Delta"), lwd=1) +
   geom_line(data=serial_density_lognormal_sgtf_within, aes(x, y, col="Omicron", lty="Omicron"), lwd=1) +
-  scale_x_continuous("Within-household serial intervals (days)", expand=c(0, 0), limits=c(-6, 16)) +
+  scale_x_continuous("Within-household\nserial intervals (days)", expand=c(0, 0), limits=c(-6, 16)) +
   scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.23)) +
   scale_color_manual("", values=c("black", "orange")) +
   scale_linetype_discrete("") +
   scale_shape_discrete("") +
   theme(
     panel.grid = element_blank(),
-    legend.position = c(0.8, 0.85),
+    legend.position = c(0.75, 0.85),
     legend.background = element_rect(fill=NA)
   )
 
 g2 <- ggplot(genden_nsgtf_within) +
   geom_line(aes(time, density), lwd=1) +
   geom_line(data=genden_sgtf_within, aes(time, density), lwd=1, lty=2, col="Orange") +
-  scale_x_continuous("Within-household generation intervals (days)", expand=c(0, 0), limits=c(0, 14)) +
+  scale_x_continuous("Within-household\ngeneration intervals (days)", expand=c(0, 0), limits=c(0, 14)) +
   scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.38)) +
   scale_color_manual("", values=c("black", "orange")) +
   scale_linetype_discrete("") +
@@ -165,21 +165,21 @@ g5 <- ggplot(serialdata_comb_nsgtf_between) +
   geom_point(data=serialdata_comb_sgtf_between, aes(serial+0.1, n/sum(n), col="Omicron", shape="Omicron"), size=3) +
   geom_line(data=serial_density_lognormal_nsgtf_between, aes(x, y, col="Delta", lty="Delta"), lwd=1) +
   geom_line(data=serial_density_lognormal_sgtf_between, aes(x, y, col="Omicron", lty="Omicron"), lwd=1) +
-  scale_x_continuous("Between-household serial intervals (days)", expand=c(0, 0), limits=c(-6, 16)) +
+  scale_x_continuous("Between-household\nserial intervals (days)", expand=c(0, 0), limits=c(-6, 16)) +
   scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.23)) +
   scale_color_manual("", values=c("black", "orange")) +
   scale_linetype_discrete("") +
   scale_shape_discrete("") +
   theme(
     panel.grid = element_blank(),
-    legend.position = c(0.8, 0.85),
+    legend.position = c(0.75, 0.85),
     legend.background = element_rect(fill=NA)
   )
 
 g6 <- ggplot(genden_nsgtf_between) +
   geom_line(aes(time, density), lwd=1) +
   geom_line(data=genden_sgtf_between, aes(time, density), lwd=1, lty=2, col="Orange") +
-  scale_x_continuous("Between-household generation intervals (days)", expand=c(0, 0), limits=c(0, 14)) +
+  scale_x_continuous("Between-household\ngeneration intervals (days)", expand=c(0, 0), limits=c(0, 14)) +
   scale_y_continuous("Density (1/day)", expand=c(0, 0), limits=c(0, 0.38)) +
   scale_color_manual("", values=c("black", "orange")) +
   scale_linetype_discrete("") +
@@ -205,7 +205,6 @@ g8 <- ggplot(filter(fit_lognormal_r_comb_sgtf_between, param=="mean")) +
   theme(
     panel.grid = element_blank()
   )
-
 
 gcomb1 <- ggarrange(g1, g2, g3, g4, g5, g6, g7, g8, nrow=2, draw=FALSE, 
                     labels=c("A", "B", "C", "D", "E", "F", "G", "H"))

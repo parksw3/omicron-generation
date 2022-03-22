@@ -1,5 +1,5 @@
 library(dplyr)
-library(ggplot2); theme_set(theme_bw(base_family = "Times"))
+library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(egg)
 source("sample_incubation.R")
 

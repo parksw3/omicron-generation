@@ -5,7 +5,7 @@ library(tidyr)
 library(dplyr)
 library(lubridate)
 library(zoo)
-library(ggplot2); theme_set(theme_bw(base_family = "Times"))
+library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(mgcv)
 library(mvtnorm)
 library(egg)
@@ -144,7 +144,9 @@ g2 <- ggplot(filter(advantagesumm, key %in% c("R_advantage_naive", "R_delta", "R
   scale_fill_manual(values=c("purple", "black", "orange"), labels=c("Advantage", "Delta", "Omicron")) +
   theme(
     panel.grid = element_blank(),
-    legend.title = element_blank()
+    legend.title = element_blank(),
+    axis.text.x = element_text(angle=45, hjust=1),
+    axis.title.x = element_blank()
   )
 
 g1 <- ggplot(filter(advantagesumm, key %in% c("R_advantage", "R_delta", "R_omicron"))) +
@@ -161,7 +163,9 @@ g1 <- ggplot(filter(advantagesumm, key %in% c("R_advantage", "R_delta", "R_omicr
   theme(
     panel.grid = element_blank(),
     legend.title = element_blank(),
-    legend.position = "none"
+    legend.position = "none",
+    axis.text.x = element_text(angle=45, hjust=1),
+    axis.title.x = element_blank()
   )
 
 advantagesumm2 <- advantagesumm %>%
@@ -194,7 +198,7 @@ g5 <- ggplot(advantagesumm2) +
 
 gfinal <- ggarrange(g1, g2, nrow=1, labels=c("A", "B"), draw=FALSE)
 
-ggsave("figure_reproduction_advantage.pdf", gfinal, width=8, height=3)
+ggsave("figure_reproduction_advantage.pdf", gfinal, width=8.1, height=3)
 
 gsupp <- ggarrange(g5, g3, g4, nrow=1, labels=c("A", "B", "C"), draw=FALSE)
 

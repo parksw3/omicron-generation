@@ -3,7 +3,7 @@ library(readxl)
 library(dplyr)
 library(lubridate)
 library(zoo)
-library(ggplot2); theme_set(theme_bw(base_family = "Times"))
+library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=13))
 library(mgcv)
 library(mvtnorm)
 library(egg)
@@ -80,7 +80,9 @@ g1 <- ggplot(cases_all) +
   scale_y_log10("Number of reported cases", limits=c(9000, NA),
                 breaks=c(1e4, 2e4, 4e4, 8e4)) +
   theme(
-    panel.grid = element_blank()
+    panel.grid = element_blank(),
+    axis.text.x = element_text(angle=45, hjust=1),
+    axis.title.x = element_blank()
   )
 
 g2 <- ggplot(variant3) +
@@ -96,7 +98,9 @@ g2 <- ggplot(variant3) +
   scale_color_manual("", values=c("black", "orange")) +
   theme(
     panel.grid = element_blank(),
-    legend.position = "right"
+    legend.position = "right",
+    axis.text.x = element_text(angle=45, hjust=1),
+    axis.title.x = element_blank()
   )
 
 gfit1 <- gam(log(delta_cases)~s(time, bs="cs"), data=variant4, method="REML")
@@ -164,7 +168,9 @@ g3 <- ggplot(variant4) +
   scale_y_log10("Number of estimated cases") +
   theme(
     panel.grid = element_blank(),
-    legend.position = "none"
+    legend.position = "none",
+    axis.text.x = element_text(angle=45, hjust=1),
+    axis.title.x = element_blank()
   )
 
 g4 <- ggplot(all_growth) +
@@ -179,11 +185,13 @@ g4 <- ggplot(all_growth) +
   scale_fill_manual(values=c("purple", "black", "orange")) +
   theme(
     panel.grid = element_blank(),
-    legend.title = element_blank()
+    legend.title = element_blank(),
+    axis.text.x = element_text(angle=45, hjust=1),
+    axis.title.x = element_blank()
   )
 
 all_growth %>% filter(type=="Delta")
 
 gtot <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
 
-ggsave("figure_epidemic.pdf", gtot, width=12, height=8)
+ggsave("figure_epidemic.pdf", gtot, width=8, height=6)
