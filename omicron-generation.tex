@@ -304,9 +304,6 @@ However, these measurements were done during a period when the incidence of Omic
 Thus, dynamical bias would be expected to lead to shorter observed (backward) incubation periods in Omicron, and longer observed incubation periods in Delta. 
 When we account for these growth-rate differences and re-estimate the forward incubation periods, we find that both variants have similar incubation-period distributions (\fref{incubation}B).
 Although the exact estimate of the mean forward incubation periods of both variants are sensitive to the assumed growth/decay rates, we find similar means across a plausible ranges of growth rates (\fref{incubation}C--D).
-% \jd{Do we need the ff.~s.? What does it add to the Fig?}
-% \swp{I think people like to see actual values...}
-% \jd{I trimmed some other stuff around here; take a look at a diff if you can 2022 Mar 25 (Fri).}
 For example, the mean forward incubation period of the Delta variant changes from 3.8 days (95\% CI: 3.5--4.1 days) to 4.4 days (95\% CI: 4.0--4.8 days) as we change the assumed values of $r$ from $-0.1/\mathrm{days}$ to $0/\mathrm{days}$ (\fref{incubation}C), while
 the mean forward incubation period of the Omicron variant changes from 3.8 days (95\% CI: 3.4--4.4 days) to 4.5 days (95\% CI: 3.9--5.5 days) as we change the assumed values of $r$ from $0.1/\mathrm{days}$ to $0.2/\mathrm{days}$ (\fref{incubation}D).
 
@@ -391,7 +388,6 @@ Improving generation-interval estimates by taking dynamical effects into account
 The generation-interval distribution describes changes in the individual-level transmission dynamics over the course of infection and therefore provides crucial information for epidemic control.
 A few studies have estimated the generation-interval distributions of SARS-CoV-2 infections from serial-interval data, but most of them neglect the effects of epidemic growth rates \citep{ganyani2020estimating,he2020temporal,zhao2021estimating,hart2022generation}---these practices can be largely attributed to historical work that concluded that serial and generation intervals have the same means based on the assumption that infectors and infectees have identical incubation-period distributions \citep{svensson2007note,britton2019estimation,lehtinen2021relationship}.
 Here, we build on newer work \citep{park2021forward}, which demonstrated theoretically that forward serial-interval distributions depends on epidemic growth rates, and further confirm that estimates of the forward generation-interval distributions are indeed sensitive to epidemic growth rates.
-%% Accounting for the growth-rate effects is especially important when comparing serial and generation intervals of different variants or from different time periods. \jd{Not seeing what this s.\ is saying. It's important any time we want to calculate or compare intervals. What's the time when it's less important? When we're comparing the same variant at the same time and place to itself?}
 These effects are also pertinent to epidemiological inferences of past events from a cohort of infected individuals who experienced a later event at the same time---this includes inferences of other delay distributions, such as incubation-period distributions, as well as viral load trajectories \citep{hay2021estimating}.
 Our sensitivity analysis also shows that the assumptions about the correlation between incubation periods and generation intervals can also have important effects on the estimates of the generation-interval distributions (Supplementary Figure S1).
 
