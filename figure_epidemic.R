@@ -71,8 +71,12 @@ variant4 <- variant3 %>%
   )
 
 g1 <- ggplot(cases_all) +
+  geom_rect(xmin=as.Date("2021-12-13"), xmax=as.Date("2021-12-19"), ymin=-Inf, ymax=Inf, alpha=0.1, fill="gray") +
+  geom_rect(xmin=as.Date("2021-12-20"), xmax=as.Date("2021-12-26"), ymin=-Inf, ymax=Inf, alpha=0.02, fill=4) +
   geom_point(aes(Date_of_publication, cases)) +
   geom_line(aes(Date_of_publication, rollmean), lty=1) +
+  annotate("text", x=as.Date("2021-12-15")+1, y=75000, label=c("Week\n50"), family="Times", size=3) +
+  annotate("text", x=as.Date("2021-12-22")+1, y=75000, label=c("Week\n51"), family="Times", size=3) +
   scale_x_date("Date", limits=c(as.Date("2021-11-28"), as.Date("2022-01-30")), 
                breaks=variant4$date,
                labels=c("Nov 28", "Dec 5", "Dec 12", "Dec 19", "Dec 26", "Jan 2", "Jan 9", "Jan 16",
@@ -175,12 +179,16 @@ g3 <- ggplot(variant4) +
 
 g4 <- ggplot(all_growth) +
   geom_hline(yintercept=0, lty=2) +
+  geom_vline(xintercept=4, lty=2) +
+  geom_vline(xintercept=8-1/7, lty=2) +
+  annotate("text", x=4, y=0.29, hjust=-0.05, label="Lockdown\nintroduced", family="Times") +
+  annotate("text", x=8-1/7, y=0.29, hjust=-0.05, label="Lockdown\nrelaxed", family="Times") +
   geom_ribbon(aes(time, ymin=lwr, ymax=upr, fill=type), alpha=0.2) +
   geom_line(aes(time, median, col=type), lwd=0.8) +
   scale_x_continuous("Date", breaks=1:10,
                      labels=c("Nov 28", "Dec 5", "Dec 12", "Dec 19", "Dec 26", "Jan 2", "Jan 9", "Jan 16",
                               "Jan 23", "Jan 30")) +
-  scale_y_continuous("Growth rate (1/day)") +
+  scale_y_continuous("Growth rate (1/day)", limits=c(NA, 0.3)) +
   scale_color_manual(values=c("purple", "black", "orange")) +
   scale_fill_manual(values=c("purple", "black", "orange")) +
   theme(
@@ -194,4 +202,4 @@ all_growth %>% filter(type=="Delta")
 
 gtot <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
 
-ggsave("figure_epidemic.pdf", gtot, width=8, height=6)
+ggsave("figure_epidemic.pdf", gtot, width=10, height=8)

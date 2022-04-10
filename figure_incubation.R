@@ -79,6 +79,14 @@ corrected_sgtf <- tibble(
   density=density0/sum(density0*0.1)
 )
 
+sum(observed_sgtf$time * observed_sgtf$density)/sum(observed_sgtf$density)
+
+sum(observed_nsgtf$time * observed_nsgtf$density)/sum(observed_nsgtf$density)
+
+sum(corrected_sgtf$time * corrected_sgtf$density)/sum(corrected_sgtf$density)
+
+sum(corrected_nsgtf$time * corrected_nsgtf$density)/sum(corrected_nsgtf$density)
+
 g1 <- ggplot(observed_nsgtf) +
   geom_line(aes(time, density, col="Delta", lty="Delta"), lwd=1) +
   geom_line(data=observed_sgtf, aes(time, density, col="Omicron", lty="Omicron"), lwd=1) +
