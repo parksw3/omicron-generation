@@ -1,9 +1,9 @@
 library(dplyr)
 library(readxl)
-source("serialfun.R")
-source("fitfun.R")
-source("sample_incubation.R")
-load("fit_lognormal_base.rda")
+source("../R/serialfun.R")
+source("../R/fitfun.R")
+source("../R/sample_incubation.R")
+load("../rdaout/fit_lognormal_base.rda")
 
 r_nsgtf <- seq(-0.1, 0, length.out=11)
 r_sgtf <- seq(0.1, 0.2, length.out=11)
@@ -139,4 +139,4 @@ fit_lognormal_r_51_sgtf_between <- lapply(r_sgtf, function(r) {
 }) %>%
   bind_rows
 
-save("fit_lognormal_r_51_sgtf_between", "fit_lognormal_r_51_nsgtf_between", file="fit_lognormal_r_51_between.rda")
+save("fit_lognormal_r_51_sgtf_between", "fit_lognormal_r_51_nsgtf_between", file="../rdaout/fit_lognormal_r_51_between.rda")

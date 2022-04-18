@@ -1,4 +1,4 @@
-load("rdaout/fit_lognormal_base_comb_within.rda")
+load("../rdaout/fit_lognormal_base_comb_within.rda")
 r_diff <- 0.32
 r_delta <- -0.06
 r_omicron <- r_delta + r_diff

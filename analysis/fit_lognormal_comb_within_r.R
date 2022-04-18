@@ -1,10 +1,10 @@
 library(bbmle)
 library(dplyr)
 library(readxl)
-source("serialfun.R")
-source("fitfun.R")
-source("sample_incubation.R")
-load("rdaout/fit_lognormal_base_comb_within.rda")
+source("../R/serialfun.R")
+source("../R/fitfun.R")
+source("../R/sample_incubation.R")
+load("../rdaout/fit_lognormal_base_comb_within.rda")
 
 r_nsgtf <- seq(-0.1, 0, length.out=11)
 r_sgtf <- seq(0.1, 0.2, length.out=11)
@@ -130,4 +130,4 @@ fit_lognormal_r_comb_sgtf_within <- lapply(r_sgtf, function(r) {
 }) %>%
   bind_rows
 
-save("fit_lognormal_r_comb_sgtf_within", "fit_lognormal_r_comb_nsgtf_within", file="fit_lognormal_comb_within_r.rda")
+save("fit_lognormal_r_comb_sgtf_within", "fit_lognormal_r_comb_nsgtf_within", file="../rdaout/fit_lognormal_comb_within_r.rda")

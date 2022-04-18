@@ -1,4 +1,4 @@
-source("sample_incubation.R")
+source("../R/sample_incubation.R")
 
 r_nsgtf <- -0.05
 r_sgtf <- 0.15
@@ -39,4 +39,4 @@ var_inc_sgtf <- moment_2_sgtf/moment_0_sgtf - mean_inc_sgtf^2
 logsd_inc_sgtf <- sqrt(log(var_inc_sgtf/mean_inc_sgtf^2 + 1))
 logmean_inc_sgtf <- log(mean_inc_sgtf/exp(logsd_inc_sgtf^2/2))
 
-save("logsd_inc_nsgtf", "logmean_inc_nsgtf", "logsd_inc_sgtf", "logmean_inc_sgtf", file="calculate_incubation_mle.rda")
+save("logsd_inc_nsgtf", "logmean_inc_nsgtf", "logsd_inc_sgtf", "logmean_inc_sgtf", file="../rdaout/calculate_incubation_mle.rda")

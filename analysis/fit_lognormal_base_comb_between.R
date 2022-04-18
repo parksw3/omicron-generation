@@ -1,9 +1,9 @@
 library(bbmle)
 library(dplyr)
 library(readxl)
-source("serialfun.R")
-source("fitfun.R")
-load("rdaout/calculate_incubation_mle.rda")
+source("../R/serialfun.R")
+source("../R/fitfun.R")
+load("../rdaout/calculate_incubation_mle.rda")
 
 r_nsgtf <- -0.05
 r_sgtf <- 0.15
@@ -44,4 +44,4 @@ fit_lognormal_base_comb_nsgtf_between <- fitfun_lognormal(data=data_comb_nsgtf_b
                                                        rho=rho, 
                                                        r=r_nsgtf)
 
-save("fit_lognormal_base_comb_sgtf_between", "fit_lognormal_base_comb_nsgtf_between", file="fit_lognormal_base_comb_between.rda")
+save("fit_lognormal_base_comb_sgtf_between", "fit_lognormal_base_comb_nsgtf_between", file="../rdaout/fit_lognormal_base_comb_between.rda")
