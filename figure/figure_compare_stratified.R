@@ -4,7 +4,7 @@ library(readxl)
 library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(egg)
 library(gridExtra)
-source("serialfun.R")
+source("R/serialfun.R")
 load("rdaout/fit_lognormal_r.rda")
 load("rdaout/fit_lognormal_r_50_between.rda")
 load("rdaout/fit_lognormal_r_51_between.rda")
@@ -92,4 +92,4 @@ g8 <- ggplot(filter(fit_lognormal_r_51_sgtf_between, param=="mean")) +
 
 gcomb <- ggarrange(g1, g2, g3, g4, g5, g6, g7, g8, nrow=2, draw=FALSE)
 
-ggsave("figure_compare_stratified.pdf", gcomb, width=12, height=6)
+saveGG(gcomb, width=12, height=6)

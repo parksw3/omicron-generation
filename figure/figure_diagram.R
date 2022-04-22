@@ -1,5 +1,7 @@
 library(ggplot2); theme_set(theme_bw(base_family="Times"))
 library(egg)
+library(shellpipes)
+startGraphics()
 
 size <- 4
 stroke <- 1
@@ -140,5 +142,4 @@ g2 <- ggplot() +
   )
 
 gcomb <- ggarrange(g1, g2, nrow=2, draw=FALSE, labels=c("A", "B"))
-
-ggsave("figure_diagram.pdf", gcomb, width=9, height=10)
+saveGG(gcomb)

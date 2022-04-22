@@ -9,14 +9,16 @@ library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(mgcv)
 library(mvtnorm)
 library(egg)
+
+library(shellpipes)
 load("rdaout/fit_lognormal_base_comb_between.rda")
 
 weekbreak <- as.Date("2021-12-19") + 7 * (-4:6)
 
 nsample <- 1000
 
-cases <- vroom("COVID-19_aantallen_gemeente_per_dag.csv")
-variant <- read_xlsx("variant-netherlands.xlsx")
+cases <- vroom("data/COVID-19_aantallen_gemeente_per_dag.csv")
+variant <- read_xlsx("data/variant-netherlands.xlsx")
 
 cases_all <- cases %>%
   group_by(Date_of_publication) %>%
@@ -167,4 +169,4 @@ g1 <- ggplot(filter(advantagesumm, key %in% c("R_advantage", "R_delta", "R_omicr
 
 gfinal <- ggarrange(g1, g2, nrow=1, labels=c("A", "B"), draw=FALSE)
 
-ggsave("figure_reproduction_advantage_between.pdf", gfinal, width=8, height=3)
+saveGG(gfinal, width=8, height=3)

@@ -4,9 +4,12 @@ library(readxl)
 library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(egg)
 library(gridExtra)
+
+library(shellpipes)
+startGraphics(width=6, heigh=4)
 load("rdaout/fit_lognormal_base_comb_rho.rda")
 
-g1 <- ggplot(filter(fit_lognormal_base_rho_comb_nsgtf_within, param=="mean"))  +
+print(ggplot(filter(fit_lognormal_base_rho_comb_nsgtf_within, param=="mean"))  +
   geom_ribbon(aes(rho, ymin=lwr, ymax=upr), alpha=0.2) +
   geom_line(aes(rho, est), lwd=1, col="black") +
   geom_ribbon(data=filter(fit_lognormal_base_rho_comb_sgtf_within, param=="mean", type=="Omicron"), aes(rho, ymin=lwr, ymax=upr), fill="orange", alpha=0.2) +
@@ -16,5 +19,5 @@ g1 <- ggplot(filter(fit_lognormal_base_rho_comb_nsgtf_within, param=="mean"))  +
   theme(
     panel.grid = element_blank()
   )
+)
 
-ggsave("figure_compare_rho.pdf", g1, width=6, heigh=4)

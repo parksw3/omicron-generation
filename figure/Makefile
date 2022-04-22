@@ -30,13 +30,17 @@ figure_epidemic.Rout: figure_epidemic.R
 figure_incubation.Rout: figure_incubation.R
 
 figure_compare.Rout: figure_compare.R
+
 figure_compare_rho.Rout: figure_compare_rho.R
+
 figure_compare_stratified.Rout: figure_compare_stratified.R
 figure_diagram.Rout: figure_diagram.R
 figure_incubation.Rout: figure_incubation.R
 figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_between.R
 figure_reproduction_advantage_new.Rout: figure_reproduction_advantage_new.R
 figure_reproduction_advantage.Rout: figure_reproduction_advantage.R
+
+## figure_reproduction_advantage.ggp.pdf: figure_reproduction_advantage.R
 
 ######################################################################
 
