@@ -4,7 +4,7 @@ library(readxl)
 library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(egg)
 library(gridExtra)
-source("serialfun.R")
+source("R/serialfun.R")
 load("rdaout/calculate_incubation_mle.rda")
 load("rdaout/fit_lognormal_base_comb_within.rda")
 load("rdaout/fit_lognormal_base_comb_between.rda")
@@ -17,7 +17,7 @@ filter(fit_lognormal_r_comb_sgtf_within, param=="mean", round(r, 2)==0.15)
 filter(fit_lognormal_r_comb_nsgtf_between, param=="mean", r==-0.05)
 filter(fit_lognormal_r_comb_sgtf_between, param=="mean", round(r, 2)==0.15)
 
-serialdata <- read_xlsx("serial-netherlands.xlsx")
+serialdata <- read_xlsx("data/serial-netherlands.xlsx")
 
 xvec <- seq(-6, 16, by=0.2)
 

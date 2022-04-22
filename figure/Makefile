@@ -12,10 +12,16 @@ vim_session:
 ######################################################################
 
 autopipeR = defined
-pardirs += rdaout data
+pardirs += rdaout data R
 
-figure_compare_he.Rout: figure_compare_he.R
-figure_compare_he.Rout: figure_compare_he.R
+Ignore += $(pardirs)
+
+######################################################################
+
+Sources = $(wildcard *.R)
+
+## figure_compare_he.Rout: figure_compare_he.R
+
 figure_compare_main.Rout: figure_compare_main.R
 figure_compare.Rout: figure_compare.R
 figure_compare_rho.Rout: figure_compare_rho.R
