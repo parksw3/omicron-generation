@@ -2,12 +2,12 @@ library(dplyr)
 library(readxl)
 library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(egg)
-source("serialfun.R")
+source("../R/serialfun.R")
 load("rdaout/calculate_incubation_mle.rda")
 load("rdaout/fit_he_r.rda")
 load("rdaout/fit_he_base.rda")
 
-serialdata <- read_xlsx("serial-netherlands.xlsx")
+serialdata <- read_xlsx("data/serial-netherlands.xlsx")
 
 xvec <- seq(-6, 16, by=0.2)
 
