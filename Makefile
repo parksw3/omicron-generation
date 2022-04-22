@@ -12,6 +12,7 @@ vim_session:
 
 subdirs += doc figure
 Ignore += $(subdirs)
+alldirs += $(subdirs)
 
 omicron-generation.pdf: omicron-generation.tex
 
