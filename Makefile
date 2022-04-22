@@ -10,6 +10,8 @@ vim_session:
 
 ######################################################################
 
+Sources += $(wildcard *.tex)
+
 subdirs += figure
 Ignore += $(subdirs)
 hotdirs += $(subdirs)
