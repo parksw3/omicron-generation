@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(egg)
-source("sample_incubation.R")
+source("R/sample_incubation.R")
 
 rvec_nsgtf <- seq(-0.1, 0, length.out=11)
 rvec_sgtf <- seq(0.1, 0.2, length.out=11)
@@ -100,6 +100,8 @@ g1 <- ggplot(observed_nsgtf) +
     legend.title = element_blank()
   )
 
+print(g1)
+
 g2 <- ggplot(corrected_nsgtf) +
   geom_line(aes(time, density, col="Delta"), lwd=1) +
   geom_line(data=corrected_sgtf, aes(time, density, col="Omicron"), lwd=1, lty=2) +
@@ -110,6 +112,8 @@ g2 <- ggplot(corrected_nsgtf) +
     panel.grid = element_blank(),
     legend.position = "none"
   )
+
+print(g2)
 
 g3 <- ggplot(corrected_mean_nsgtf) +
   geom_ribbon(aes(r, ymin=lwr, ymax=upr), alpha=0.2) + 

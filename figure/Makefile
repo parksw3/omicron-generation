@@ -22,12 +22,17 @@ Sources = $(wildcard *.R)
 
 ## figure_compare_he.Rout: figure_compare_he.R
 
+figure_compare_main.pdf: figure_compare_main.Rout ;
 figure_compare_main.Rout: figure_compare_main.R
+
+figure_epidemic.Rout: figure_epidemic.R
+
+figure_incubation.Rout: figure_incubation.R
+
 figure_compare.Rout: figure_compare.R
 figure_compare_rho.Rout: figure_compare_rho.R
 figure_compare_stratified.Rout: figure_compare_stratified.R
 figure_diagram.Rout: figure_diagram.R
-figure_epidemic.Rout: figure_epidemic.R
 figure_incubation.Rout: figure_incubation.R
 figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_between.R
 figure_reproduction_advantage_new.Rout: figure_reproduction_advantage_new.R

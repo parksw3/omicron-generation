@@ -206,6 +206,11 @@ g8 <- ggplot(filter(fit_lognormal_r_comb_sgtf_between, param=="mean")) +
     panel.grid = element_blank()
   )
 
+print(g1)
+print(g2)
+print(g5)
+print(g6)
+
 gcomb1 <- ggarrange(g1, g2, g3, g4, g5, g6, g7, g8, nrow=2, draw=FALSE, 
                     labels=c("A", "B", "C", "D", "E", "F", "G", "H"))
 

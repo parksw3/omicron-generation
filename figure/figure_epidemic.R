@@ -13,8 +13,8 @@ weekbreak <- as.Date("2021-12-19") + 7 * (-4:6)
 
 nsample <- 1000
 
-cases <- vroom("COVID-19_aantallen_gemeente_per_dag.csv")
-variant <- read_xlsx("variant-netherlands.xlsx")
+cases <- vroom("data/COVID-19_aantallen_gemeente_per_dag.csv")
+variant <- read_xlsx("data/variant-netherlands.xlsx")
 
 cases_all <- cases %>%
   group_by(Date_of_publication) %>%
@@ -203,3 +203,4 @@ all_growth %>% filter(type=="Delta")
 gtot <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
 
 ggsave("figure_epidemic.pdf", gtot, width=10, height=8)
+
