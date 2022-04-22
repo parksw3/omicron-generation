@@ -30,6 +30,7 @@ makestuff/%.stamp:
 
 -include makestuff/os.mk
 
+-include makestuff/texi.mk
 ## -include makestuff/pipeR.mk
 
 -include makestuff/git.mk
