@@ -10,8 +10,9 @@ vim_session:
 
 ######################################################################
 
-subdirs += doc figure
+subdirs += figure
 Ignore += $(subdirs)
+hotdirs += $(subdirs)
 alldirs += $(subdirs)
 
 omicron-generation.pdf: omicron-generation.tex
@@ -33,7 +34,7 @@ makestuff/%.stamp:
 -include makestuff/os.mk
 
 -include makestuff/texi.mk
-## -include makestuff/pipeR.mk
+-include makestuff/hotcold.mk
 
 -include makestuff/git.mk
 -include makestuff/visual.mk
