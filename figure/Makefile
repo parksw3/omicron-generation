@@ -18,6 +18,14 @@ Ignore += $(pardirs)
 
 ######################################################################
 
+autopipeR = defined
+
+## compare.ggp.pdf: compare.R 
+compare.Rout: compare.R R/serialfun.R rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
+	$(pipeR)
+
+######################################################################
+
 Sources = $(wildcard *.R)
 
 ## figure_compare_he.Rout: figure_compare_he.R
