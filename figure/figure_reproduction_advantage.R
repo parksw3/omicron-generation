@@ -108,7 +108,6 @@ advantagedata <- lapply(1:nsample, function(x) {
   R_omicron <- tail(i2, -n)/sapply(1:(length(i2)-n), function(y) sum(i2[y:(y+n-1)] * rev(gen2)))
   R_omicron_naive <- tail(i2, -n)/sapply(1:(length(i2)-n), function(y) sum(i2[y:(y+n-1)] * rev(gen1)))
   
-  
   data.frame(
     R_delta=R_delta,
     R_omicron=R_omicron,

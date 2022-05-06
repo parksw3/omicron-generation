@@ -6,8 +6,21 @@ Ignore = target.mk
 
 # -include makestuff/perl.def
 
+
+
 vim_session:
 	bash -cl "vmt"
+
+######################################################################
+
+autopipeR = defined
+pardirs += rdaout data R
+
+Ignore += $(pardirs)
+
+######################################################################
+
+autopipeR = defined
 
 ######################################################################
 

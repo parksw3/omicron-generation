@@ -1,33 +1,10 @@
 library(bbmle)
-library(dplyr)
-library(readxl)
-source("../R/serialfun.R")
-source("../R/fitfun.R")
-load("../rdaout/calculate_incubation_mle.rda")
-load("../rdaout/fit_lognormal_base_comb_within.rda")
-
-r_nsgtf <- -0.05
-r_sgtf <- 0.15
-rhovec <- seq(0.5, 0.85, length.out=11)
-
-serialdata <- read_xlsx("serial-netherlands.xlsx")
-
-serialdata_comb_sgtf_within <- serialdata %>%
-  filter(strain=="SGTF", household=="within") %>%
-  group_by(serial, strain, household) %>%
-  summarize(
-    n=sum(n)
-  )
-
-serialdata_comb_nsgtf_within <- serialdata %>%
-  filter(strain=="non-SGTF", household=="within") %>%
-  group_by(serial, strain, household) %>%
-  summarize(
-    n=sum(n)
-  )
-
-data_comb_sgtf_within <- rep(serialdata_comb_sgtf_within$serial, serialdata_comb_sgtf_within$n)
-data_comb_nsgtf_within <- rep(serialdata_comb_nsgtf_within$serial, serialdata_comb_nsgtf_within$n)
+source("R/serialfun.R")
+source("R/fitfun.R")
+source("serialdata.R")
+source("baseparam.R")
+load("rdaout/calculate_incubation_mle.rda")
+load("rdaout/fit_lognormal_base_comb_within.rda")
 
 fit_lognormal_base_rho_comb_nsgtf_within <- lapply(rhovec, function(rho) {
   print(rho)

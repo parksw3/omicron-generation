@@ -1,28 +1,12 @@
 library(bbmle)
-library(dplyr)
-library(readxl)
-source("../R/serialfun.R")
-source("../R/fitfun.R")
-source("../R/sample_incubation.R")
-load("../rdaout/fit_lognormal_base.rda")
+source("R/serialfun.R")
+source("R/fitfun.R")
+source("R/sample_incubation.R")
+source("serialdata.R")
+source("baseparam.R")
+load("rdaout/fit_lognormal_base.rda")
 
-r_nsgtf <- seq(-0.1, 0, length.out=11)
-r_sgtf <- seq(0.1, 0.2, length.out=11)
-
-rho <- 0.75
-
-serialdata <- read_xlsx("serial-netherlands.xlsx")
-
-serialdata_50_sgtf_within <- serialdata %>%
-  filter(week==50, strain=="SGTF", household=="within")
-
-serialdata_50_nsgtf_within <- serialdata %>%
-  filter(week==50, strain=="non-SGTF", household=="within")
-
-data_50_sgtf_within <- rep(serialdata_50_sgtf_within$serial, serialdata_50_sgtf_within$n)
-data_50_nsgtf_within <- rep(serialdata_50_nsgtf_within$serial, serialdata_50_nsgtf_within$n)
-
-fit_lognormal_r_50_nsgtf_within <- lapply(r_nsgtf, function(r) {
+fit_lognormal_r_50_nsgtf_within <- lapply(rvec_nsgtf, function(r) {
   print(r)
   moment_0_nsgtf <- integrate(function(z) {
     dweibull(z, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r * z)
@@ -72,7 +56,7 @@ fit_lognormal_r_50_nsgtf_within <- lapply(r_nsgtf, function(r) {
 }) %>%
   bind_rows
 
-fit_lognormal_r_50_sgtf_within <- lapply(r_sgtf, function(r) {
+fit_lognormal_r_50_sgtf_within <- lapply(rvec_sgtf, function(r) {
   print(r)
   moment_0_sgtf <- integrate(function(z) {
     dweibull(z, shape=backward_shape_sgtf, scale=backward_scale_sgtf) * exp(r * z)

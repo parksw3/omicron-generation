@@ -1,24 +1,9 @@
 library(bbmle)
-library(dplyr)
-library(readxl)
-source("../R/serialfun.R")
-source("../R/fitfun.R")
-load("../rdaout/calculate_incubation_mle.rda")
-
-r_nsgtf <- -0.05
-r_sgtf <- 0.15
-rho <- 0.75
-
-serialdata <- read_xlsx("serial-netherlands.xlsx")
-
-serialdata_50_sgtf_between <- serialdata %>%
-  filter(week==50, strain=="SGTF", household=="between")
-
-serialdata_50_nsgtf_between <- serialdata %>%
-  filter(week==50, strain=="non-SGTF", household=="between")
-
-data_50_sgtf_between <- rep(serialdata_50_sgtf_between$serial, serialdata_50_sgtf_between$n)
-data_50_nsgtf_between <- rep(serialdata_50_nsgtf_between$serial, serialdata_50_nsgtf_between$n)
+source("R/serialfun.R")
+source("R/fitfun.R")
+source("serialdata.R")
+source("baseparam.R")
+load("rdaout/calculate_incubation_mle.rda")
 
 fit_lognormal_base_50_sgtf_between <- fitfun_lognormal(data=data_50_sgtf_between, 
                                                       logmean_gen=logmean_inc_sgtf, 
