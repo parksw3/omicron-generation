@@ -1,25 +1,10 @@
 library(bbmle)
-library(dplyr)
-library(readxl)
-source("../R/serialfun.R")
-source("../R/fitfun.R")
-load("../rdaout/calculate_incubation_mle.rda")
-load("../rdaout/fit_lognormal_base.rda")
-
-r_nsgtf <- -0.05
-r_sgtf <- 0.15
-rhovec <- seq(0.5, 0.9, length.out=11)
-
-serialdata <- read_xlsx("serial-netherlands.xlsx")
-
-serialdata_50_sgtf_within <- serialdata %>%
-  filter(week==50, strain=="SGTF", household=="within")
-
-serialdata_50_nsgtf_within <- serialdata %>%
-  filter(week==50, strain=="non-SGTF", household=="within")
-
-data_50_sgtf_within <- rep(serialdata_50_sgtf_within$serial, serialdata_50_sgtf_within$n)
-data_50_nsgtf_within <- rep(serialdata_50_nsgtf_within$serial, serialdata_50_nsgtf_within$n)
+source("R/serialfun.R")
+source("R/fitfun.R")
+source("serialdata.R")
+source("baseparam.R")
+load("rdaout/calculate_incubation_mle.rda")
+load("rdaout/fit_lognormal_base.rda")
 
 fit_lognormal_base_rho_50_nsgtf_within <- lapply(rhovec, function(rho) {
   ff <- fitfun_lognormal(data=data_50_nsgtf_within, 

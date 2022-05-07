@@ -1,26 +1,10 @@
 library(bbmle)
-library(dplyr)
-library(readxl)
-source("../R/serialfun.R")
-source("../R/fitfun.R")
-source("../R/sample_incubation.R")
-load("../rdaout/fit_lognormal_base.rda")
-
-r_nsgtf <- seq(-0.1, 0, length.out=11)
-r_sgtf <- seq(0.1, 0.2, length.out=11)
-
-rho <- 0.75
-
-serialdata <- read_xlsx("serial-netherlands.xlsx")
-
-serialdata_50_sgtf_between <- serialdata %>%
-  filter(week==50, strain=="SGTF", household=="between")
-
-serialdata_50_nsgtf_between <- serialdata %>%
-  filter(week==50, strain=="non-SGTF", household=="between")
-
-data_50_sgtf_between <- rep(serialdata_50_sgtf_between$serial, serialdata_50_sgtf_between$n)
-data_50_nsgtf_between <- rep(serialdata_50_nsgtf_between$serial, serialdata_50_nsgtf_between$n)
+source("R/serialfun.R")
+source("R/fitfun.R")
+source("sample_incubation.R")
+source("serialdata.R")
+source("baseparam.R")
+load("rdaout/fit_lognormal_base.rda")
 
 fit_lognormal_r_50_nsgtf_between <- lapply(r_nsgtf, function(r) {
   print(r)

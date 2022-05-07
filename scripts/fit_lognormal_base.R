@@ -1,6 +1,4 @@
 library(bbmle)
-library(dplyr)
-library(readxl)
 source("R/serialfun.R")
 source("R/fitfun.R")
 source("serialdata.R")
