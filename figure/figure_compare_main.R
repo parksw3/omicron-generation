@@ -4,12 +4,12 @@ library(readxl)
 library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(egg)
 library(gridExtra)
-source("R/serialfun.R")
-load("rdaout/calculate_incubation_mle.rda")
-load("rdaout/fit_lognormal_base_comb_within.rda")
-load("rdaout/fit_lognormal_base_comb_between.rda")
-load("rdaout/fit_lognormal_comb_within_r.rda")
-load("rdaout/fit_lognormal_comb_between_r.rda")
+library(shellpipes)
+## Files passed to shellpipes by make (or run this line interactively)
+rpcall("figure_compare_main.Rout figure_compare_main.R R/serialfun.R scripts/serialdata.R rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda")
+
+sourceFiles()
+loadEnvironments()
 
 filter(fit_lognormal_r_comb_nsgtf_within, param=="mean", r==-0.05)
 filter(fit_lognormal_r_comb_sgtf_within, param=="mean", round(r, 2)==0.15)
@@ -17,48 +17,18 @@ filter(fit_lognormal_r_comb_sgtf_within, param=="mean", round(r, 2)==0.15)
 filter(fit_lognormal_r_comb_nsgtf_between, param=="mean", r==-0.05)
 filter(fit_lognormal_r_comb_sgtf_between, param=="mean", round(r, 2)==0.15)
 
-serialdata <- read_xlsx("data/serial-netherlands.xlsx")
+xmin <- -6
+xmax <- 16
+sstep <- 0.2
+xvec <- seq(xmin, xmax, by=sstep)
 
-xvec <- seq(-6, 16, by=0.2)
+# t.test(rep(serialdata_comb_sgtf_within$serial, serialdata_comb_sgtf_within$n))
 
-ivec <- seq(0, 16, by=0.2)
-gvec <- seq(0, 16, by=0.2)
+# t.test(rep(serialdata_comb_nsgtf_within$serial, serialdata_comb_nsgtf_within$n))
 
-serialdata_comb_sgtf_within <- serialdata %>%
-  filter(strain=="SGTF", household=="within") %>%
-  group_by(serial, strain, household) %>%
-  summarize(
-    n=sum(n)
-  )
+# t.test(rep(serialdata_comb_sgtf_between$serial, serialdata_comb_sgtf_between$n))
 
-t.test(rep(serialdata_comb_sgtf_within$serial, serialdata_comb_sgtf_within$n))
-
-serialdata_comb_nsgtf_within <- serialdata %>%
-  filter(strain=="non-SGTF", household=="within") %>%
-  group_by(serial, strain, household) %>%
-  summarize(
-    n=sum(n)
-  )
-
-t.test(rep(serialdata_comb_nsgtf_within$serial, serialdata_comb_nsgtf_within$n))
-
-serialdata_comb_sgtf_between <- serialdata %>%
-  filter(strain=="SGTF", household=="between") %>%
-  group_by(serial, strain, household) %>%
-  summarize(
-    n=sum(n)
-  )
-
-t.test(rep(serialdata_comb_sgtf_between$serial, serialdata_comb_sgtf_between$n))
-
-serialdata_comb_nsgtf_between <- serialdata %>%
-  filter(strain=="non-SGTF", household=="between") %>%
-  group_by(serial, strain, household) %>%
-  summarize(
-    n=sum(n)
-  )
-
-t.test(rep(serialdata_comb_nsgtf_between$serial, serialdata_comb_nsgtf_between$n))
+# t.test(rep(serialdata_comb_nsgtf_between$serial, serialdata_comb_nsgtf_between$n))
 
 serial_density_lognormal_nsgtf_within <- data.frame(
   x=xvec,
@@ -206,12 +176,7 @@ g8 <- ggplot(filter(fit_lognormal_r_comb_sgtf_between, param=="mean")) +
     panel.grid = element_blank()
   )
 
-print(g1)
-print(g2)
-print(g5)
-print(g6)
-
 gcomb1 <- ggarrange(g1, g2, g3, g4, g5, g6, g7, g8, nrow=2, draw=FALSE, 
                     labels=c("A", "B", "C", "D", "E", "F", "G", "H"))
 
-ggsave("figure_compare_main.pdf", gcomb1, width=12, heigh=6)
+saveGG(gcomb1, width=12, heigh=6)

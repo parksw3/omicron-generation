@@ -12,7 +12,7 @@ vim_session:
 ######################################################################
 
 autopipeR = defined
-pardirs += rdaout data R
+pardirs += rdaout data R scripts
 
 Ignore += $(pardirs)
 
@@ -21,34 +21,55 @@ Ignore += $(pardirs)
 autopipeR = defined
 
 ## compare.ggp.pdf: compare.R 
-compare.Rout: compare.R R/serialfun.R rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
+# compare.Rout: compare.R R/serialfun.R rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
+# 	$(pipeR)
+
+## figure 1
+figure_diagram.Rout: figure_diagram.R
 	$(pipeR)
 
+## process data for figures... should really belong to /scripts
+cases.Rout: cases.R
+	$(pipeR)
+
+## figure 2
+figure_epidemic.Rout: figure_epidemic.R cases.rda
+	$(pipeR)
+
+## figure 3
+figure_incubation.Rout: figure_incubation.R rdaout/calculate_incubation_r.rda
+	$(pipeR)
+	
+## figure 4
+figure_compare_main.Rout: figure_compare_main.R R/serialfun.R scripts/serialdata.R rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
+	$(pipeR)
+	
+	
+## process data more for figures... should really belong to /scripts
+advantage.Rout: advantage.R cases.rda rdaout/fit_lognormal_base_comb_within.rda
+	$(pipeR)
+	
+## figure 5
+figure_reproduction_advantage.Rout: figure_reproduction_advantage.R advantage.rda
+	$(pipeR)
+	
+## supp figures
+
+figure_compare_rho.Rout: figure_compare_rho.R rdaout/fit_lognormal_base_comb_rho.rda
+	$(pipeR)
+	
+figure_compare_stratified.Rout: figure_compare_stratified.R R/serialfun.R rdaout/fit_lognormal_r_50_within.rda rdaout/fit_lognormal_r_50_between.rda rdaout/fit_lognormal_r_51_within.rda rdaout/fit_lognormal_r_51_between.rda
+	$(pipeR)
+	
+advantage_between.Rout: advantage_between.R cases.rda rdaout/fit_lognormal_base_comb_between.rda
+	$(pipeR)
+	
+figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_between.R advantage_between.rda
+	$(pipeR)	
+	
 ######################################################################
 
 Sources = $(wildcard *.R)
-
-## figure_compare_he.Rout: figure_compare_he.R
-
-figure_compare_main.pdf: figure_compare_main.Rout ;
-figure_compare_main.Rout: figure_compare_main.R
-
-figure_epidemic.Rout: figure_epidemic.R
-
-figure_incubation.Rout: figure_incubation.R
-
-figure_compare.Rout: figure_compare.R
-
-figure_compare_rho.Rout: figure_compare_rho.R
-
-figure_compare_stratified.Rout: figure_compare_stratified.R
-figure_diagram.Rout: figure_diagram.R
-figure_incubation.Rout: figure_incubation.R
-figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_between.R
-figure_reproduction_advantage_new.Rout: figure_reproduction_advantage_new.R
-figure_reproduction_advantage.Rout: figure_reproduction_advantage.R
-
-## figure_reproduction_advantage.ggp.pdf: figure_reproduction_advantage.R
 
 ######################################################################
 

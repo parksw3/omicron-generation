@@ -4,11 +4,12 @@ library(readxl)
 library(ggplot2); theme_set(theme_bw(base_family = "Times"))
 library(egg)
 library(gridExtra)
-source("R/serialfun.R")
-load("rdaout/fit_lognormal_r.rda")
-load("rdaout/fit_lognormal_r_50_between.rda")
-load("rdaout/fit_lognormal_r_51_between.rda")
-load("rdaout/fit_lognormal_r_51.rda")
+
+library(shellpipes)
+rpcall("figure_compare_stratified.Rout figure_compare_stratified.R R/serialfun.R rdaout/fit_lognormal_r_50_within.rda rdaout/fit_lognormal_r_50_between.rda rdaout/fit_lognormal_r_51_within.rda rdaout/fit_lognormal_r_51_between.rda")
+
+sourceFiles()
+loadEnvironments()
 
 g1 <- ggplot(filter(fit_lognormal_r_50_nsgtf_within, param=="mean")) +
   annotate("text", x=-Inf, y=Inf, hjust=-0.05, vjust=1.5, label="Week 50, within-household") +

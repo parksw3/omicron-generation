@@ -1,91 +1,10 @@
-library(dplyr)
 library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(egg)
-source("R/sample_incubation.R")
+library(shellpipes)
+rpcall("figure_incubation.Rout figure_incubation.R rdaout/calculate_incubation_r.rda")
 
-rvec_nsgtf <- seq(-0.1, 0, length.out=11)
-rvec_sgtf <- seq(0.1, 0.2, length.out=11)
-
-r_nsgtf <- -0.05
-r_sgtf <- 0.15
-
-corrected_mean_nsgtf <- lapply(1:length(rvec_nsgtf), function(x) {
-  numer <- sapply(1:nsample, function(y) {
-    integrate(function(z) {
-      z * dweibull(z, shape=backward_shape_nsgtf_sample[y], scale=backward_scale_nsgtf_sample[y]) * exp(rvec_nsgtf[x] * z)
-    }, 0, Inf)[[1]]
-  })
-  
-  denom <- sapply(1:nsample, function(y) {
-    integrate(function(z) {
-      dweibull(z, shape=backward_shape_nsgtf_sample[y], scale=backward_scale_nsgtf_sample[y]) * exp(rvec_nsgtf[x] * z)
-    }, 0, Inf)[[1]]
-  })
-  
-  mean <- numer/denom
-  
-  data.frame(
-    r=rvec_nsgtf[x],
-    median=median(mean),
-    lwr=quantile(mean, c(0.025)),
-    upr=quantile(mean, c(0.975))
-  )
-}) %>%
-  bind_rows
-
-corrected_mean_sgtf <- lapply(1:length(rvec_sgtf), function(x) {
-  numer <- sapply(1:nsample, function(y) {
-    integrate(function(z) {
-      z * dweibull(z, shape=backward_shape_sgtf_sample[y], scale=backward_scale_sgtf_sample[y]) * exp(rvec_sgtf[x] * z)
-    }, 0, 1e3)[[1]]
-  })
-  
-  denom <- sapply(1:nsample, function(y) {
-    integrate(function(z) {
-      dweibull(z, shape=backward_shape_sgtf_sample[y], scale=backward_scale_sgtf_sample[y]) * exp(rvec_sgtf[x] * z)
-    }, 0, 1e3)[[1]]
-  })
-  
-  mean <- numer/denom
-  
-  data.frame(
-    r=rvec_sgtf[x],
-    median=median(mean),
-    lwr=quantile(mean, c(0.025)),
-    upr=quantile(mean, c(0.975))
-  )
-}) %>%
-  bind_rows
-
-observed_nsgtf <- tibble(
-  time=seq(0, 14, by=0.1),
-  density=dweibull(time, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf)
-)
-
-observed_sgtf <- tibble(
-  time=seq(0, 14, by=0.1),
-  density=dweibull(time, shape=backward_shape_sgtf, scale=backward_scale_sgtf)
-)
-
-corrected_nsgtf <- tibble(
-  time=seq(0, 28, by=0.1),
-  density0=dweibull(time, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r_nsgtf * time),
-  density=density0/sum(density0*0.1)
-)
-
-corrected_sgtf <- tibble(
-  time=seq(0, 28, by=0.1),
-  density0=dweibull(time, shape=backward_shape_sgtf, scale=backward_scale_sgtf) * exp(r_sgtf * time),
-  density=density0/sum(density0*0.1)
-)
-
-sum(observed_sgtf$time * observed_sgtf$density)/sum(observed_sgtf$density)
-
-sum(observed_nsgtf$time * observed_nsgtf$density)/sum(observed_nsgtf$density)
-
-sum(corrected_sgtf$time * corrected_sgtf$density)/sum(corrected_sgtf$density)
-
-sum(corrected_nsgtf$time * corrected_nsgtf$density)/sum(corrected_nsgtf$density)
+sourceFiles()
+loadEnvironments()
 
 g1 <- ggplot(observed_nsgtf) +
   geom_line(aes(time, density, col="Delta", lty="Delta"), lwd=1) +
@@ -100,8 +19,6 @@ g1 <- ggplot(observed_nsgtf) +
     legend.title = element_blank()
   )
 
-print(g1)
-
 g2 <- ggplot(corrected_nsgtf) +
   geom_line(aes(time, density, col="Delta"), lwd=1) +
   geom_line(data=corrected_sgtf, aes(time, density, col="Omicron"), lwd=1, lty=2) +
@@ -112,8 +29,6 @@ g2 <- ggplot(corrected_nsgtf) +
     panel.grid = element_blank(),
     legend.position = "none"
   )
-
-print(g2)
 
 g3 <- ggplot(corrected_mean_nsgtf) +
   geom_ribbon(aes(r, ymin=lwr, ymax=upr), alpha=0.2) + 
@@ -135,4 +50,4 @@ g4 <- ggplot(corrected_mean_sgtf) +
 
 gfinal <- ggarrange(g1, g2, g3, g4, nrow=2, labels=c("A", "B", "C", "D"), draw=FALSE)
 
-ggsave("figure_incubation.pdf", gfinal, width=8, height=6)
+saveGG(gfinal, width=8, height=6)

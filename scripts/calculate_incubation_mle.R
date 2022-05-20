@@ -1,7 +1,5 @@
-source("../R/sample_incubation.R")
-
-r_nsgtf <- -0.05
-r_sgtf <- 0.15
+source("baseparam.R")
+source("sample_incubation.R")
 
 moment_0_nsgtf <- integrate(function(z) {
   dweibull(z, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r_nsgtf * z)

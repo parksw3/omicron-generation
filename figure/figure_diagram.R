@@ -142,4 +142,4 @@ g2 <- ggplot() +
   )
 
 gcomb <- ggarrange(g1, g2, nrow=2, draw=FALSE, labels=c("A", "B"))
-saveGG(gcomb)
+saveGG(gcomb, width=9, height=10)

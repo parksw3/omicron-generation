@@ -6,6 +6,8 @@
 \usepackage{xspace}
 %\usepackage{adjustbox}
 
+\usepackage{grffile}
+
 \newcommand{\comment}{\showcomment}
 %% \newcommand{\comment}{\nocomment}
 
@@ -310,7 +312,7 @@ Hereafter, we use $r=-0.05/\mathrm{day}$ for the Delta variant and $r=0.15/\math
 We then evaluate the growth-rate effects across $r=-0.1/\mathrm{day}$--$0.0/\mathrm{day}$ for the Delta variant and $r=0.1/\mathrm{day}$--$0.2/\mathrm{day}$ for the Omicron variant as a sensitivity analysis.
 
 \begin{figure}[!ht]
-\includegraphics[width=\textwidth]{figure/figure_epidemic.pdf}
+\includegraphics[width=\textwidth]{figure/figure_epidemic.ggp.pdf}
 \caption{
 \textbf{Epidemic dynamics on the Delta and Omicron variants in the Netherlands between November 2021 and January 2022.}
 (A) Daily numbers of reported COVID-19 cases in the Netherlands (points).
@@ -337,7 +339,7 @@ while the mean forward incubation period of the Omicron variant changes from 3.8
 We estimate wider uncertanties for the Omicron variant because higher absolute growth rate values lead to larger differences between the backward and forward incubation periods.
 
 \begin{figure}[!th]
-\includegraphics[width=\textwidth]{figure/figure_incubation.pdf}
+\includegraphics[width=\textwidth]{figure/figure_incubation.ggp.pdf}
 \caption{
 \textbf{Observed and corrected differences in incubation-period distributions of Delta and Omicron variants.}
 (A) Posterior median estimates of the observed (backward) incubation periods of the Delta (black) and Omicron (orange) variants by \cite{backer2021omicron}.
@@ -368,7 +370,7 @@ While we generally estimate shorter mean generation intervals for the Omicron va
 We also estimate a reduction in the mean forward generation intervals from week 50 (13--19 December 2021) to week 51 (20--26 December 2021), especially for the Delta variant. 
 
 \begin{figure}[!th]
-\includegraphics[width=\textwidth]{figure/figure_compare_main.pdf}
+\includegraphics[width=\textwidth]{figure/figure_compare_main.ggp.pdf}
 \caption{
 \textbf{Estimated forward generation-interval distributions of Delta and Omicron variants.}
 (A, E) Observed and fitted forward serial-interval distributions for within-household (A) and between-household (E) transmission pairs in the Netherlands for the Delta (black) and Omicron (orange) variants \citep{backer2021omicron}.
@@ -492,7 +494,7 @@ Similar efforts will be critical to improve estimates of the infectiousness prof
 \renewcommand{\thefigure}{S\arabic{figure}}
 
 \begin{figure}[!th]
-\includegraphics[width=\textwidth]{figure/figure_compare_rho.Rout.pdf}
+\includegraphics[width=\textwidth]{figure/figure_compare_rho.ggp.pdf}
 \caption{
 \textbf{Sensitivity of the estimates of the mean generation interval to the assumed values of the correlation coefficient of the lognormal distribution.}
 Lines and shaded regions represent maximum likelihood estimates and the corresponding 95\% confidence intervals for the Delta (black, solid lines) and Omicron variants (orange, dashed lines).
@@ -516,7 +518,7 @@ Shaded regions represent the corresponding 95\% confidence intervals.
 \pagebreak
 
 \begin{figure}[!th]
-\includegraphics[width=\textwidth]{figure/figure_reproduction_advantage_between.pdf}
+\includegraphics[width=\textwidth]{figure/figure_reproduction_advantage_between.ggp.pdf}
 \caption{
 \textbf{Estimated time-varying reproduction number advantages of the Omicron variant using between-household generation-interval distributions.}
 (A) Estimated instantaneous reproduction numbers and their ratios over time while accounting for differences in the generation-interval distributions.
