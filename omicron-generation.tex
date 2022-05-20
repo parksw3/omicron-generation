@@ -172,7 +172,7 @@ Therefore, observed differences in transmission-interval distributions between v
 Here, we re-analyze serial-interval data collected by \citep{backer2021omicron}, representing within- and between-household transmissions of the Delta and Omicron variants from the Netherlands between 13 and 26 December 2021.
 The study found shorter mean serial intervals (3.5 vs 4.1 days) and mean incubation periods (3.2 vs 4.4 days) for transmission pairs with S-gene target failure (mostly Omicron during the study period) than without (mostly Delta), but did not consider dynamical biases caused by growth-rate differences in their inference:
 during this period, the Omicron cases were increasing, whereas the Delta cases were decreasing.
-Here, we take the epidemiological context in the Netherlands during the study period into account to provide corrected estimates for the incubation periods and generation-interval distributions of the Delta and Omicron variants.
+We take the epidemiological context in the Netherlands during the study period into account to provide corrected estimates for the incubation periods and generation-interval distributions of the Delta and Omicron variants.
 We show that using up-to-date generation-interval distributions is critical to accurately estimating the reproduction advantage (i.e., the ratio between the reproduction numbers of the invading and resident variants) of emerging SARS-CoV-2 variants.
 
 \section{Methods}
@@ -183,7 +183,7 @@ We analyze time series of reported COVID-19 cases (\url{https://data.rivm.nl/cov
 Data sets are publicly available on the National Institute for Public Health and the Environment (RIVM) website.
 
 Serial interval data are taken from \cite{backer2021omicron}.
-Infector-infectee pairs were identified through contact tracing, and their symptom onset dates were reported through a national surveillance database. 
+Infector-infectee pairs were identified through contact tracing, and their symptom onset dates were reported through a national surveillance database.
 Serial intervals were then calculated by taking the difference between symptom onset dates of the infector and the infectee.
 In order to ensure independence between serial intervals, one infectee was chosen at random for each infector in the original analysis.
 See original article for additional details of data collection.
@@ -202,7 +202,7 @@ To estimate the growth rates differences of the Delta and Omicron variants, we f
 We note that the proportion of Delta and Omicron variants detected is reported by the date of sampling, whereas the case data are reported by the date of reports, meaning that there is some delay between the two data.
 For simplicity, we do not account for this delay, which in turn affects our growth-rate estimates; 
 instead, we later perform sensitivity analysis to assess how growth rates affect the inferences of the incubation-period and generation-interval distributions.
-We also do not account for uncertainties around the estimates of the proportion of each variant---almost 2000 samples were tested on each week between the week of November 28, 2021, and the week of January 23, 2022, making the uncertainty negligible.
+We also do not account for uncertainties around the estimates of the proportion of each variant---almost 2000 samples were tested on each week between the week of November 28, 2021, and the week of January 23, 2022, making this uncertainty negligible.
 
 We then fit a generalized additive model \citep{wood2001mgcv} to to the logged weekly case estimates to obtain smooth trajectories for case time series.
 More specifically, we model the logged weekly numbers of cases caused by each variant as a function of time using a shrinkage version of a cubic spline with restricted maximum likelihood (specified as \texttt{s(time, bs="cs")} using the \texttt{MGCV} package). 
@@ -213,7 +213,8 @@ Finally, we take the derivative of the predicted logged numbers of cases caused 
 
 To obtain confidence intervals on the estimated time-varying growth rates, we generate 1000 parameter sets by resampling spline coefficients from a multivariate normal distribution using the estimated variance-covariance matrices.
 We calculate time-varying growth rates from each parameter set and use equi-tailed quantiles to generate 95\% confidence limits. 
-% \swp{Sam is calling this ``simultaneous confidence intervals'' but not sure what he means. Need to ask again.}
+We note that this method of calculating confidence intervals gives point-wise confidence intervals, meaning that the confidence intervals give 95\% coverage for the set of estimates at each time point;
+these intervals are narrower than simultaneous confidence intervals, which give 95\% coverage for the set of estimated curvatures across the time period \citep{simpson2017}.
 
 \subsection{Estimating forward incubation-period distributions from backward incubation-period distributions}
 
@@ -238,7 +239,6 @@ b_I(\tau) =\frac{ \exp(-r\tau) f_I(\tau)}{\int_0^\infty \exp(-r x) f_I(x)  \dx}.
 \end{equation}
 Therefore, the backward incubation-period distribution $b_I(\tau)$ gives a biased estimate of the corresponding forward distribution $f_I(\tau)$.
 The method of \cite{backer2020incubation} starts from observed symptom onsets, and estimates the backward incubation-period distribution.
-
 
 Assuming a constant growth rate $r$, the corresponding forward incubation-period distributions can be calculated by inverting \eref{backward}, taking into account that $f_I$ is a probability distribution and therefore needs to be normalised to integrate to 1:
 \begin{equation}
@@ -414,7 +414,8 @@ Once again, these patterns are robust across plausible ranges of assumptions abo
 
 In Supplementary Figure S2, we present generation-interval estimates that are further stratified by the week of infectors' symptom onset (13--19 December 2021 and 20--26 December 2021).
 While we generally estimate shorter mean generation intervals for the Omicron variant, but the differences are unclear across all stratification, except for within-household transmission pairs during week 50 (13--19 December 2021).
-We also estimate a reduction in the mean forward generation intervals from week 50 (13--19 December 2021) to week 51 (20--26 December 2021), especially for the Delta variant. 
+We also estimate a reduction in the mean forward generation intervals from week 50 (13--19 December 2021) to week 51 (20--26 December 2021), especially for the Delta variant;
+this decrease in the mean generation interval is likely associated with the lockdown.
 
 \begin{figure}[!th]
 \includegraphics[width=\textwidth]{figure/figure_compare_main.ggp.pdf}
@@ -460,7 +461,7 @@ Lines and shaded regions represent medians and corresponding 95\% confidence int
 
 We compare estimates of the forward incubation-period and generation-interval distributions of the Delta and Omicron variants from the Netherlands in late 2021 and early 2022.
 The original analysis detailing the data set previously reported a shorter mean incubation period and serial interval for the Omicron variant \citep{backer2021omicron}.
-Accounting for differences in epidemic growth rates, however, we find similar incubation-period distributions for both variants but a shorter (0.3--0.8 days) mean generation interval for the Omicron variant relative to that of the Delta variant.
+Accounting for differences in epidemic growth rates, however, we find similar incubation-period distributions for both variants but a shorter (by 0.3--0.8 days) mean generation interval for the Omicron variant relative to that of the Delta variant.
 Finally, we estimate that the transmission advantage of the Omicron variant decreased from 2.1-fold to 1.4-fold between early December and late January.
 Improving generation-interval estimates by taking dynamical effects into account may improve understanding of epidemic dynamics and control measures.
 
@@ -512,7 +513,8 @@ On the other hand, the growth-rate difference is easier to estimate in real time
 For example, when two strains have the same $\RR$, the one with shorter generation intervals will grow faster and replace the other strain---this transmission advantage is captured by the growth-rate difference, but not by the ratio of reproduction numbers of two strains.
 Therefore, we suggest using growth-rate differences and reproduction advantage as complementary measures for understanding the dynamics of emerging SARS-CoV-2 variants.
 
-We primarily rely on case data to understand epidemic patterns of the Delta and Omicron variants.
+There are several limitations to our analysis.
+First, we primarily rely on case data to understand epidemic patterns of the Delta and Omicron variants.
 In doing so, we implicitly assume that the delay between infection and reports is fixed.
 However, changes in case trajectories are sensitive to testing patterns and therefore may not accurately reflect patterns of infections.
 While this limitation does not affect our generation-interval estimates, our inferences of the transmission advantages of the Omicron variant should be interpreted with care.
@@ -525,10 +527,16 @@ However, such extensions are more complicated for linking generation- and serial
 Assuming a constant growth rate allows us to simplify this complexity because the reproduction number also stays constant during the exponential phase.
 Extending our framework to account for time-varying growth rates can provide more accurate tools for inferring epidemiological delay distributions.
 
-Finally, we do not account for individual-level heterogeneities, such as age, vaccination status, or previous exposure history.
+We do not account for individual-level heterogeneities, such as age, vaccination status, or previous exposure history.
 In general, epidemic growth rates likely differ between infection groups (e.g., the incidence of infection caused by any variant is expected to grow faster among immunologically naive individuals), and these growth-rate differences need to be accounted for to accurately estimate epidemiological delay distributions, including the incubation-period and generation-interval distributions.
 We are not able to perform stratified analyses because individiaul-level information was not publicly available.
 Therefore, while we estimate unclear differences in incubation-period distributions between Delta and Omicron infections, controlling for other covariates, such as age and immune history, may help better characterize differences in Delta and Omicron infections.
+
+Finally, there are several sources of biases in serial interval data that we did not consider.
+For example, the direction of transmission is particularly difficult to establish for SARS-CoV-2 due to pre-symptomatic transmission.
+Other sources of information, such as exposure history and positive test results, can help resolve uncertainties but are imperfect.
+Serial interval data also depend on the ability of infected individuals to accurately recall when their symptoms started.
+Future studies may explore how these biases affect the inference of generation intervals from serial intervals.
 
 Monitoring changes in key epidemiological parameters is critical to understanding the evolution of SARS-CoV-2 and predicting its future dynamics \citep{kraemer2021monitoring}.
 Our study synthesizes a previously developed theoretical framework on serial- and generation-interval distributions and presents methodological advances in monitoring epidemiological parameters.
