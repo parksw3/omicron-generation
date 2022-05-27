@@ -16,6 +16,9 @@ pardirs += rdaout data R scripts
 
 Ignore += $(pardirs)
 
+R/%:
+	$(MAKE) R
+
 ######################################################################
 
 Sources = $(wildcard *.R)
