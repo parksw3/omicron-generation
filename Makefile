@@ -12,7 +12,7 @@ vim_session:
 
 Sources += $(wildcard *.tex)
 
-subdirs += figure scripts
+subdirs += figure scripts R
 Ignore += $(subdirs)
 hotdirs += $(subdirs)
 alldirs += $(subdirs)
