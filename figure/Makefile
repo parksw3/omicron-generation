@@ -73,6 +73,7 @@ figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_betwee
 ######################################################################
 
 rdaout/%.rda: $(wildcard scripts/*.R)
+	$(MAKE) scripts
 	cd scripts && $(MAKE) $@
 
 ######################################################################
