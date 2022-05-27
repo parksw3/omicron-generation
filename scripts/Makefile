@@ -20,7 +20,7 @@ Ignore += $(pardirs)
 data/%: 
 	$(MAKE) data
 
-R/%: 
+R/%.R: 
 	$(MAKE) R
 
 fit_lognormal_base_comb_rho.Rout: fit_lognormal_base_comb_rho.R R/serialfun.rda R/fitfun.rda serialdata.rda baseparam.rda rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda
@@ -37,6 +37,12 @@ sample_incubation.Rout: sample_incubation.R
 
 fit_lognormal_base_comb_within.Rout: fit_lognormal_base_comb_within.R R/serialfun.rda R/fitfun.rda serialdata.rda baseparam.rda rdaout/calculate_incubation_mle.rda
 
+## process data for figures
+cases.Rout: cases.R data/COVID-19_aantallen_gemeente_per_dag.csv data/variant-netherlands.xlsx
+	$(pipeR)
+
+fit_lognormal_comb_within_r.Rout: fit_lognormal_comb_within_r.R R/serialfun.rda R/fitfun.rda sample_incubation.rda serialdata.rda baseparam.rda rdaout/fit_lognormal_base_comb_within.rda
+
 # calculate_gauteng.R
 # calculate_incubation_r.R
 # fit_lognormal_base_50_between.R
@@ -44,7 +50,6 @@ fit_lognormal_base_comb_within.Rout: fit_lognormal_base_comb_within.R R/serialfu
 # fit_lognormal_base.R
 # fit_lognormal_base_rho.R
 # fit_lognormal_comb_between_r.R
-# fit_lognormal_comb_within_r.R
 # fit_lognormal_r_50_between.R
 # fit_lognormal_r_50_within.R
 # fit_lognormal_r_51_between.R
