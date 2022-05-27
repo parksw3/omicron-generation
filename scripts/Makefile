@@ -20,6 +20,9 @@ Ignore += $(pardirs)
 data/%: 
 	$(MAKE) data
 
+R/%: 
+	$(MAKE) R
+
 fit_lognormal_base_comb_rho.Rout: fit_lognormal_base_comb_rho.R R/serialfun.rda R/fitfun.rda serialdata.rda baseparam.rda rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda
 
 serialdata.Rout: serialdata.R data/serial-netherlands.xlsx
