@@ -1,3 +1,5 @@
+library(shellpipes)
+
 kernelfun_lognormal_incubation <- function(y, 
                                            logmean_inc=1,
                                            logsd_inc=0.5) {
@@ -231,3 +233,5 @@ serialfun_he <- function(x,
   
   numer/denom
 }
+
+saveEnvironment()

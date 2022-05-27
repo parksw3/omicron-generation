@@ -12,14 +12,14 @@ vim_session:
 
 Sources += $(wildcard *.tex)
 
-subdirs += figure scripts R
+subdirs += figure scripts
 Ignore += $(subdirs)
 hotdirs += $(subdirs)
 alldirs += $(subdirs)
 
 omicron-generation.pdf: omicron-generation.tex
 
-Sources += rdaout/README.md
+Sources += rdaout/README.md $(wildcard R/*.R)
 
 ######################################################################
 ### Makestuff

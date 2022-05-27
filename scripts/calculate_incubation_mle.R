@@ -1,5 +1,6 @@
-source("baseparam.R")
-source("sample_incubation.R")
+library(shellpipes)
+
+loadEnvironments()
 
 moment_0_nsgtf <- integrate(function(z) {
   dweibull(z, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r_nsgtf * z)
@@ -37,4 +38,4 @@ var_inc_sgtf <- moment_2_sgtf/moment_0_sgtf - mean_inc_sgtf^2
 logsd_inc_sgtf <- sqrt(log(var_inc_sgtf/mean_inc_sgtf^2 + 1))
 logmean_inc_sgtf <- log(mean_inc_sgtf/exp(logsd_inc_sgtf^2/2))
 
-save("logsd_inc_nsgtf", "logmean_inc_nsgtf", "logsd_inc_sgtf", "logmean_inc_sgtf", file="../rdaout/calculate_incubation_mle.rda")
+saveVars("logsd_inc_nsgtf", "logmean_inc_nsgtf", "logsd_inc_sgtf", "logmean_inc_sgtf")

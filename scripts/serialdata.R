@@ -1,7 +1,10 @@
 library(dplyr)
 library(readxl)
+library(bbmle)
 
-serialdata <- read_xlsx("data/serial-netherlands.xlsx")
+library(shellpipes)
+
+serialdata <- read_xlsx(matchFile(exts="xlsx"))
 
 serialdata_50_sgtf_within <- serialdata %>%
   filter(week==50, strain=="SGTF", household=="within")
@@ -69,3 +72,5 @@ data_comb_sgtf_within <- rep(serialdata_comb_sgtf_within$serial, serialdata_comb
 data_comb_nsgtf_within <- rep(serialdata_comb_nsgtf_within$serial, serialdata_comb_nsgtf_within$n)
 data_comb_sgtf_between <- rep(serialdata_comb_sgtf_between$serial, serialdata_comb_sgtf_between$n)
 data_comb_nsgtf_between <- rep(serialdata_comb_nsgtf_between$serial, serialdata_comb_nsgtf_between$n)
+
+saveEnvironment()

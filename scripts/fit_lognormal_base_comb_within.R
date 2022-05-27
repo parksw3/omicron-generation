@@ -21,4 +21,4 @@ fit_lognormal_base_comb_nsgtf_within <- fitfun_lognormal(data=data_comb_nsgtf_wi
                                                        rho=rho, 
                                                        r=r_nsgtf)
 
-save("fit_lognormal_base_comb_sgtf_within", "fit_lognormal_base_comb_nsgtf_within", file="../rdaout/fit_lognormal_base_comb_within.rda")
+saveVars("fit_lognormal_base_comb_sgtf_within", "fit_lognormal_base_comb_nsgtf_within")

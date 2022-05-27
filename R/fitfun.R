@@ -1,3 +1,5 @@
+library(shellpipes)
+
 fitfun_lognormal_nll <- function(logmean_gen=1,
                                  logsd_gen=0.5,
                                  logmean_inc=1,
@@ -68,3 +70,5 @@ fitfun_he <- function(data,
              data=list(data=data, debug=debug),
              fixed=list(logmean_inc=logmean_inc, logsd_inc=logsd_inc, inf_shift=inf_shift, r=r))
 }
+
+saveEnvironment()
