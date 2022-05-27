@@ -16,8 +16,14 @@ pardirs += rdaout data R scripts
 
 Ignore += $(pardirs)
 
-R/%:
+data/%:
+	$(MAKE) data
+
+R/%.R:
 	$(MAKE) R
+
+scripts/%:
+	$(MAKE) scripts
 
 ######################################################################
 
@@ -32,12 +38,8 @@ autopipeR = defined
 figure_diagram.Rout: figure_diagram.R
 	$(pipeR)
 
-## process data for figures... should really belong to /scripts
-cases.Rout: cases.R
-	$(pipeR)
-
 ## figure 2
-figure_epidemic.Rout: figure_epidemic.R cases.rda
+figure_epidemic.Rout: figure_epidemic.R rdaout/cases.rda
 	$(pipeR)
 
 ## figure 3
@@ -45,11 +47,11 @@ figure_incubation.Rout: figure_incubation.R rdaout/calculate_incubation_r.rda
 	$(pipeR)
 	
 ## figure 4
-figure_compare_main.Rout: figure_compare_main.R R/serialfun.R scripts/serialdata.R rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
+figure_compare_main.Rout: figure_compare_main.R R/serialfun.rda scripts/serialdata.rda rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
 	$(pipeR)
 	
 ## process data more for figures... should really belong to /scripts
-advantage.Rout: advantage.R cases.rda rdaout/fit_lognormal_base_comb_within.rda
+advantage.Rout: advantage.R rdaout/cases.rda rdaout/fit_lognormal_base_comb_within.rda
 	$(pipeR)
 	
 ## figure 5
@@ -64,7 +66,7 @@ figure_compare_rho.Rout: figure_compare_rho.R rdaout/fit_lognormal_base_comb_rho
 figure_compare_stratified.Rout: figure_compare_stratified.R R/serialfun.R rdaout/fit_lognormal_r_50_within.rda rdaout/fit_lognormal_r_50_between.rda rdaout/fit_lognormal_r_51_within.rda rdaout/fit_lognormal_r_51_between.rda
 	$(pipeR)
 	
-advantage_between.Rout: advantage_between.R cases.rda rdaout/fit_lognormal_base_comb_between.rda
+advantage_between.Rout: advantage_between.R rdaout/cases.rda rdaout/fit_lognormal_base_comb_between.rda
 	$(pipeR)
 	
 figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_between.R advantage_between.rda

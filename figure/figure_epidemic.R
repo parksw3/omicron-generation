@@ -1,7 +1,6 @@
 library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=13))
 library(egg)
 library(shellpipes)
-rpcall("figure_epidemic.Rout figure_epidemic.R cases.rda")
 
 sourceFiles()
 loadEnvironments()

@@ -5,10 +5,7 @@ library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(egg)
 library(gridExtra)
 library(shellpipes)
-## Files passed to shellpipes by make (or run this line interactively)
-rpcall("figure_compare_main.Rout figure_compare_main.R R/serialfun.R scripts/serialdata.R rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda")
 
-sourceFiles()
 loadEnvironments()
 
 filter(fit_lognormal_r_comb_nsgtf_within, param=="mean", r==-0.05)
