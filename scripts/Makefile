@@ -31,7 +31,7 @@ calculate_incubation_mle.Rout: calculate_incubation_mle.R baseparam.rda sample_i
 sample_incubation.Rout: sample_incubation.R
 	$(wrapR)
 
-## fit_lognormal_base_comb_within.R
+fit_lognormal_base_comb_within.Rout: fit_lognormal_base_comb_within.R R/serialfun.rda R/fitfun.rda serialdata.rda baseparam.rda rdaout/calculate_incubation_mle.rda
 
 # calculate_gauteng.R
 # calculate_incubation_r.R
