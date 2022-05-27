@@ -18,6 +18,7 @@ Ignore += $(pardirs)
 
 ######################################################################
 
+Sources = $(wildcard *.R)
 autopipeR = defined
 
 ## compare.ggp.pdf: compare.R 
@@ -44,7 +45,6 @@ figure_incubation.Rout: figure_incubation.R rdaout/calculate_incubation_r.rda
 figure_compare_main.Rout: figure_compare_main.R R/serialfun.R scripts/serialdata.R rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
 	$(pipeR)
 	
-	
 ## process data more for figures... should really belong to /scripts
 advantage.Rout: advantage.R cases.rda rdaout/fit_lognormal_base_comb_within.rda
 	$(pipeR)
@@ -69,7 +69,8 @@ figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_betwee
 	
 ######################################################################
 
-Sources = $(wildcard *.R)
+rdaout/%.rda: $(wildcard scripts/*.R)
+	cd scripts && $(MAKE) $@
 
 ######################################################################
 
