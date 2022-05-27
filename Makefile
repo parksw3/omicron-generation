@@ -19,6 +19,8 @@ alldirs += $(subdirs)
 
 omicron-generation.pdf: omicron-generation.tex
 
+Sources += rdaout/README.md
+
 ######################################################################
 ### Makestuff
 
