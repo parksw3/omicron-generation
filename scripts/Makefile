@@ -1,4 +1,4 @@
-## This is the analysis subdirectory of omicron-generations
+## This is the analysis subdirectory (scripts) of omicron-generations
 
 current: target
 -include target.mk
@@ -12,8 +12,9 @@ vim_session:
 ######################################################################
 
 autopipeR = defined
-pardirs += rdaout data R
+Sources += $(wildcard *.R)
 
+pardirs += rdaout data R
 Ignore += $(pardirs)
 
 data/%: 
