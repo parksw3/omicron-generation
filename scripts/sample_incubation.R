@@ -1,3 +1,5 @@
+library(shellpipes)
+
 nsample <- 1000
 
 set.seed(101)
@@ -16,3 +18,5 @@ backward_scale_sgtf_sample <- rlnorm(nsample, meanlog=log(backward_scale_sgtf), 
 backward_shape_sgtf <- 1.50
 # diff(plnorm(c(1.32, 1.70), meanlog=log(backward_shape_sgtf), 0.0645))
 backward_shape_sgtf_sample <- rlnorm(nsample, meanlog=log(backward_shape_sgtf), 0.0645)
+
+saveEnvironment()
