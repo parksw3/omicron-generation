@@ -6,8 +6,6 @@ loadEnvironments()
 
 objects()
 
-quit()
-
 fit_lognormal_base_rho_comb_nsgtf_within <- lapply(rhovec, function(rho) {
   print(rho)
   ff <- fitfun_lognormal(data=data_comb_nsgtf_within, 
