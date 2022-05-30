@@ -1,9 +1,7 @@
 library(bbmle)
-source("R/serialfun.R")
-source("R/fitfun.R")
-source("serialdata.R")
-source("baseparam.R")
-load("rdaout/calculate_incubation_mle.rda")
+
+library(shellpipes)
+loadEnvironments()
 
 fit_lognormal_base_50_sgtf_between <- fitfun_lognormal(data=data_50_sgtf_between, 
                                                       logmean_gen=logmean_inc_sgtf, 
@@ -21,4 +19,4 @@ fit_lognormal_base_50_nsgtf_between <- fitfun_lognormal(data=data_50_nsgtf_betwe
                                                        rho=rho, 
                                                        r=r_nsgtf)
 
-save("fit_lognormal_base_50_sgtf_between", "fit_lognormal_base_50_nsgtf_between", file="../rdaout/fit_lognormal_base_50_between.rda")
+saveVars("fit_lognormal_base_50_sgtf_between", "fit_lognormal_base_50_nsgtf_between")

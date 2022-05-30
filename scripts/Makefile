@@ -41,11 +41,21 @@ fit_lognormal_base_comb_within.Rout: fit_lognormal_base_comb_within.R R/serialfu
 cases.Rout: cases.R data/COVID-19_aantallen_gemeente_per_dag.csv data/variant-netherlands.xlsx
 	$(pipeR)
 
-fit_lognormal_comb_within_r.Rout: fit_lognormal_comb_within_r.R R/serialfun.rda R/fitfun.rda sample_incubation.rda serialdata.rda baseparam.rda rdaout/fit_lognormal_base_comb_within.rda
+fitdeps = R/serialfun.rda R/fitfun.rda sample_incubation.rda serialdata.rda baseparam.rda rdaout/fit_lognormal_base_comb_within.rda
+fit_lognormal_comb_within_r.Rout: fit_lognormal_comb_within_r.R $(fitdeps)
 
-# fit_lognormal_base_50_between.R
-# fit_lognormal_base_comb_between.R
-# fit_lognormal_base.R
+fit_lognormal_base_50_between.Rout: fit_lognormal_base_50_between.R $(fitdeps)
+
+fit_lognormal_base_comb_between.Rout: fit_lognormal_base_comb_between.R $(fitdeps)
+
+fit_lognormal_base.Rout: fit_lognormal_base.R $(fitdeps)
+
+## source("R/serialfun.R")
+## source("R/fitfun.R")
+## source("serialdata.R")
+## source("baseparam.R")
+## load("rdaout/calculate_incubation_mle.rda")
+
 # fit_lognormal_base_rho.R
 # fit_lognormal_comb_between_r.R
 # fit_lognormal_r_50_between.R
