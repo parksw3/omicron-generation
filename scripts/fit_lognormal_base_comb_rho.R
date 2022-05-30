@@ -5,8 +5,7 @@ library(shellpipes)
 loadEnvironments()
 
 objects()
-
-fit_lognormal_base_rho_comb_nsgtf_within <- lapply(rhovec, function(rho) {
+* fit_lognormal_base_rho_comb_nsgtf_within <- lapply(rhovec, function(rho) {
   print(rho)
   ff <- fitfun_lognormal(data=data_comb_nsgtf_within, 
                          logmean_gen=coef(fit_lognormal_base_comb_nsgtf_within)[[1]], 
