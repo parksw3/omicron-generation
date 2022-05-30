@@ -16,12 +16,15 @@ pardirs += rdaout data R scripts
 
 Ignore += $(pardirs)
 
+.PRECIOUS: data/%
 data/%:
 	$(MAKE) data
 
+.PRECIOUS: R/%.R
 R/%.R:
 	$(MAKE) R
 
+.PRECIOUS: scripts/%
 scripts/%:
 	$(MAKE) scripts
 
@@ -74,6 +77,7 @@ figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_betwee
 	
 ######################################################################
 
+.PRECIOUS: rdaout/%.rda
 rdaout/%.rda: $(wildcard scripts/*.R)
 	$(MAKE) scripts
 	cd scripts && $(MAKE) $@
