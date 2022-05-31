@@ -10,16 +10,34 @@ vim_session:
 
 ######################################################################
 
-Sources += $(wildcard *.tex)
+## Structure
+
+Sources += README.md
 
 subdirs += figure scripts
 Ignore += $(subdirs)
 hotdirs += $(subdirs)
 alldirs += $(subdirs)
 
+Sources += $(wildcard R/*.R)
+
+######################################################################
+
+## Main document
+Sources += $(wildcard *.tex *.bib)
+
 omicron-generation.pdf: omicron-generation.tex
 
-Sources += rdaout/README.md $(wildcard R/*.R)
+######################################################################
+
+## Cache stuff
+Sources += rdaout/README.md $(wildcard rdacache/*.rda)
+
+use_cache:
+	rsync rdacache/*.rda rdaout/
+
+update_cache:
+	rsync rdaout/*.rda rdacache/
 
 ######################################################################
 ### Makestuff
