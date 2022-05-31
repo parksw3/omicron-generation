@@ -104,4 +104,4 @@ fit_lognormal_r_comb_sgtf_between <- lapply(rvec_sgtf, function(r) {
 }) %>%
   bind_rows
 
-save("fit_lognormal_r_comb_sgtf_between", "fit_lognormal_r_comb_nsgtf_between", file="../rdaout/fit_lognormal_comb_between_r.rda")
+saveVars("fit_lognormal_r_comb_sgtf_between", "fit_lognormal_r_comb_nsgtf_between")

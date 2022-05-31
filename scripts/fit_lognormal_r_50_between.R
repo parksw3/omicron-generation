@@ -108,4 +108,4 @@ fit_lognormal_r_50_sgtf_between <- lapply(r_sgtf, function(r) {
 }) %>%
   bind_rows
 
-saveVars("fit_lognormal_r_50_sgtf_between", "fit_lognormal_r_50_nsgtf_between", file="../rdaout/fit_lognormal_r_50_between.rda")
+saveVars("fit_lognormal_r_50_sgtf_between", "fit_lognormal_r_50_nsgtf_between")
