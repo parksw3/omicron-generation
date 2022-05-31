@@ -56,7 +56,7 @@ makestuff/%.stamp:
 
 -include makestuff/os.mk
 
--include makestuff/wrapR.mk
+-include makestuff/pipeR.mk
 -include makestuff/texi.mk
 -include makestuff/hotcold.mk
 
