@@ -17,11 +17,9 @@ Sources += $(wildcard *.R)
 pardirs += rdaout data R
 Ignore += $(pardirs)
 
-.PRECIOUS: data/%
 data/%: 
 	$(MAKE) data
 
-.PRECIOUS: R/%.R
 R/%.R: 
 	$(MAKE) R
 
@@ -72,7 +70,6 @@ fit_lognormal_base.Rout: fit_lognormal_base.R $(fitdeps)
 ######################################################################
 
 ## Automatically copy things that we might want to cache
-.PRECIOUS: rdaout/%
 rdaout/%: %
 	$(MAKE) rdaout
 	$(copy)

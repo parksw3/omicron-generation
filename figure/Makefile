@@ -46,6 +46,7 @@ figure_epidemic.Rout: figure_epidemic.R rdaout/cases.rda
 	$(pipeR)
 
 ## figure 3
+## figure_incubation.rtmp: figure_incubation.R 
 figure_incubation.Rout: figure_incubation.R rdaout/calculate_incubation_r.rda
 	$(pipeR)
 	

@@ -1,10 +1,11 @@
 library(ggplot2); theme_set(theme_bw(base_family = "Times", base_size=14))
 library(egg)
 library(shellpipes)
-rpcall("figure_incubation.Rout figure_incubation.R rdaout/calculate_incubation_r.rda")
 
 sourceFiles()
 loadEnvironments()
+
+objects()
 
 g1 <- ggplot(observed_nsgtf) +
   geom_line(aes(time, density, col="Delta", lty="Delta"), lwd=1) +
