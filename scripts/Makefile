@@ -64,7 +64,7 @@ fit_lognormal_base_rho.Rout: fit_lognormal_base_rho.R fit_lognormal_base.rda $(b
 
 fit_lognormal_comb_between_r.Rout: fit_lognormal_comb_between_r.R rdaout/fit_lognormal_base_comb_between.rda $(fitdeps)
 
-fit_lognormal_r_50_between.R: fit_lognormal_r_50_between.R fit_lognormal_base.rda $(fitdeps)
+fit_lognormal_r_50_between.Rout: fit_lognormal_r_50_between.R fit_lognormal_base.rda $(fitdeps)
 
 fit_lognormal_r_50_within.Rout: fit_lognormal_r_50_within.R rdaout/fit_lognormal_base.rda $(fitdeps)
 fit_lognormal_r_51_between.Rout: fit_lognormal_r_51_between.R rdaout/fit_lognormal_base.rda $(fitdeps)

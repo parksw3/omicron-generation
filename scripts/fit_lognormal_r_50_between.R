@@ -1,10 +1,8 @@
 library(bbmle)
-source("R/serialfun.R")
-source("R/fitfun.R")
-source("sample_incubation.R")
-source("serialdata.R")
-source("baseparam.R")
-load("rdaout/fit_lognormal_base.rda")
+library(dplyr)
+
+library(shellpipes)
+loadEnvironments()
 
 fit_lognormal_r_50_nsgtf_between <- lapply(r_nsgtf, function(r) {
   print(r)
@@ -110,4 +108,4 @@ fit_lognormal_r_50_sgtf_between <- lapply(r_sgtf, function(r) {
 }) %>%
   bind_rows
 
-save("fit_lognormal_r_50_sgtf_between", "fit_lognormal_r_50_nsgtf_between", file="../rdaout/fit_lognormal_r_50_between.rda")
+saveVars("fit_lognormal_r_50_sgtf_between", "fit_lognormal_r_50_nsgtf_between", file="../rdaout/fit_lognormal_r_50_between.rda")
