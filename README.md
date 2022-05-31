@@ -8,9 +8,11 @@ git clone https://github.com/parksw3/omicron-generation.git ##
 cd omicron-generation
 make Makefile
 make pullall
+## make use_cache
 make omicron-generation.pdf
 ```
 
+To make just the figures and the manuscript (using cached versions of the calculation files), uncomment the use_cache command
 
 ## Organization
 
