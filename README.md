@@ -1,4 +1,19 @@
 
+## Flow
+
+To make the whole project from source:
+
+```
+git clone https://github.com/parksw3/omicron-generation.git ##
+cd omicron-generation
+make Makefile
+make pullall
+make omicron-generation.pdf
+```
+
+
+## Organization
+
 The main tex document is in this directory.
 
 * R/ has some files with R functions

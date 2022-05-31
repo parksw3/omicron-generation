@@ -40,6 +40,9 @@ use_cache:
 update_cache:
 	rsync rdaout/*.rda rdacache/
 
+rdaout:
+	$(mkdir)
+
 ######################################################################
 ### Makestuff
 
