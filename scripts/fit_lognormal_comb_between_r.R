@@ -1,10 +1,8 @@
 library(bbmle)
-source("R/serialfun.R")
-source("R/fitfun.R")
-source("sample_incubation.R")
-source("serialdata.R")
-source("baseparam.R")
-load("rdaout/fit_lognormal_base_comb_between.rda")
+library(dplyr)
+
+library(shellpipes)
+loadEnvironments()
 
 fit_lognormal_r_comb_nsgtf_between <- lapply(rvec_nsgtf, function(r) {
   print(r)

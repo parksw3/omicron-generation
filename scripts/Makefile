@@ -17,13 +17,13 @@ Sources += $(wildcard *.R)
 pardirs += rdaout data R
 Ignore += $(pardirs)
 
+.PRECIOUS: data/%
 data/%: 
 	$(MAKE) data
 
+.PRECIOUS: R/%.R
 R/%.R: 
 	$(MAKE) R
-
-fit_lognormal_base_comb_rho.Rout: fit_lognormal_base_comb_rho.R R/serialfun.rda R/fitfun.rda serialdata.rda baseparam.rda rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda
 
 serialdata.Rout: serialdata.R data/serial-netherlands.xlsx
 
@@ -35,41 +35,49 @@ calculate_incubation_mle.Rout: calculate_incubation_mle.R baseparam.rda sample_i
 sample_incubation.Rout: sample_incubation.R
 	$(pipeR)
 
-fit_lognormal_base_comb_within.Rout: fit_lognormal_base_comb_within.R R/serialfun.rda R/fitfun.rda serialdata.rda baseparam.rda rdaout/calculate_incubation_mle.rda
-
 ## process data for figures
 cases.Rout: cases.R data/COVID-19_aantallen_gemeente_per_dag.csv data/variant-netherlands.xlsx
 	$(pipeR)
 
-fitdeps = R/serialfun.rda R/fitfun.rda sample_incubation.rda serialdata.rda baseparam.rda rdaout/fit_lognormal_base_comb_within.rda
-fit_lognormal_comb_within_r.Rout: fit_lognormal_comb_within_r.R $(fitdeps)
+######################################################################
 
-fit_lognormal_base_50_between.Rout: fit_lognormal_base_50_between.R $(fitdeps)
+## lognormal fits
 
-fit_lognormal_base_comb_between.Rout: fit_lognormal_base_comb_between.R $(fitdeps)
+fitdeps = R/serialfun.rda R/fitfun.rda sample_incubation.rda serialdata.rda baseparam.rda
+betdeps = $(fitdeps) rdaout/calculate_incubation_mle.rda
+witdeps = $(fitdeps) rdaout/fit_lognormal_base_comb_within.rda
+bothdeps = $(witdeps) rdaout/calculate_incubation_mle.rda
 
-fit_lognormal_base.Rout: fit_lognormal_base.R $(fitdeps)
+fit_lognormal_base_comb_rho.Rout: fit_lognormal_base_comb_rho.R $(bothdeps)
 
-## source("R/serialfun.R")
-## source("R/fitfun.R")
-## source("serialdata.R")
-## source("baseparam.R")
-## load("rdaout/calculate_incubation_mle.rda")
+fit_lognormal_base_comb_within.Rout: fit_lognormal_base_comb_within.R $(betdeps)
 
-# fit_lognormal_base_rho.R
-# fit_lognormal_comb_between_r.R
-# fit_lognormal_r_50_between.R
-# fit_lognormal_r_50_within.R
-# fit_lognormal_r_51_between.R
-# fit_lognormal_r_51_within.R
+fit_lognormal_comb_within_r.Rout: fit_lognormal_comb_within_r.R $(witdeps)
 
-# serialdata.R
+fit_lognormal_base_50_between.Rout: fit_lognormal_base_50_between.R $(betdeps)
+
+fit_lognormal_base_comb_between.Rout: fit_lognormal_base_comb_between.R $(betdeps)
+
+fit_lognormal_base.Rout: fit_lognormal_base.R $(betdeps)
+
+fit_lognormal_base_rho.Rout: fit_lognormal_base_rho.R fit_lognormal_base.rda $(bothdeps)
+
+fit_lognormal_comb_between_r.Rout: fit_lognormal_comb_between_r.R rdaout/fit_lognormal_base_comb_between.rda $(fitdeps)
+
+fit_lognormal_r_50_between.R: fit_lognormal_r_50_between.R fit_lognormal_base.rda $(fitdeps)
+
+fit_lognormal_r_50_within.Rout: fit_lognormal_r_50_within.R rdaout/fit_lognormal_base.rda $(fitdeps)
+fit_lognormal_r_51_between.Rout: fit_lognormal_r_51_between.R rdaout/fit_lognormal_base.rda $(fitdeps)
+fit_lognormal_r_51_within.Rout: fit_lognormal_r_51_within.R rdaout/fit_lognormal_base.rda $(fitdeps)
+
+calculate_incubation_r.Rout: calculate_incubation_r.R baseparam.rda sample_incubation.rda
+
 # calculate_gauteng.R
-# calculate_incubation_r.R
 
 ######################################################################
 
 ## Automatically copy things that we might want to cache
+.PRECIOUS: rdaout/%
 rdaout/%: %
 	$(MAKE) rdaout
 	$(copy)

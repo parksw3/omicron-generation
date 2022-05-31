@@ -1,6 +1,8 @@
 library(dplyr)
-source("baseparam.R")
-source("sample_incubation.R")
+
+library(shellpipes)
+
+loadEnvironments()
 
 corrected_mean_nsgtf <- lapply(1:length(rvec_nsgtf), function(x) {
   numer <- sapply(1:nsample, function(y) {
@@ -80,6 +82,5 @@ sum(corrected_sgtf$time * corrected_sgtf$density)/sum(corrected_sgtf$density)
 
 sum(corrected_nsgtf$time * corrected_nsgtf$density)/sum(corrected_nsgtf$density)
 
-save("observed_sgtf", "observed_nsgtf", "corrected_sgtf", "corrected_nsgtf", 
-     "corrected_mean_nsgtf", "corrected_mean_sgtf",
-     file="../rdaout/calculate_incubation_r.rda")
+saveVars("observed_sgtf", "observed_nsgtf", "corrected_sgtf", "corrected_nsgtf", 
+     "corrected_mean_nsgtf", "corrected_mean_sgtf")

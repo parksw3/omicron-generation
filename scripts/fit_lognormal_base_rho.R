@@ -1,10 +1,8 @@
 library(bbmle)
-source("R/serialfun.R")
-source("R/fitfun.R")
-source("serialdata.R")
-source("baseparam.R")
-load("rdaout/calculate_incubation_mle.rda")
-load("rdaout/fit_lognormal_base.rda")
+library(dplyr)
+
+library(shellpipes)
+loadEnvironments()
 
 fit_lognormal_base_rho_50_nsgtf_within <- lapply(rhovec, function(rho) {
   ff <- fitfun_lognormal(data=data_50_nsgtf_within, 
@@ -68,4 +66,4 @@ fit_lognormal_base_rho_50_sgtf_within <- lapply(rhovec, function(rho) {
 }) %>%
   bind_rows
 
-save("fit_lognormal_base_rho_50_nsgtf_within", "fit_lognormal_base_rho_50_sgtf_within", file="../rdaout/fit_lognormal_base_rho.rda")
+saveVars("fit_lognormal_base_rho_50_nsgtf_within", "fit_lognormal_base_rho_50_sgtf_within")
