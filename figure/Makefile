@@ -51,7 +51,7 @@ figure_incubation.Rout: figure_incubation.R rdaout/calculate_incubation_r.rda
 	$(pipeR)
 	
 ## figure 4
-figure_compare_main.Rout: figure_compare_main.R R/serialfun.rda scripts/serialdata.rda rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
+figure_compare_main.Rout: figure_compare_main.R R/serialfun.rda rdaout/serialdata.rda rdaout/calculate_incubation_mle.rda rdaout/fit_lognormal_base_comb_within.rda rdaout/fit_lognormal_base_comb_between.rda rdaout/fit_lognormal_comb_within_r.rda rdaout/fit_lognormal_comb_between_r.rda
 	$(pipeR)
 	
 ## process data more for figures... should really belong to /scripts
