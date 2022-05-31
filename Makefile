@@ -31,7 +31,8 @@ omicron-generation.pdf: omicron-generation.tex
 ######################################################################
 
 ## Cache stuff
-Sources += rdaout/README.md $(wildcard rdacache/*.rda)
+Sources += rdacache/README.md $(wildcard rdacache/*.rda)
+Ignore += rdaout
 
 use_cache:
 	rsync rdacache/*.rda rdaout/
