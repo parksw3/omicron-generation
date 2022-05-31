@@ -1,7 +1,7 @@
 
 ## Flow
 
-To make the whole project from source:
+To make the whole project from source (~17 minutes on a new-ish, nice-ish desktop):
 
 ```
 git clone https://github.com/parksw3/omicron-generation.git ##
