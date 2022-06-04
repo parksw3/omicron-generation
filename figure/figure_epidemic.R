@@ -6,8 +6,8 @@ sourceFiles()
 loadEnvironments()
 
 g1 <- ggplot(cases_all) +
-  geom_rect(xmin=as.Date("2021-12-13"), xmax=as.Date("2021-12-19"), ymin=-Inf, ymax=Inf, alpha=0.1, fill="gray") +
-  geom_rect(xmin=as.Date("2021-12-20"), xmax=as.Date("2021-12-26"), ymin=-Inf, ymax=Inf, alpha=0.02, fill=4) +
+  annotate("rect", xmin=as.Date("2021-12-13"), xmax=as.Date("2021-12-19"), ymin=0, ymax=Inf, alpha=0.5, fill="gray") +
+  annotate("rect", xmin=as.Date("2021-12-20"), xmax=as.Date("2021-12-26"), ymin=0, ymax=Inf, alpha=0.5, fill=4) +
   geom_point(aes(Date_of_publication, cases)) +
   geom_line(aes(Date_of_publication, rollmean), lty=1) +
   annotate("text", x=as.Date("2021-12-15")+1, y=75000, label=c("Week\n50"), family="Times", size=3) +
@@ -25,6 +25,8 @@ g1 <- ggplot(cases_all) +
   )
 
 g2 <- ggplot(variant3) +
+  annotate("rect", xmin=as.Date("2021-12-13"), xmax=as.Date("2021-12-19"), ymin=-Inf, ymax=Inf, alpha=0.5, fill="gray") +
+  annotate("rect", xmin=as.Date("2021-12-20"), xmax=as.Date("2021-12-26"), ymin=-Inf, ymax=Inf, alpha=0.5, fill=4) +
   geom_point(aes(date, omicron_prop, col="Omicron", shape="Omicron")) +
   geom_errorbar(aes(date, ymin=omicron_prop_lwr, ymax=omicron_prop_upr, col="Omicron"), width=0) +
   geom_point(aes(date, delta_prop, col="Delta", shape="Delta")) +
@@ -43,6 +45,8 @@ g2 <- ggplot(variant3) +
   )
 
 g3 <- ggplot(variant4) +
+  annotate("rect", xmin=as.Date("2021-12-13"), xmax=as.Date("2021-12-19"), ymin=0, ymax=Inf, alpha=0.5, fill="gray") +
+  annotate("rect", xmin=as.Date("2021-12-20"), xmax=as.Date("2021-12-26"), ymin=0, ymax=Inf, alpha=0.5, fill=4) +
   geom_point(aes(date, omicron_cases, col="Omicron", shape="Omicron"))  +
   geom_smooth(aes(date, omicron_cases, col="Omicron", fill="Omicron"), alpha=0.2, method="gam", lwd=0.8)  +
   geom_point(aes(date, delta_cases, col="Delta", shape="Delta")) +
@@ -62,6 +66,8 @@ g3 <- ggplot(variant4) +
   )
 
 g4 <- ggplot(all_growth) +
+  annotate("rect", xmin=3+1/7, xmax=4, ymin=-Inf, ymax=Inf, alpha=0.5, fill="gray") +
+  annotate("rect", xmin=4+1/7, xmax=5, ymin=-Inf, ymax=Inf, alpha=0.5, fill=4) +
   geom_hline(yintercept=0, lty=2) +
   geom_vline(xintercept=4, lty=2) +
   geom_vline(xintercept=8-1/7, lty=2) +
