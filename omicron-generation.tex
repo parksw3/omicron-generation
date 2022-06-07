@@ -183,7 +183,7 @@ We show that using up-to-date generation-interval distributions is critical to a
 We analyze time series of reported COVID-19 cases (\url{https://data.rivm.nl/covid-19/}) and proportions of SARS-CoV-2 variants detected (\url{https://www.rivm.nl/coronavirus-covid-19/virus/varianten}) from the Netherlands between 29 November 2021 and 30 January 2022.
 Data sets are publicly available on the National Institute for Public Health and the Environment (RIVM) website.
 
-Serial interval data are taken from \cite{backer2021omicron}.
+Serial-interval data are taken from \cite{backer2021omicron}.
 Infector-infectee pairs were identified through contact tracing, and their symptom onset dates were reported through a national surveillance database.
 Serial intervals were then calculated by taking the difference between symptom onset dates of the infector and the infectee.
 In order to ensure independence between serial intervals, one infectee was chosen at random for each infector in the original analysis.
@@ -547,9 +547,9 @@ We are not able to perform stratified analyses because individual-level informat
 Therefore, while we estimate unclear differences in incubation-period distributions between Delta and Omicron infections, controlling for other covariates, such as age and immune history, may help better characterize differences in Delta and Omicron infections.
 
 Finally, there are several sources of biases in serial-interval data that we did not consider.
-For example, the direction of transmission is particularly difficult to establish for SARS-CoV-2 due to pre-symptomatic transmission.
+For example, the direction of transmission is difficult to establish for SARS-CoV-2 due to pre-symptomatic transmission.
 Other sources of information, such as exposure history and positive test results, can help resolve uncertainties but are imperfect.
-Serial interval data also depend on the ability of infected individuals to accurately recall when their symptoms started.
+Serial-interval data also depend on the ability of infected individuals to accurately recall when their symptoms started.
 Future studies may explore how these biases affect the inference of generation intervals from serial intervals.
 While comparisons of incubation-period and serial-interval distributions can shed insight on pathogen dynamics, both distributions typically do not account for the dynamics of asymptomatic infections; neglecting these differences can further bias estimates of transmissibility of a pathogen \citep{park2020time}.
 
