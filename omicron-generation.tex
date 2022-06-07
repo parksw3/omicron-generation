@@ -98,7 +98,7 @@ Kaiyuan Sun\textsuperscript{2},
 Sam Abbott\textsuperscript{3},
 Ron Sender\textsuperscript{4},
 Yinon Bar-on\textsuperscript{4},
-Joshua Weitz\textsuperscript{5,6,7},
+Joshua S. Weitz\textsuperscript{5,6,7},
 Sebastian Funk\textsuperscript{3,8}, 
 Bryan T. Grenfell\textsuperscript{1,9},
 Jantien A Backer\textsuperscript{10},
@@ -109,7 +109,7 @@ Jonathan Dushoff\textsuperscript{12,13,14}
 \bigskip
 \textbf{1} Department of Ecology and Evolutionary Biology, Princeton University, Princeton, NJ, USA
 \\
-\textbf{2} Division of International Epidemiology and Population Studies, Fogarty International Center, 20 National Institutes of Health, Bethesda, MD, USA
+\textbf{2} Division of International Epidemiology and Population Studies, Fogarty International Center, National Institutes of Health, Bethesda, MD, USA
 \\
 \textbf{3} Centre for the Mathematical Modelling of Infectious Diseases, London School of Hygiene \& Tropical Medicine, London, UK
 \\
@@ -515,14 +515,14 @@ Our study also has important implications for estimating transmission advantages
 In the example we consider, neglecting differences in the generation-interval distributions leads to $\approx 10\%$ bias in the estimates of the reproduction advantage (i.e., the ratio between the reproduction numbers of the Omicron and Delta variants).
 More generally, the bias in inferring the reproduction advantage of an emerging variant is expected to be sensitive to the assumed generation-interval distribution of the resident variant.
 For example, \cite{pearson2021bounding} estimated a much higher reproduction advantage of the Omicron variant (\textgreater\ 4-fold) compared to the Delta variant in South Africa but also assumed a longer mean generation interval for the Delta and Omicron variants (6.4 vs 5.2 days, respectively).
-With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant assuming $r=-0.06$ and $r=0.26$ for the Delta and Omicron variants, respectively---these growth rates were chosen to match the 4-fold reproduction advantage with the estimated growth-rate differences of $0.32/\mathrm{day}$ for the Gauteng province, South Africa \cite{pearson2021bounding}.
-\jd{Need to be a bit more explicit about how we ``match'' 4-fold while estimating 2.6.}
+With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant assuming $r=-0.06$ and $r=0.26$ for the Delta and Omicron variants, respectively---these growth rates were chosen to match the 4-fold reproduction advantage with the previoulsy assumed generation-interval dystributions and estimated growth-rate differences of $0.32/\mathrm{day}$ for the Gauteng province, South Africa \cite{pearson2021bounding}.
 
 We considered two ways of measuring transmission advantages: growth-rate differences and reproduction advantage.
 Characterizing new variants in terms of their reproduction advantage is useful because it is directly related to the amount of increased transmissibility and immune evasion \citep{pearson2021bounding}.
 On the other hand, the growth-rate difference is easier to estimate in real time, and is also more directly relevant to short-term dynamics. 
-For example, when two strains have the same $\RR>1$, the one with shorter generation intervals will grow faster and replace the other strain---this transmission advantage is captured by the growth-rate difference, but not by the ratio of reproduction numbers of two strains.
-\jd{The ``replace'' part is not clear, and in fact ties back to the very question we're asking; which measure is more fundamental and thus likely to be conserved as dynamics progress?}
+For example, when two strains have the same $\RR>1$, the one with shorter generation intervals will grow faster and become dominant as long as $\RR>1$;
+however, when $\RR$ is reduced below 1 (either due to intervention or susceptible depletion), the one with longer generation interval will grow faster.
+These transmission advantages are captured by the growth-rate difference, but not by the ratio of reproduction numbers of two strains.
 Therefore, we suggest using growth-rate differences and reproduction advantage as complementary measures for understanding the dynamics of emerging SARS-CoV-2 variants.
 
 There are several limitations to our analysis.
@@ -539,7 +539,7 @@ However, such extensions are more complicated for linking generation- and serial
 Assuming exponential growth allows us to avoid this complexity.
 Extending our framework to account for time-varying growth rates can provide more accurate tools for inferring epidemiological delay distributions.
 
-We do not account for individual-level heterogeneities, such as age, vaccination status, or previous exposure history.
+We do not account for individual-level heterogeneity, such as age, vaccination status, or previous exposure history.
 In general, epidemic growth rates may differ between infection groups (e.g., the incidence of infection caused by any variant is expected to grow faster among immunologically naive individuals), and these growth-rate differences can affect estimates of epidemiological delay distributions, including the incubation-period and generation-interval distributions.
 We are not able to perform stratified analyses because individual-level information was not publicly available.
 Therefore, while we estimate unclear differences in incubation-period distributions between Delta and Omicron infections, controlling for other covariates, such as age and immune history, may help better characterize differences in Delta and Omicron infections.
@@ -562,7 +562,7 @@ All data and code are stored in a publicly available GitHub repository (\url{htt
 
 \section*{Acknowledgements}
 
-We thank Ron Milo for providing helpful comments on the manuscript. This project has received funding from European Union's Horizon 2020 research and innovation programme - project EpiPose, Epidemic intelligence to Minimize COVID-19’s Public Health, Societal and Economical Impact (JW and JB, grant agreement number 101003688). The findings and conclusions in this study are those of the authors and do not necessarily represent the official position of the funding agencies, the National Institutes of Health, or the U.S. Department of Health and Human Services.
+We thank Ron Milo for providing helpful comments on the manuscript. JSW acknowledges support from the Army Research Office W911NF1910384 and the Ile de France region via the Chaires Blaise Pascal program. JW and JB has received funding from European Union's Horizon 2020 research and innovation programme -- project EpiPose, Epidemic intelligence to Minimize COVID-19’s Public Health, Societal and Economical Impact (grant agreement number 101003688). The findings and conclusions in this study are those of the authors and do not necessarily represent the official position of the funding agencies, the National Institutes of Health, or the U.S. Department of Health and Human Services.
 
 \pagebreak
 
