@@ -197,7 +197,6 @@ For simplicity, we refer to transmission pairs with and without SGTFs as Omicron
 Incubation period data were originally collected from 513 individuals (consisting of 258 Omicron and 255 Delta cases), with symptom onsets between 1 December 2021 and 2 January 2022;
 however, the data are not publicly available with the original article. 
 Instead, we rely on previous estimates \cite{backer2021omicron} to derive growth-rate-adjusted incubation-period distributions.
-\jd{Is this weird now that Backer is an author? I wouldn't like it if I were a reviewer.}
 
 \subsection{Estimating epidemic growth rates}
 
@@ -254,7 +253,6 @@ Since incubation-period data are not provided, we are not able to fit \eref{forw
 instead we take the backward incubation-period distributions $b_I(x)$ estimated by \cite{backer2021omicron}, which was originally assumed to follow a Weibull distribution, and apply \eref{forward}.
 In particular, \cite{backer2021omicron} estimated the scale and shape parameters of the Weibull distribution to be 4.93 (95\% CI: 4.51--5.37) and 1.83 (95\% CI: 1.59--2.08), respectively, for the Delta cases, and 3.60 (95\% CI: 3.23--3.98) and 1.50 ((95\% CI: 1.32--1.70), respectively, for Omicron cases.
 
-\jd{See above about whether we have the data or not.}
 We also model the backward incubation-period distribution $b_I(\tau)$ using a Weibull distribution based on the assumptions of \cite{backer2021omicron}.
 To account for uncertainties in the original parameter estimates, we rely on a sampling scheme, similar to the one we used for the growth rate analysis (in Section 2.2).
 First, we approximate the previously inferred posterior distributions of the shape and scale parameters of the Weibull distribution using a lognormal distribution---we parameterize the lognormal distribution such that (i) its median matches the median of the posterior distributions and (ii) the probability that a random variable following the specified lognormal distribution falls between the lower and upper credible limits is 95\% \citep{park2020reconciling}.
@@ -305,8 +303,7 @@ Therefore, the difference between the mean forward serial interval and the mean 
 Earlier work on serial-interval distributions neglected dynamical biases in the incubation periods of the infectors \citep{svensson2007note,britton2019estimation}, which allowed the authors to conclude that the mean generation and serial intervals are identical.
 For simplicity, we will use the term ``forward generation-interval'' to refer to the infection-based generation-interval distribution (measured from a cohort of infectors who were infected at the same infection time, \fref{diagram}B), and drop the subscript $\mathrm{inf}$.
 
-Assuming that the incidence of infection is changing exponentially at a constant rate $r$, the forward serial-interval distribution for a cohort of infectors who developed symptoms at the same time $t$ is expected to remain unchanged through time \citep{park2021forward}. 
-\jd{Not really. It changes when susceptible numbers decrease rapidly. Can we just say ``relatively constant''? Should we explain about susceptibles?}
+Assuming that the incidence of infection will continue to change exponentially at a constant rate $r$, the forward serial-interval distribution for a cohort of infectors who developed symptoms at the same time $t$ is expected to remain unchanged through time \citep{park2021forward}. 
 Then, we can focus on the forward serial-interval distribution at $t=0$, which in turn allows us to reparameterize the incubation-period and generation-interval distributions in terms of the infection time of the infector $\alpha_1 < 0$ and of the infectee $\alpha_2 > \alpha_1$. 
 Under this parameterization, for a given length of a serial interval $\tau$, we can rewrite the incubation period of the infector as $-\alpha_1$; the generation interval as $\alpha_2 - \alpha_1$; and the incubation period of the infectee as $\tau - \alpha_2$.
 Then, the forward serial-interval distribution $f_S(\tau)$ for a cohort of infectors who developed symptoms at time $t = 0$ can be expressed in terms of three distributions (\eref{serial}): the backward incubation-period distribution of the infector $b_I(-\alpha_1)$ (taken from \eref{backward}), the forward generation-interval distribution conditional on a known value of the incubation period $x$, $f_{G|I}(\alpha_2-\alpha_1|-\alpha_1)$, and the forward incubation-period distribution of the infectee $f_I(\tau - \alpha_2)$.
@@ -325,7 +322,7 @@ The main difference between our model and previous models that neglect dynamical
 \cite{ferretti2020quantifying, ferretti2020timing} also included this term in their analyses of serial-interval data, but only accounted for the epidemic growth effect (and not the decay effect).
 
 We model the forward incubation-period $f_I(\tau)$ and generation-interval $f_G(\tau)$ distributions using a bivariate lognormal distribution.
-The joint distribution is parameterized by log-scale means, $\mu_I$ and $\mu_G$, log-scale variances, $\sigma_I^2$ and $\sigma_G^2$, and the log-scale correlation coefficient $\rho$. \jd{Changed because log mean sounds like the log of the mean, which could be misleading; people often say mean log, but then the rest of the sentence gets awkward.}
+The joint distribution is parameterized by log-scale means, $\mu_I$ and $\mu_G$, log-scale variances, $\sigma_I^2$ and $\sigma_G^2$, and the log-scale correlation coefficient $\rho$.
 Thus, the forward generation-interval distribution conditional on the incubation period $f_{G|I}(\tau|\tau_{i,1})$ has a log-scale mean of $\mu_G + \sigma_G \rho (\log(\tau_{i, 1}) - \mu_I)/\sigma_I$ and a log-scale variance of $\sigma_G^2 (1 - \rho^2)$.
 For a given value of $r$, we first estimate the forward incubation-period distribution from the backward distribution, previously estimated by \cite{backer2021omicron}, using \eref{forward}.
 We then approximate the forward incubation-period distribution with a lognormal distribution by matching the mean and standard deviation (also known as the method of moments); we note that we are unable to directly fit a lognormal distribution to the forward incubation-period distribution because we are relying on existing estimates rather than raw data.
@@ -339,9 +336,6 @@ In Supplementary Material, we explore how assumptions about $\rho$ affect infere
 
 We use our estimates of the generation-interval distributions to infer instantaneous reproduction numbers \Rt\ of the Delta and Omicron variant, as well as the ratio between the two reproduction numbers.
 Estimating the instantaneous reproduction number---defined as the average number of secondary infections that a primary case will generate if epidemiological conditions remain constant \citep{fraser2007estimating}---requires the intrinsic generation-interval distribution $g(\tau)$:
-\jd{We should think about this, too -- is it really just the forward if it's \Rt?}
-\swp{Not sure what you mean... during exponential growth, forward = intrinsic...}
-\jd{I mean, should we just say forward instead of intrinsic? And then skip the ``approximate'' just below?}
 \begin{equation}
 \Rt = \frac{i(t)}{\int_0^\infty i(t-x) g(x) \dx},
 \end{equation}
@@ -414,7 +408,6 @@ Assuming lower values of the correlation $\rho$ between the incubation period an
 In particular, the generation-interval estimates of the Omicron variant are more sensitive to the assumed values of $\rho$ due to faster changes in incidence of infection---for example, changing $\rho$ from 0.85 to 0.5 changes the mean generation-interval estimates for the Omicron variant from 3.1 days (95\% CI: 2.8--3.3 days) to 2.7 days (95\% CI: 2.5--2.9 days).
 We explore a wide range of $\rho$ to consider the possibility that our original assumption ($\rho=0.75$) may under or over-estimate the true $\rho$.
 
-\jd{How do we decide things are unclear? Overlapping CIs is generally too conservative.}
 Similar pictures arise for between-household transmission pairs, but the differences in mean serial intervals are unclear (\fref{serial}E): 3.0 days (95\% CI: 2.7--3.3 days) for the Omicron variant and 3.3 days (95\% CI: 3.0 days--3.6 days) for the Delta variant.
 Consistent with the original study, which also reported shorter mean serial intervals for between-household pairs \citep{backer2021omicron}, we estimate shorter mean generation intervals for between-household Delta pairs.
 While the difference in mean generation intervals is larger, there is greater uncertainty in their mean estimates (\fref{serial}F): 2.9 days (95\% CI: 2.5--3.3 days) for the Omicron variant and 3.5 days (95\% CI: 3.2--3.8 days) for the Delta variant.
@@ -480,9 +473,7 @@ These effects are also pertinent to epidemiological inferences of past events fr
 Our sensitivity analysis also shows that the assumptions about the correlation between incubation periods and generation intervals can also have important effects on the estimates of the generation-interval distributions (Supplementary Figure S1).
 
 This study presents a method for accounting for dynamical biases when inferring incubation-period distributions based on epidemic growth rates.
-\jd{I'm a bit worried about the ff.~s. Backward and forward intervals are measured at the same time, it's all about how they are collated (and what info is available. This relates a bit to the point about not having access to Backer's data.}
-In practice, it is easier to measure the backward incubation-period distribution because we can directly observe symptom onset. 
-Therefore, the observed incubation-period distributions are generally expected to be biased, and similar kinds of corrections will be necessary to accurately estimate the incubation-period distribution.
+Observed incubation-period distributions based on symptom-based cohorts are generally expected to be biased, and similar kinds of corrections will be necessary to accurately estimate the incubation-period distribution.
 We note that making these kinds of corrections will also depend on data availability, model complexity, and other epidemiological covariates affecting incubation periods, such as vaccine statuses. 
 Accounting for different sources of biases is critical to accurately estimating incubation-period distributions (and other epidemiological distributions alike) but will necessarily increase uncertainties in the estimates.
 On the other hand, it is still possible to characterize the forward incubation-period distributions without making growth-rate-based corrections through a careful cohorting of individuals with similar infection times when detailed information about infection time is available---we were not able to explore this in our analysis because we relied on publicly available information, which do not contain individual-level information, such as exposure or symptom onset dates.
