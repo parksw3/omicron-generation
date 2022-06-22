@@ -142,13 +142,22 @@ Jonathan Dushoff\textsuperscript{12,13,14}
 
 \section*{Abstract}
 
-Estimating the differences in the incubation-period, serial-interval, and generation-interval distributions of SARS-CoV-2 variants is critical to understanding their transmission dynamics and outbreak control.
+Estimating the differences in the incubation-period, serial-interval, and generation-interval distributions of SARS-CoV-2 variants is critical to understanding their transmission and control.
 However, the impact of epidemic dynamics is often neglected in estimating the timing of infection and transmission---for example, when an epidemic is growing exponentially, a cohort of infected individuals who developed symptoms at the same time are more likely to have been infected recently.
 Here, we re-analyze incubation-period and serial-interval data describing transmissions of the Delta and Omicron variants from the Netherlands at the end of December 2021.
 Previous analysis of the same data set reported shorter mean observed incubation period (3.2 days vs 4.4 days) and serial interval (3.5 days vs 4.1 days) for the Omicron variant, but the number of infections caused by the Delta variant decreased during this period as the number of Omicron infections increased.
 When we account for growth-rate differences of two variants during the study period, we estimate similar mean incubation periods (3.8--4.5 days) for both variants but a shorter mean generation interval for the Omicron variant (3.0 days; 95\% CI: 2.7--3.2 days) than for the Delta variant (3.8 days; 95\% CI: 3.7--4.0 days).
 We further note that the differences in estimated generation intervals may be driven by the ``network effect''---higher effective transmissibility of the Omicron variant can cause faster susceptible depletion among contact networks, which in turn prevents late transmission (therefore shortening realized generation intervals).
 Using up-to-date generation-interval distributions is critical to accurately estimating the reproduction advantage of the Omicron variant.
+
+\section*{Significance}
+
+Characterizing changes in the effective transmissibility over the course of infection---also known as the generation-interval distribution---is essential to comparing emerging SARS-CoV-2 variants.
+Recent studies suggest that individuals infected with the Omicron variant develop symptoms earlier and transmit faster than those infected with the Delta variant.
+However, these studies typically neglect the impact of population-level dynamics on their inference: 
+when an epidemic is growing rapidly, we are more likely to find individuals who were infected recently, which biases us toward observing earlier transmission events.
+When we account for this dynamical bias, we find that Omicron infections from the Netherlands at the end of December 2021 had similar incubation periods, but shorter generation intervals, compared to Delta infections from the same period.
+Shorter generation intervals of the Omicron variant may be attributed to its higher effective reproduction number, which can cause faster local susceptible depletion around the contact network.
 
 \end{flushleft}
 
@@ -506,7 +515,7 @@ Our study also has important implications for estimating transmission advantages
 In the example we consider, neglecting differences in the generation-interval distributions leads to $\approx 10\%$ bias in the estimates of the reproduction advantage (i.e., the ratio between the reproduction numbers of the Omicron and Delta variants).
 More generally, the bias in inferring the reproduction advantage of an emerging variant is expected to be sensitive to the assumed generation-interval distribution of the resident variant.
 For example, \cite{pearson2021bounding} estimated a much higher reproduction advantage of the Omicron variant (\textgreater\ 4-fold) compared to the Delta variant in South Africa but also assumed a longer mean generation interval for the Delta and Omicron variants (6.4 vs 5.2 days, respectively).
-With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant assuming $r=-0.06$ and $r=0.26$ for the Delta and Omicron variants, respectively---these growth rates were chosen to match the 4-fold reproduction advantage with the previoulsy assumed generation-interval dystributions and estimated growth-rate differences of $0.32/\mathrm{day}$ for the Gauteng province, South Africa \cite{pearson2021bounding}.
+With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant assuming $r=-0.06$ and $r=0.26$ for the Delta and Omicron variants, respectively---these growth rates were chosen to match the 4-fold reproduction advantage with the previously assumed generation-interval distributions and estimated growth-rate differences of $0.32/\mathrm{day}$ for the Gauteng province, South Africa \cite{pearson2021bounding}.
 
 We considered two ways of measuring transmission advantages: growth-rate differences and reproduction advantage.
 Characterizing new variants in terms of their reproduction advantage is useful because it is directly related to the amount of increased transmissibility and immune evasion \citep{pearson2021bounding}.
@@ -553,7 +562,7 @@ All data and code are stored in a publicly available GitHub repository (\url{htt
 
 \section*{Acknowledgements}
 
-We thank Ron Milo for providing helpful comments on the manuscript. JSW acknowledges support from the Army Research Office W911NF1910384 and the Ile de France region via the Chaires Blaise Pascal program. JW and JB has received funding from European Union's Horizon 2020 research and innovation programme -- project EpiPose, Epidemic intelligence to Minimize COVID-19’s Public Health, Societal and Economical Impact (grant agreement number 101003688). The findings and conclusions in this study are those of the authors and do not necessarily represent the official position of the funding agencies, the National Institutes of Health, or the U.S. Department of Health and Human Services.
+We thank Ron Milo for providing helpful comments on the manuscript. JSW acknowledges support from the Army Research Office W911NF1910384 and the Ile de France region via the Chaires Blaise Pascal program. JW and JB has received funding from European Union's Horizon 2020 research and innovation programme---project EpiPose, Epidemic intelligence to Minimize COVID-19’s Public Health, Societal and Economical Impact (grant agreement number 101003688). S.F. was supported by the Wellcome Trust (grant no. 210758/Z/18/Z). The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript. The findings and conclusions in this study are those of the authors and do not necessarily represent the official position of the funding agencies, the National Institutes of Health, or the U.S. Department of Health and Human Services.
 
 \pagebreak
 
