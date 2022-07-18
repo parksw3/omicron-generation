@@ -12,7 +12,7 @@ vim_session:
 
 ## Structure
 
-Sources += README.md
+Sources += README.md letter.md
 
 subdirs += figure scripts
 Ignore += $(subdirs)
