@@ -1,6 +1,6 @@
 ## This is a new, repo Makefile for omicron generations 2022 Apr 21 (Thu)
 
-current: target
+current: omicron-generation.pdf
 -include target.mk
 
 # -include makestuff/perl.def
