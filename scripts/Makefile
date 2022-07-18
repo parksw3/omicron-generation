@@ -80,9 +80,7 @@ calculate_incubation_r.Rout: calculate_incubation_r.R baseparam.rda sample_incub
 .PRECIOUS: rdaout/%
 rdaout/%.rda: %.rda | rdaout
 	$(copy)
-
-rdaout/%.Rout: | rdaout
-	$(touch)
+	$(CP) $*.Rout rdaout
 
 rdaout: | R
 
