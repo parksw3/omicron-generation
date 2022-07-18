@@ -36,7 +36,6 @@ Ignore += rdaout
 
 use_cache:
 	rsync -aur rdacache/*.rda rdaout/
-	rsync -aur rdaout/*.rda scripts/
 
 update_cache:
 	rsync -aur rdaout/*.rda rdacache/
