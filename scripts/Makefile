@@ -84,6 +84,8 @@ rdaout/%.rda: %.rda | rdaout
 rdaout/%.Rout: | rdaout
 	$(touch)
 
+rdaout: | R
+
 ######################################################################
 
 autopipeR = defined
