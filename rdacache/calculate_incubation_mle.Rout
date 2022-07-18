@@ -1,0 +1,61 @@
+
+R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(shellpipes)
+> 
+> loadEnvironments()
+> 
+> moment_0_nsgtf <- integrate(function(z) {
++   dweibull(z, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r_nsgtf * z)
++ }, 0, Inf)[[1]]
+> 
+> moment_1_nsgtf <- integrate(function(z) {
++   z * dweibull(z, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r_nsgtf * z)
++ }, -100, 100)[[1]]
+> 
+> moment_2_nsgtf <- integrate(function(z) {
++   z^2 * dweibull(z, shape=backward_shape_nsgtf, scale=backward_scale_nsgtf) * exp(r_nsgtf * z)
++ }, -100, 100)[[1]]
+> 
+> moment_0_sgtf <- integrate(function(z) {
++   dweibull(z, shape=backward_shape_sgtf, scale=backward_scale_sgtf) * exp(r_sgtf * z)
++ }, 0, Inf)[[1]]
+> 
+> moment_1_sgtf <- integrate(function(z) {
++   z * dweibull(z, shape=backward_shape_sgtf, scale=backward_scale_sgtf) * exp(r_sgtf * z)
++ }, -100, 100)[[1]]
+> 
+> moment_2_sgtf <- integrate(function(z) {
++   z^2 * dweibull(z, shape=backward_shape_sgtf, scale=backward_scale_sgtf) * exp(r_sgtf * z)
++ }, -100, 100)[[1]]
+> 
+> mean_inc_nsgtf <- moment_1_nsgtf/moment_0_nsgtf
+> var_inc_nsgtf <- moment_2_nsgtf/moment_0_nsgtf - mean_inc_nsgtf^2
+> 
+> logsd_inc_nsgtf <- sqrt(log(var_inc_nsgtf/mean_inc_nsgtf^2 + 1))
+> logmean_inc_nsgtf <- log(mean_inc_nsgtf/exp(logsd_inc_nsgtf^2/2))
+> 
+> mean_inc_sgtf <- moment_1_sgtf/moment_0_sgtf
+> var_inc_sgtf <- moment_2_sgtf/moment_0_sgtf - mean_inc_sgtf^2
+> 
+> logsd_inc_sgtf <- sqrt(log(var_inc_sgtf/mean_inc_sgtf^2 + 1))
+> logmean_inc_sgtf <- log(mean_inc_sgtf/exp(logsd_inc_sgtf^2/2))
+> 
+> saveVars("logsd_inc_nsgtf", "logmean_inc_nsgtf", "logsd_inc_sgtf", "logmean_inc_sgtf")
+> 

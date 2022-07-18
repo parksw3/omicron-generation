@@ -39,6 +39,7 @@ use_cache:
 
 update_cache:
 	rsync -aur rdaout/*.rda rdaout/*.Rout rdacache/
+	git add -f rdacache/*.Rout
 
 rdaout:
 	$(mkdir)
