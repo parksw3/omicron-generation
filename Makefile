@@ -1,4 +1,4 @@
-## This is a new, repo Makefile for omicron generations 2022 Apr 21 (Thu)
+## This is omicron_generations
 
 all: omicron-generation.pdf
 -include target.mk
