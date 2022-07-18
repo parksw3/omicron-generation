@@ -16,6 +16,7 @@ Sources += $(wildcard *.R)
 
 pardirs += rdaout data R
 Ignore += $(pardirs)
+Makefile: | $(pardirs)
 
 .PRECIOUS: data/%
 data/%: 
