@@ -35,7 +35,8 @@ Sources += rdacache/README.md $(wildcard rdacache/*.rda)
 Ignore += rdaout
 
 use_cache:
-	rsync -aur rdacache/*.rda rdacache/*.Rout rdaout/
+	rsync -aur rdacache/*.rda rdaout/
+	rsync -aur rdacache/*.Rout rdaout/
 
 update_cache:
 	rsync -aur rdaout/*.rda rdacache/
