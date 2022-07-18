@@ -13,7 +13,7 @@ vim_session:
 
 autopipeR = defined
 pardirs += rdaout data R scripts
-Makefile: | $(pardirs)
+rdaout: | scripts
 
 Ignore += $(pardirs)
 
