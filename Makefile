@@ -28,8 +28,6 @@ Sources += $(wildcard *.tex *.bib)
 
 omicron-generation.pdf: omicron-generation.tex
 
-hotdirs += figure
-
 ######################################################################
 
 ## Cache stuff
