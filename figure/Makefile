@@ -85,10 +85,10 @@ scripts/%:
 ## Pull stuff from scripts when needed files are _absent_
 
 .PRECIOUS: rdaout/%.rda
-rdaout/%.rda:
+rdaout/%.rda: | rdaout
 	$(MAKE) scripts
 	cd scripts && $(MAKE) $*.rda
-	cp scripts/$*.rda rdaout
+	cp scripts/$*.rda rdaout/
 
 ######################################################################
 
