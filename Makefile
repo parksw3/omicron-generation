@@ -41,6 +41,9 @@ update_cache:
 	rsync -aur rdaout/*.rda rdaout/*.Rout rdacache/
 	git add -f rdacache/*.Rout
 
+invalidate_cache:
+	del rdaout/*.rda
+
 rdaout:
 	$(mkdir)
 
