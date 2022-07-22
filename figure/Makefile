@@ -12,24 +12,6 @@ vim_session:
 ######################################################################
 
 autopipeR = defined
-pardirs += rdaout data R scripts
-rdaout: | scripts R
-
-Ignore += $(pardirs)
-
-.PRECIOUS: data/%
-data/%:
-	$(MAKE) data
-
-.PRECIOUS: R/%.R
-R/%.R:
-	$(MAKE) R
-
-.PRECIOUS: scripts/%
-scripts/%:
-	$(MAKE) scripts
-
-######################################################################
 
 Sources = $(wildcard *.R)
 autopipeR = defined
@@ -79,10 +61,34 @@ figure_reproduction_advantage_between.Rout: figure_reproduction_advantage_betwee
 	
 ######################################################################
 
-.PRECIOUS: rdaout/%.rda
-rdaout/%.rda: $(wildcard scripts/*.R)
+## Set up directories
+
+pardirs += rdaout data R scripts
+rdaout: | scripts R
+
+Ignore += $(pardirs)
+
+.PRECIOUS: data/%
+data/%:
+	$(MAKE) data
+
+.PRECIOUS: R/%.R
+R/%.R:
+	$(MAKE) R
+
+.PRECIOUS: scripts/%
+scripts/%:
 	$(MAKE) scripts
-	cd scripts && $(MAKE) $@
+
+######################################################################
+
+## Pull stuff from scripts when needed files are _absent_
+
+.PRECIOUS: rdaout/%.rda
+rdaout/%.rda:
+	$(MAKE) scripts
+	cd scripts && $(MAKE) $*.rda
+	cp scripts/$*.rda rdaout
 
 ######################################################################
 
