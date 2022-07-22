@@ -42,7 +42,7 @@ update_cache:
 	git add -f rdacache/*.Rout
 
 invalidate_cache:
-	del rdaout/*.rda
+	(RM) rdaout/*.rda
 
 rdaout:
 	$(mkdir)
