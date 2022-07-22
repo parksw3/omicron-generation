@@ -14,7 +14,7 @@ vim_session:
 autopipeR = defined
 Sources += $(wildcard *.R)
 
-pardirs += rdaout data R
+pardirs += data R
 Ignore += $(pardirs)
 
 .PRECIOUS: data/%
@@ -44,9 +44,9 @@ cases.Rout: cases.R data/COVID-19_aantallen_gemeente_per_dag.csv data/variant-ne
 ## lognormal fits
 
 fitdeps = R/serialfun.rda R/fitfun.rda sample_incubation.rda serialdata.rda baseparam.rda
-betdeps = $(fitdeps) rdaout/calculate_incubation_mle.rda
-witdeps = $(fitdeps) rdaout/fit_lognormal_base_comb_within.rda
-bothdeps = $(witdeps) rdaout/calculate_incubation_mle.rda
+betdeps = $(fitdeps) calculate_incubation_mle.rda
+witdeps = $(fitdeps) fit_lognormal_base_comb_within.rda
+bothdeps = $(witdeps) calculate_incubation_mle.rda
 
 fit_lognormal_base_comb_rho.Rout: fit_lognormal_base_comb_rho.R $(bothdeps)
 
@@ -62,31 +62,17 @@ fit_lognormal_base.Rout: fit_lognormal_base.R $(betdeps)
 
 fit_lognormal_base_rho.Rout: fit_lognormal_base_rho.R fit_lognormal_base.rda $(bothdeps)
 
-fit_lognormal_comb_between_r.Rout: fit_lognormal_comb_between_r.R rdaout/fit_lognormal_base_comb_between.rda $(fitdeps)
+fit_lognormal_comb_between_r.Rout: fit_lognormal_comb_between_r.R fit_lognormal_base_comb_between.rda $(fitdeps)
 
 fit_lognormal_r_50_between.Rout: fit_lognormal_r_50_between.R fit_lognormal_base.rda $(fitdeps)
 
-fit_lognormal_r_50_within.Rout: fit_lognormal_r_50_within.R rdaout/fit_lognormal_base.rda $(fitdeps)
-fit_lognormal_r_51_between.Rout: fit_lognormal_r_51_between.R rdaout/fit_lognormal_base.rda $(fitdeps)
-fit_lognormal_r_51_within.Rout: fit_lognormal_r_51_within.R rdaout/fit_lognormal_base.rda $(fitdeps)
+fit_lognormal_r_50_within.Rout: fit_lognormal_r_50_within.R fit_lognormal_base.rda $(fitdeps)
+fit_lognormal_r_51_between.Rout: fit_lognormal_r_51_between.R fit_lognormal_base.rda $(fitdeps)
+fit_lognormal_r_51_within.Rout: fit_lognormal_r_51_within.R fit_lognormal_base.rda $(fitdeps)
 
 calculate_incubation_r.Rout: calculate_incubation_r.R baseparam.rda sample_incubation.rda
 
 # calculate_gauteng.R
-
-######################################################################
-
-## Automatically copy things that we might want to cache
-.PRECIOUS: rdaout/%
-rdaout/%.rda: %.rda | rdaout
-	$(copy)
-	$(CP) $*.Rout rdaout
-
-rdaout: | R
-
-######################################################################
-
-autopipeR = defined
 
 ######################################################################
 
