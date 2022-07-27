@@ -14,6 +14,8 @@ make omicron-generation.pdf
 
 To make just the figures and the manuscript (using cached versions of the calculation files), uncomment the use_cache command
 
+See the rdacache/README.md for more information about the cache.
+
 ## Organization
 
 The main tex document is in this directory.
