@@ -64,5 +64,12 @@ I find it an important contribution
 to the literature
 , albeit a technical one.
 
+######################################################################
+
+JD comments:
+
+It looks a little misguided, but should still be easy to deal with. We need to discuss the fact that omicron very likely benefited from immune evasion (with cites), and why we feel it's not particularly relevant for this analysis: our main purpose is to identify the distributions, and that is important whether or not we can explain them.
+
+That said, we could add a bit of speculation: a larger proportion of omicron infections were in people with some amount of pre-existing immunity (e.g., T cells) and this could have shortened the generation interval. We're already speculating about the network stuff...
 
 
