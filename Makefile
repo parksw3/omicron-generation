@@ -30,6 +30,10 @@ omicron-generation.pdf: omicron-generation.tex
 
 ######################################################################
 
+Sources += reviews.md
+
+######################################################################
+
 ## Cache stuff
 Sources += rdacache/README.md $(wildcard rdacache/*.rda)
 Ignore += rdaout
