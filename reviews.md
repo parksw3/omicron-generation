@@ -70,4 +70,3 @@ It looks a little misguided, but should still be easy to deal with. We need to d
 
 That said, we could add a bit of speculation: a larger proportion of omicron infections were in people with some amount of pre-existing immunity (e.g., T cells) and this could have shortened the generation interval. We're already speculating about the network stuff...
 
-
