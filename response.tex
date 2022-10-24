@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{color}
+
+\usepackage{xspace}
+
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+
+\usepackage[pdfencoding=auto, psdextra]{hyperref}
+
+\usepackage{natbib}
+\bibliographystyle{chicago}
+
+\newcommand{\eref}[1]{Eq.~(\ref{eq:#1})}
+\newcommand{\fref}[1]{Fig.~\ref{fig:#1}}
+
+\newcommand{\rR}{\mbox{$r$--$\cal R$}}
+\newcommand{\RR}{\ensuremath{{\cal R}}}
+\newcommand{\RRhat}{\ensuremath{{\hat \cal R}}}
+\newcommand{\Rx}[1]{\ensuremath{{\cal R}_{#1}}} 
+\newcommand{\Ro}{\ensuremath{{\mathcal R}_{0}}\xspace}
+\newcommand{\Rs}{\Rx{\mathrm{s}}}
+\newcommand{\Rpool}{\ensuremath{{\mathcal R}_{\textrm{\tiny{pool}}}}\xspace}
+\newcommand{\Reff}{\Rx{\mathit{eff}}}
+\newcommand{\Tc}{\ensuremath{C}}
+
+\newcommand{\dd}[1]{\ensuremath{\, \mathrm{d}#1}}
+\newcommand{\dtau}{\dd{\tau}}
+\newcommand{\dx}{\dd{x}}
+\newcommand{\dsigma}{\dd{\sigma}}
+
+\newcommand{\rev}{\subsection*}
+\newcommand{\revtext}{\textsf}
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0em}
+
+\newcommand{\comment}[3]{\textcolor{#1}{\textbf{[#2: }\textsl{#3}\textbf{]}}}
+\newcommand{\jd}[1]{\comment{cyan}{JD}{#1}}
+\newcommand{\swp}[1]{\comment{magenta}{SWP}{#1}}
+\newcommand{\dc}[1]{\comment{blue}{DC}{#1}}
+\newcommand{\jsw}[1]{\comment{green}{JSW}{#1}}
+\newcommand{\hotcomment}[1]{\comment{red}{HOT}{#1}}
+
+\newcommand{\psymp}{\ensuremath{p}} %% primary symptom time
+\newcommand{\ssymp}{\ensuremath{s}} %% secondary symptom time
+\newcommand{\pinf}{\ensuremath{\alpha_1}} %% primary infection time
+\newcommand{\sinf}{\ensuremath{\alpha_2}} %% secondary infection time
+
+\newcommand{\psize}{{\mathcal P}} %% primary cohort size
+\newcommand{\ssize}{{\mathcal S}} %% secondary cohort size
+
+\newcommand{\gtime}{\tau_{\rm g}} %% generation interval
+\newcommand{\gdist}{g} %% generation-interval distribution
+\newcommand{\idist}{\ell} %% incubation period distribution
+
+\newcommand{\total}{{\mathcal T}} %% total number of serial intervals
+
+
+\begin{document}
+
+\noindent Dear Editor:
+
+Thank you for the chance to revise and resubmit our manuscript. 
+
+\revtext{Editor review}
+Dear Mr. Park,
+
+Thank you for submitting your manuscript Inferring the differences in incubation-period and generation-interval distributions of the Delta and Omicron variants of SARS-CoV-2 for consideration by PNAS. We apologize for the delay in assessing your manuscript. After an evaluation of its suitability for PNAS, your manuscript was assigned to an editor with expertise in the subject area of your work, who examined the manuscript and identified 2 expert reviewers in the field to assess your work. These reviews, which appear below, were considered by the editor, who determined that the issues raised by the reviewers were of sufficient concern to merit rejection of the manuscript.
+
+The reviewers were positive, however, about certain aspects of the work, an assessment with which the editor concurs; accordingly, we are willing to consider a resubmission that constructively addresses all of the concerns raised in the reviews. The revised manuscript must satisfy both the reviewers and the editor in order to be accepted. Please know, though, that we cannot guarantee acceptance because new criticisms could arise upon re-evaluation, and another round of resubmission is not allowed.
+
+If you would like to submit a resubmission, please submit it as a new paper. In your cover letter and the Comments to Editorial Staff, please specify that the paper is a resubmission and include your original tracking number and a point-by-point response to the editor and reviewers' comments. Your resubmission will be given a new tracking number. If you have any questions, please contact our office.
+
+Dear Colleagues:
+
+Both reviewers, as well as I, like this report and the way it is written. Reviewer 2 recommended its acceptance. Reviewer 1 raised an issue you need to address, "WHY the omicron variant had such a short generation time in this setting...", and 
+recommend
+ the rejection of your report. I agree with this review about this issue.
+
+Based on that reviewer's criticism, I am recommending what I call a soft rejection. Address this reviewer's criticism in detail and modify the manuscript accordingly. By "address," I am considering the possibility of 
+your
+ presenting a compelling argument for why this issue need not be considered in this report. Your response to the reviews and the revised manuscript will be sent to the second reviewer.
+
+I look forward to reading your revised manuscript.
+
+Best wishes for your well-being and that of all the people you care for whom you care,
+
+Be well,
+
+Bruce
+
+
+\rev{Reviewer \#1}
+
+\revtext{The paper commences with a very clear introduction to the problems in estimating the transmission advantage of a new variant - in particular, the role of dynamical bias. This is followed by a very reasonable proposal for how the problem may be addressed. Applying these methods to a re-analysis of data on within- and between- household spread of delta and omicron variants of SARS-CoV-2 suggests that while both had similar incubation-period distributions, the mean generation interval for omicron was shorter by 0.3-0.8 days than previously estimated (0.6 days). The original analysis had also reported a difference in mean incubation periods of 3.2 days for omicron versus 4.4 days for delta; the methods used in this paper suggest that both have a mean of 4.1 days. The consequences of discriminating between generation time intervals on the estimation of transmission advantage is shown in Fig 5, although it is not clear how this pertains to dynamical bias as both the original study and this one reported a difference between the variants in this respect.}
+
+Dynamical biases pertain to the estimation of delay distributions 
+
+\revtext{The caveats of this study, and the problems of applying this method to other datasets, are very thoroughly outlined in the discussion.} 
+
+Thank you.
+
+\revtext{Less attention is paid to the more important question of WHY the omicron variant had such a short generation time in this setting.}
+
+\revtext{The authors discuss the possibility of a "network effect" which is predicated on omicron having a higher Ro and therefore somewhat circular.}
+
+Not circular.
+
+\revtext{Other factors "such as more stringent contact tracing measures against the Omicron variant in the Netherlands [4], faster within-host clearance of the Omicron variant [35], and viral kinetics of reinfection and breakthrough infections" are mentioned without sufficient explanation as to why they would yield such a result.}
+
+Can provide more detail.
+
+\revtext{The role of immune evasion - although mentioned in passing - has not been sufficiently accommodated either in the discussion or in the analysis itself, even though it presents itself as the most likely explanation for the success of omicron in almost every global setting.}
+
+Yes and no.
+
+\revtext{To address this properly, the authors will have to account for the different proportions of the population currently immune to infection by either variant and how the level of cross-immunity between them affects our observations of transmission advantage. The authors should at least justify why they have not taken such an obvious feature of this multi-strain system into account.}
+
+\rev{Reviewer \#2}
+
+\revtext{The significance statement is accurate. I find the paper definitely relevant for future epidemiological studies on COVID-19, and even important for some technical works. But neither the methods nor the results are likely to have a huge impact on the field, even less on other fields.}
+
+\revtext{The manuscript is technically sound and very well written. The results are convincing and clearly explained in the manuscript, and the arguments presented make sense from an epidemiological perspective. This paper emphasizes once more the importance of accounting for the epidemic dynamic (or the differential dynamic between two variants, as in this case) when inferring fundamental epidemiologically relevant quantities that vary in time during the infection. I find it an important contribution to the literature, albeit a technical one.}
+
+\end{document}
