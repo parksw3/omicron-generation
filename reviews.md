@@ -25,8 +25,6 @@ Be well,
 
 Bruce
 
-
-
 Reviewer #1:
 
 Suitable Quality?: No
