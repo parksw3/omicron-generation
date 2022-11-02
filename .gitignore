@@ -3,3 +3,13 @@
 .RData
 .Ruserdata
 *.pdf
+*.Rout
+*.Rlog
+*.args
+*.bbl
+*.blg
+*.log
+*.subdeps
+*.gz
+*.deps
+*.mk
