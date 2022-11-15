@@ -1,6 +1,6 @@
 ## This is omicron_generations
 
-all: omicron-generation.pdf
+all: omicron-generation.pdf response.pdf
 -include target.mk
 
 # -include makestuff/perl.def
@@ -26,7 +26,8 @@ Sources += $(wildcard R/*.R)
 ## Main document
 Sources += $(wildcard *.tex *.bib)
 
-omicron-generation.pdf: omicron-generation.tex
+## omicron-generation.pdf: omicron-generation.tex
+## response.pdf: response.tex
 
 ######################################################################
 
