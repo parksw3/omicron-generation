@@ -28,6 +28,7 @@ Sources += $(wildcard *.tex *.bib)
 
 ## omicron-generation.pdf: omicron-generation.tex
 ## response.pdf: response.tex
+## response.ld.pdf: response.tex
 
 ######################################################################
 
