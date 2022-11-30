@@ -92,7 +92,7 @@ Here, what we show is that estimates of transmission advantage depend on assumpt
 For example, as we explain in the Discussion, assuming longer generation-interval distributions can lead to further biases in the estimates of transmission advantange:
 
 ``For example, \cite{pearson2021bounding} estimated a much higher reproduction advantage of the Omicron variant (\textgreater\ 4-fold) compared to the Delta variant in South Africa but also assumed a longer mean generation interval for the Delta and Omicron variants (6.4 vs 5.2 days, respectively).
-With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant assuming $r=-0.06$ and $r=0.26$ for the Delta and Omicron variants, respectively---these growth rates were chosen to match the assumptions and results of \cite{pearson2021bounding} for Gauteng province.''
+With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant assuming $r=-0.06$ and $r=0.26$ for the Delta and Omicron variants, respectively---these growth rates were chosen to match the assumptions and results of \cite{pearson2021bounding} for Gauteng province in South Africa.''
 
 \revtext{The caveats of this study, and the problems of applying this method to other datasets, are very thoroughly outlined in the discussion.} 
 
@@ -104,7 +104,7 @@ We have now added text to the discussion explaining different types of generatio
 
 ``Some studies have also estimated that the Omicron variant has shorter transmission intervals than the Delta variant \citep{abbott2022test,kremer2022observed,song2022serial}, but there has been a lack of direct generation-interval estimates.
 \cite{ito2022estimating,selby2022generation} estimated the generation-interval distributions of the Omicron variant but they both relied on population-level epidemic dynamics (rather than individual-level transmission data).
-Here, we we estimate a shorter mean \emph{realized} generation interval for the Omicron variant.
+Here, we estimate a shorter mean \emph{realized} generation interval for the Omicron variant.
 The realized generation intervals represent time between actual infection events, and are different from the intrinsic generation intervals, which reflect the average profile of infectiousness of infected individuals over the course of their infections \citep{champredon2015intrinsic}.
 
 Shorter realized generation intervals of the Omicron variant may be driven, in part, by shorter intrinsic generation intervals.
@@ -114,20 +114,21 @@ In our analysis, a greater proportion of Omicron than Delta infections would hav
 this allowed the Omicron variant to rapidly replace the previously dominant Delta variant at the population level.
 However, the individual-level relationship between immunity and the intrinsic generation-interval distributions of the Omicron variant is difficult to predict given its high immune evasiveness:
 some individuals may have been able to elicit a strong immune response, thereby recovering faster, but many other individuals likely experienced a full course of infection.
-In other words, pre-existing immunity may shorten intrinsic generation intervals, whereas immune evasion may lengthen them---their combined effects on the resulting generation-interval distribution are unclear.
+In other words, pre-existing immunity may shorten intrinsic generation intervals, whereas immune evasion may lengthen them (relative to reinfection with Delta, which would be less immune evasive).
+Their combined effects on the resulting generation-interval distribution are unclear.
 We note that the population-level effects of immune evasiveness, which allowed the Omicron variant to invade rapidly, do not depend on these possible changes in the generation-interval distribution:
 immune evasion could have allowed Omicron to replace Delta even without differences in intrinsic generation-interval distributions.
 
 Even if the Delta and Omicron variants had identical intrinsic generation-interval distributions (e.g., a lack of changes in viral kinetics or the effect of pre-existing immunity), their realized generation-interval distributions could still differ.
 For example, if there are more stringent contact tracing measures against the Omicron variant, individuals who are infected with the Omicron variant would transmit for a shorter amount of time, thereby resulting in a shorter realized generation interval.
-Although this was the case in the Netherlands \citep{backer2021omicron}, targeted control measures against a specific variant are likely to have small impact on the overall generation-interval distribution given that variants are usually identified for a small fraction of total infections.
+Although this was the case in the Netherlands \citep{backer2021omicron}, targeted control measures against a specific variant are likely to have a small impact on the overall generation-interval distribution given that variants are usually identified for a small fraction of total infections.
 If Delta and Omicron variants have different degrees of symptomaticity or different incubation periods, behavioral changes after symptom onset, such as self-isolation, could also lead to shorter realized generation intervals.
 However, this explanation is also less likely given similarities in the inferred incubation-period distributions.
 
 Instead, we tentatively hypothesize that the differences in realized generation intervals may be primarily driven by the network effect \citep{park2020inferring,hart2022generation}: a higher reproduction number of the Omicron variant leads to faster susceptible depletion among close contacts, which in turn prevents long generation intervals from being realized. 
 To illustrate this effect, consider a scenario in which an individual infected with variant A can infect one person per day for four days whereas another individual infected with variant B can infect two people per day for four days---in this case, both variants have identical intrinsic generation-interval distributions.
-We note that this scenario does not match our model, which assumes time-varying force of infection, not a deterministic number of infections; nonetheless, this scenario provides a simple example for explaining the network effect without requiring new simulations or an extensive review of existing literature.
-Under the same scenario, if each individual were living in a household containing four other people, the individual infected with variant A will infect one household member every day; in contrast, an individual infected with variant B will infect two people per day and no longer transmit (effectively) after the first two days, leading to shorter realized generation intervals.
+We note that this scenario does not match our model, which assumes time-varying force of infection, not a deterministic number of infections; nonetheless, this scenario provides a simple example for explaining the network effect.
+Under the same scenario, if each individual closely interacted with four other contacts, the individual infected with variant A will infect one person every day; in contrast, an individual infected with variant B will infect two people per day and no longer transmit (effectively) after the first two days, leading to shorter realized generation intervals.
 Previous simulations showed that such network effects can have considerable impact on realized generation intervals \citep{park2020inferring}.
 While the network effect is expected to be strongest among household contacts, it is also applicable to other forms of contact structures that involve repeated contacts between the same group of individuals (because only the first infectious contact results in infection).
 
