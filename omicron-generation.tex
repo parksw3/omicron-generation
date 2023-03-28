@@ -164,7 +164,7 @@ Shorter generation intervals of the Omicron variant might be due to its higher e
 
 \section{Introduction}
 
-Estimating transmission advantages of new SARS-CoV-2 variants is critical to predicting and controlling the course of the COVID-19 pandemic \citep{park2021roles}.
+Estimating transmission advantages of new SARS-CoV-2 variants is critical to predicting and controlling the course of the COVID-19 pandemic \citep{park2022importance}.
 Transmission advantages of invading variants are typically characterized by the ratios of reproduction numbers, $\Rinv/\Rres$, and the differences in growth rates, $\rinv-\rres$.
 These quantities are linked by the generation-interval distributions of the resident and invading variants.
 For example, an invading variant with shorter generation intervals---defined as the time between infection of the infector and the infectee---will exhibit faster epidemic growth ($\rinv > \rres > 0$) even if their reproduction numbers are identical ($\Rinv = \Rres > 1$).
@@ -558,6 +558,11 @@ However, such extensions are more complicated for linking generation- and serial
 Assuming exponential growth allows us to avoid this complexity.
 Extending our framework to account for time-varying growth rates can provide more accurate tools for inferring epidemiological delay distributions.
 
+We assume that incubation periods and generation intervals follow a bivariate lognormal distribution---in doing so, we implicitly assume that two intervals have a power law dependence.
+Instead, previous studies showed that mechanistic models better capture the relationship between incubation period and generation interval \citep{ferretti2020timing,hart2021}. 
+Although we did not have sufficient data to test our assumptions, \cite{sender2021unmitigated} showed that a bivariate lognormal distribution can also capture the relationship between incubation period and generation interval well.
+Future studies should compare different functional forms to better understand their relationships.
+
 We do not account for individual-level heterogeneity, such as age, vaccination status, or previous exposure history.
 In general, epidemic growth rates may differ between infection groups (e.g., the incidence of infection caused by any variant is expected to grow faster among immunologically naive individuals), and these growth-rate differences can affect estimates of epidemiological delay distributions, including the incubation-period and generation-interval distributions.
 We are not able to perform stratified analyses because individual-level information was not publicly available.
@@ -574,6 +579,14 @@ Monitoring changes in key epidemiological parameters is critical to understandin
 Our study synthesizes a previously developed theoretical framework on serial- and generation-interval distributions and presents methodological advances in monitoring epidemiological parameters.
 Similar efforts will be critical to improve estimates of the infectiousness profiles of future SARS-CoV-2 variants, especially among asymptomatically infected individuals.
 These conclusions are relevant for other emerging and endemic pathogens in general.
+
+The study of disease generation time has broader implications for estimating generation time of a species in population biology.
+Historically, three ways of estimating of generation time have been discussed \citep{leslie1966intrinsic}.
+First, the mean age of reproduction corresponds to the forward distribution and is therefore insensitive to the underlying growth rate.
+Second, the mean age of mothers for a cohort of offspring that are born at the same year corresponds to the backward distribution, and therefore decreases as the growth rate increases.
+Finally, the ratio between log reproduction number and log multiplicative growth rate (equivalent to $r$ in epidemiology) corresponds to the intrinsic generation time with an additional assumption that the generation time is fixed.
+The link between serial and generation intervals further provides a theoretical basis for understanding generation time for a stage-structured population---the time between symptom onset is analogous to measuring generation time via time between successive recuirtment events for a given life stage \citep{lebreton2005age,bienvenu2015new}.
+Comparing generation-time definitions across two fields can provide valuable insight in understanding population dynamics.
 
 \section*{Data availability}
 
