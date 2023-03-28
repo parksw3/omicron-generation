@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL response.tex.HEAD.oldfile   Mon Nov 28 17:52:20 2022
-%DIF ADD response.tex                Tue Mar 28 13:36:09 2023
+%DIF ADD response.tex                Tue Mar 28 13:38:16 2023
 \usepackage[utf8]{inputenc}
 
 \usepackage{color}
@@ -298,24 +298,23 @@ We note that the population-level effects of immune evasiveness, which allowed t
 Even if Delta and Omicron variants had identical intrinsic generation-interval distributions, immune evasiveness alone would allow the Omicron variant to become dominant.
 Therefore, we might expect the differences in the intrinsic generation-interval distributions of the Delta and Omicron infections to be more strongly influenced by the intrinsic differences in their viral kinetics.
 ''
-}%DIFDELCMD < 
+}\DIFdelend \DIFaddbegin \DIFadd{\revtext{The power-law dependence that the authors assume between the typical generation time for a contact pair and the incubation period of the infectee is a quite curious assumption. It is basically a consequence of the simplifying assumption that the joint distribution is a bivariate lognormal. I understand that the authors have no joint data to explore the validity of this assumption, and it would be pointless to push for a more complicated analysis without the right data. However, worth pointing out that there are more detailed analyses of this relation using better data from transmission pairs [Ferretti 2020, Hart 2021] that seem to suggest different functional forms, although they mostly refer to the original strain from Wuhan.}
+}\DIFaddend 
 
-%DIFDELCMD < \rev{Reviewer \#2}
+\DIFdelbegin %DIFDELCMD < \rev{Reviewer \#2}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \DIFadd{\revtext{The power-law dependence that the authors assume between the typical generation time for a contact pair and the incubation period of the infectee is a quite curious assumption. It is basically a consequence of the simplifying assumption that the joint distribution is a bivariate lognormal. I understand that the authors have no joint data to explore the validity of this assumption, and it would be pointless to push for a more complicated analysis without the right data. However, worth pointing out that there are more detailed analyses of this relation using better data from transmission pairs [Ferretti 2020, Hart 2021] that seem to suggest different functional forms, although they mostly refer to the original strain from Wuhan.}
+\DIFdelend \DIFaddbegin \DIFadd{Done.
 }\DIFaddend 
 
 \DIFdelbegin \DIFdel{\revtext{The significance statement is accurate. I find the paper definitely relevant for future epidemiological studies on COVID-19, and even important for some technical works. But neither the methods nor the results are likely to have a huge impact on the field, even less on other fields.}
-}\DIFdelend \DIFaddbegin \DIFadd{Done.
-}\DIFaddend 
-
-\DIFdelbegin \DIFdel{\revtext{The manuscript is technically sound and very well written. The results are convincing and clearly explained in the manuscript, and the arguments presented make sense from an epidemiological perspective. This paper emphasizes once more the importance of accounting for the epidemic dynamic (or the differential dynamic between two variants, as in this case) when inferring fundamental epidemiologically relevant quantities that vary in time during the infection. I find it an important contribution to the literature, albeit a technical one.}
 }\DIFdelend \DIFaddbegin \DIFadd{\revtext{When the authors write 
 "With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant" 
 it would be nice to point out the contact tracing studies that estimate the same ratio from secondary attack rates and obtain similar numbers (e.g. ~3 in UK, see UKHSA/Test&Trace reports from December 2021). The agreement between these numbers and their result would strengthen their argument about the importance of using proper generation interval estimates to obtain reliable estimates of relative reproduction advantage.}
 }\DIFaddend 
 
-
+\DIFdelbegin \DIFdel{\revtext{The manuscript is technically sound and very well written. The results are convincing and clearly explained in the manuscript, and the arguments presented make sense from an epidemiological perspective. This paper emphasizes once more the importance of accounting for the epidemic dynamic (or the differential dynamic between two variants, as in this case) when inferring fundamental epidemiologically relevant quantities that vary in time during the infection. I find it an important contribution to the literature, albeit a technical one.}
+}\DIFdelend \DIFaddbegin \DIFadd{\jd{Also addressed?}
+}\DIFaddend 
 
 \DIFdelbegin \DIFdel{Thank you for your review.
 }\DIFdelend \DIFaddbegin \DIFadd{\revtext{Minor comment: some of the preprints cited in the manuscript have been published in journals. Hay 2022 for example is here: https://elifesciences.org/articles/81849}
