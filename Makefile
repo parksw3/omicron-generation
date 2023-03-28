@@ -27,6 +27,7 @@ Sources += $(wildcard R/*.R)
 Sources += $(wildcard *.tex *.bib)
 
 ## omicron-generation.pdf: omicron-generation.tex
+## response.tex.pdf: response.tex
 ## response.pdf: response.tex
 ## response.ld.pdf: response.tex
 
