@@ -70,7 +70,13 @@ Thank you for your review.
 
 \revtext{I am still of the opinion that the results, while undoubtedly interesting and important for infectious disease epidemiologists, do not present such a general interest to deserve publication in PNAS. Of course, the general public interest in COVID-19 can justify its publication anyway. The methods are not especially novel, although they are very well presented. The results are quite important since they provide the first high-quality estimates for the generation time of Omicron, while all existing estimates are unfortunately heavily biased and therefore unreliable.}
 
-Thank you for your review. We now discuss how disease generation time is linked to generation time in population biology. We hope that this discussion provides a bit more general interest to a wider group of readers.
+Thank you for your review. We now discuss how disease generation time is linked to generation time in population biology. We hope that this discussion provides a bit more general interest to a wider group of readers:
+
+``This study also has potential implications for studying generation times in population biology \citep{leslie1966intrinsic,mertz1971mathematical,caswell2009stage,steiner2014generation}.
+For example, mean age of reproduction for a cohort of mothers corresponds to the forward generation interval, while mean age of mothers for a cohort of offspring corresponds to the backward interval.
+Their difference are therefore likely affected by dynamical biases \citep{jonasson2022unifying}.
+Similarly, the connection between generation times based at different recruitment stages is analogous to that between serial and generation intervals \citep{lebreton2005age,bienvenu2015new,giaimo2023generation}.
+Comparing definitions and methods across these fields could provide valuable future insights.''
 
 \revtext{Most of the changes by the authors concern the issue of why Omicron would have a shorter generation intervals. I had no problem with their discussion of this topic even in the previous version (though it was quite compact and technical) and I am pleased with the extended discussion they provide on the issue. Their argument about the network effects is quite hypothetical and I agree that it may be the weakest part of the paper. However, there are excellent reasons to believe that the force of infection during the Omicron wave in Europe has been much more intense than at any point during the Delta wave. Therefore, I am inclined to regard this hypothesis as a very good working hypothesis and I agree with the way it is presented.}
 
@@ -78,16 +84,25 @@ Thank you.
 
 \revtext{The power-law dependence that the authors assume between the typical generation time for a contact pair and the incubation period of the infectee is a quite curious assumption. It is basically a consequence of the simplifying assumption that the joint distribution is a bivariate lognormal. I understand that the authors have no joint data to explore the validity of this assumption, and it would be pointless to push for a more complicated analysis without the right data. However, worth pointing out that there are more detailed analyses of this relation using better data from transmission pairs [Ferretti 2020, Hart 2021] that seem to suggest different functional forms, although they mostly refer to the original strain from Wuhan.}
 
-Done.
+We have added the following paragraph to the Discussion:
+
+``We assume that incubation periods and generation intervals follow a bivariate lognormal distribution---thus, we implicitly assume a power-law relationship between them. 
+This was done because data were limited, and previous work \cite{sender2021unmitigated} has shown that this approach can also capture important aspects of the relationship.
+In fact, however, previous studies have shown that mechanistic models capture this relationship better \citep{ferretti2020timing,hart2021}. 
+When sufficient data are available, more mechanistic approaches may therefore be more suitable.''
 
 \revtext{When the authors write 
 "With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant" 
-it would be nice to point out the contact tracing studies that estimate the same ratio from secondary attack rates and obtain similar numbers (e.g. ~3 in UK, see UKHSA/Test&Trace reports from December 2021). The agreement between these numbers and their result would strengthen their argument about the importance of using proper generation interval estimates to obtain reliable estimates of relative reproduction advantage.}
+it would be nice to point out the contact tracing studies that estimate the same ratio from secondary attack rates and obtain similar numbers (e.g. ~3 in UK, see UKHSA/Test\&Trace reports from December 2021). The agreement between these numbers and their result would strengthen their argument about the importance of using proper generation interval estimates to obtain reliable estimates of relative reproduction advantage.}
 
-\jd{Also addressed?}
+We have added the following sentence: 
+
+``Overall, our revised estimates are more consistent with contact tracing studies that reported 1.5--2.2 fold increase in secondary attack rates in household and non-household settings \citep{allen2022comparative,del2022secondary}.''
 
 \revtext{Minor comment: some of the preprints cited in the manuscript have been published in journals. Hay 2022 for example is here: https://elifesciences.org/articles/81849}
 
 Fixed.
+
+\bibliography{omicron.bib}
 
 \end{document}
