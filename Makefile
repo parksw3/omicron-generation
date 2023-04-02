@@ -30,6 +30,9 @@ Sources += $(wildcard *.tex *.bib)
 ## omicron-generation.pdf: omicron-generation.tex
 ## response.tex.pdf: response.tex
 ## response.pdf: response.tex
+
+
+Ignore += response.ld.*
 ## response.ld.pdf: response.tex
 
 submissionNOV: omicron-generation.tex.933813a3.oldfile
