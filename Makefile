@@ -26,10 +26,13 @@ Sources += $(wildcard R/*.R)
 ## Main document
 Sources += $(wildcard *.tex *.bib)
 
+## omicron-generation.ld.pdf: omicron-generation.tex
 ## omicron-generation.pdf: omicron-generation.tex
 ## response.tex.pdf: response.tex
 ## response.pdf: response.tex
 ## response.ld.pdf: response.tex
+
+submissionNOV: omicron-generation.tex.933813a3.oldfile
 
 ######################################################################
 
