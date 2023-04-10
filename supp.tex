@@ -1,0 +1,189 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in,left=1in, right = 1in, footskip=1in]{geometry}
+
+\usepackage{graphicx}
+\usepackage{xspace}
+%\usepackage{adjustbox}
+
+\usepackage{grffile}
+
+\newcommand{\comment}{\showcomment}
+%% \newcommand{\comment}{\nocomment}
+
+\newcommand{\showcomment}[3]{\textcolor{#1}{\textbf{[#2: }\textsl{#3}\textbf{]}}}
+\newcommand{\nocomment}[3]{}
+
+\newcommand{\jd}[1]{\comment{cyan}{JD}{#1}}
+\newcommand{\swp}[1]{\comment{magenta}{SWP}{#1}}
+\newcommand{\bmb}[1]{\comment{blue}{BMB}{#1}}
+\newcommand{\djde}[1]{\comment{red}{DJDE}{#1}}
+
+\newcommand{\eref}[1]{Eq.~(\ref{eq:#1})}
+\newcommand{\fref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\Fref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\sref}[1]{Sec.~\ref{#1}}
+\newcommand{\frange}[2]{Fig.~\ref{fig:#1}--\ref{fig:#2}}
+\newcommand{\tref}[1]{Table~\ref{tab:#1}}
+\newcommand{\tlab}[1]{\label{tab:#1}}
+\newcommand{\seminar}{SE\mbox{$^m$}I\mbox{$^n$}R}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc} % make sure fancy dashes etc. don't get dropped
+
+\usepackage{lineno}
+
+\usepackage[pdfencoding=auto, psdextra]{hyperref}
+
+\usepackage{natbib}
+\bibliographystyle{chicago}
+\date{\today}
+
+\usepackage{xspace}
+\newcommand*{\ie}{i.e.\@\xspace}
+
+\usepackage{color}
+
+\renewcommand{\theequation}{S.\arabic{equation}}
+
+\newcommand{\Rx}[1]{\ensuremath{{\mathcal R}_{#1}}\xspace} 
+\newcommand{\Ro}{\Rx{0}}
+\newcommand{\Rc}{\Rx{\mathrm{c}}}
+\newcommand{\Rs}{\Rx{\mathrm{s}}}
+\newcommand{\RR}{\ensuremath{{\mathcal R}}\xspace}
+\newcommand{\Rhat}{\ensuremath{{\hat\RR}}}
+\newcommand{\Rintrinsic}{\ensuremath{{\mathcal R}_{\textrm{\tiny intrinsic}}}\xspace}
+\newcommand{\tsub}[2]{#1_{{\textrm{\tiny #2}}}}
+\newcommand{\dd}[1]{\ensuremath{\, \mathrm{d}#1}}
+\newcommand{\dtau}{\dd{\tau}}
+\newcommand{\dx}{\dd{x}}
+\newcommand{\dsigma}{\dd{\sigma}}
+
+\newcommand{\psymp}{\ensuremath{p}} %% primary symptom time
+\newcommand{\ssymp}{\ensuremath{s}} %% secondary symptom time
+\newcommand{\pinf}{\ensuremath{\alpha_1}} %% primary infection time
+\newcommand{\sinf}{\ensuremath{\alpha_2}} %% secondary infection time
+
+\newcommand{\psize}{{\mathcal P}} %% primary cohort size
+\newcommand{\ssize}{{\mathcal S}} %% secondary cohort size
+
+\newcommand{\gtime}{\tau_{\rm g}} %% generation interval
+\newcommand{\gdist}{g} %% generation-interval distribution
+\newcommand{\idist}{\ell} %% incubation period distribution
+
+\newcommand{\total}{{\mathcal T}} %% total number of serial intervals
+
+\usepackage{lettrine}
+
+\newcommand{\dropcapfont}{\fontfamily{lmss}\bfseries\fontsize{26pt}{28pt}\selectfont}
+\newcommand{\dropcap}[1]{\lettrine[lines=2,lraise=0.05,findent=0.1em, nindent=0em]{{\dropcapfont{#1}}}{}}
+
+\renewcommand{\thesection}{S\arabic{section}}
+
+\begin{document}
+
+\begin{flushleft}{
+	\Large
+	\textbf\newline{
+		Supplementary Materials---Inferring the differences in incubation-period and generation-interval distributions of the Delta and Omicron variants of SARS-CoV-2
+	}
+}
+\newline
+\\
+Sang Woo Park\textsuperscript{1,*},
+Kaiyuan Sun\textsuperscript{2},
+Sam Abbott\textsuperscript{3,4},
+Ron Sender\textsuperscript{5},
+Yinon Bar-on\textsuperscript{5},
+Joshua S. Weitz\textsuperscript{6,7,8},
+Sebastian Funk\textsuperscript{3,4}, 
+Bryan T. Grenfell\textsuperscript{1,9},
+Jantien A Backer\textsuperscript{10},
+Jacco Wallinga\textsuperscript{10,11},
+Cecile Viboud\textsuperscript{2},
+Jonathan Dushoff\textsuperscript{12,13,14}
+\\
+\bigskip
+\textbf{1} Department of Ecology and Evolutionary Biology, Princeton University, Princeton, NJ, USA
+\\
+\textbf{2} Division of International Epidemiology and Population Studies, Fogarty International Center, National Institutes of Health, Bethesda, MD, USA
+\\
+\textbf{3} Centre for the Mathematical Modelling of Infectious Diseases, London School of Hygiene \& Tropical Medicine, London, UK
+\\
+\textbf{4} Department of Infectious Disease Epidemiology, London School of Hygiene \& Tropical Medicine, Keppel Street, London, UK
+\\
+\textbf{5} Department of Plant and Environmental Sciences, Weizmann Institute of Science, Rehovot, Israel
+\\
+\textbf{6} School of Biological Sciences, Georgia Institute of Technology, Atlanta, GA, USA
+\\
+\textbf{7} School of Physics, Georgia Institute of Technology, Atlanta, GA, USA
+\\
+\textbf{8} Institut de Biologie, \'{E}cole Normale Sup\'{e}rieure, Paris, France
+\\
+\textbf{9} Princeton School of Public and International Affairs, Princeton University, Princeton, NJ, USA
+\\
+\textbf{10} Center for Infectious Disease Control, National Institute for Public Health and the Environment (RIVM), Bilthoven, The Netherlands
+\\
+\textbf{11} Department of Biomedical Data Sciences, Leiden University Medical Center, Leiden, The Netherlands
+\\
+\textbf{12} Department of Biology, McMaster University, Hamilton, ON, Canada
+\\
+\textbf{13} Department of Mathematics and Statistics, McMaster University, Hamilton, ON, Canada
+\\
+\textbf{14} M.\,G.\,DeGroote Institute for Infectious Disease Research, McMaster University, Hamilton, ON, Canada
+\\
+\bigskip
+
+*Corresponding author: swp2@princeton.edu
+\bigskip
+
+Disclaimer: The findings and conclusions in this study are those of the authors and do not necessarily represent the official position of the funding agencies, the National Institutes of Health, or the U.S. Department of Health and Human Services.
+\end{flushleft}
+
+\pagebreak
+
+
+\section*{Supplementary Materials}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\begin{figure}[!th]
+\includegraphics[width=\textwidth]{figure/figure_compare_rho.ggp.pdf}
+\caption{
+\textbf{Sensitivity of the estimates of the mean generation interval to the assumed values of the correlation coefficient of the lognormal distribution.}
+Lines and shaded regions represent maximum likelihood estimates and the corresponding 95\% confidence intervals for the Delta (black, solid lines) and Omicron variants (orange, dashed lines).
+For illustrative purposes we use within-household serial-interval data from the cohort of infectors who developed symptoms during weeks 50 (13--19 December) and 51 (20--26 December) of 2021.
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[!th]
+\includegraphics[width=\textwidth]{figure/figure_compare_stratified.ggp.pdf}
+\caption{
+\textbf{Estimated mean forward generation intervals of Delta and Omicron variants across different stratifications.}
+Sensitivity of the mean forward generation-interval estimates to assumed growth rates of the Delta and Omicron variants stratified by the types of transmission (within- vs between-household transmission) and the week of infectors' symptom onset (week 50, 13--19 December 2021, vs week 51, 20--26 December 2021,).
+Lines represent maximum likelihood estimates.
+Shaded regions represent the corresponding 95\% confidence intervals.
+}
+\end{figure}
+
+
+\pagebreak
+
+\begin{figure}[!th]
+\includegraphics[width=\textwidth]{figure/figure_reproduction_advantage_between.ggp.pdf}
+\caption{
+\textbf{Estimated time-varying reproduction number advantages of the Omicron variant using between-household generation-interval distributions.}
+(A) Estimated instantaneous reproduction numbers and their ratios over time while accounting for differences in the generation-interval distributions.
+(B) Estimated instantaneous reproduction numbers and their ratios over time while assuming identical generation-interval distributions.
+The instantaneous reproduction number of each variant is estimated using the renewal equation by shifting the smoothed case curves by one week.
+The intrinsic generation-interval distribution is approximated by the maximum likelihood estimates of the forward generation-interval distributions for between-household transmission pairs based on $r=-0.05$ for the Delta variant (black) and $r=0.15$ for the Omicron variant (orange).
+Purple lines represent the ratio between the effective reproduction numbers of the Delta and Omicron variants.
+Lines and shaded regions represent medians and corresponding 95\% confidence intervals.
+}
+\end{figure}
+
+\end{document}

@@ -535,7 +535,7 @@ In the example we consider, neglecting differences in the generation-interval di
 More generally, the bias in inferring the reproduction advantage of an emerging variant is expected to be sensitive to the assumed generation-interval distribution of the resident variant.
 For example, \cite{pearson2021bounding} estimated a much higher reproduction advantage of the Omicron variant (\textgreater\ 4-fold) compared to the Delta variant in South Africa but also assumed a longer mean generation interval for the Delta and Omicron variants (6.4 vs 5.2 days, respectively).
 With our generation-interval estimates, we estimate a 2.6-fold reproduction advantage for the Omicron variant assuming $r=-0.06$ and $r=0.26$ for the Delta and Omicron variants, respectively---these growth rates were chosen to match the assumptions and results of \cite{pearson2021bounding} for Gauteng province in South Africa.
-Overall, our revised estimates are more consistent with contact tracing studies that reported 1.5--2.2 fold increase in secondary attack rates in household and non-household settings \citep{allen2022comparative,del2022secondary}.
+Overall, our revised estimates are more consistent with contact tracing studies that reported a 1.5--2.2 fold increase in secondary attack rates across household and non-household settings of Omicron relative to Delta variants \citep{allen2022comparative,del2022secondary}.
 
 We considered two ways of measuring transmission advantages: growth-rate differences and reproduction advantage.
 Characterizing new variants in terms of their reproduction advantage is useful because it is directly related to the amount of increased transmissibility and immune evasion \citep{pearson2021bounding}.
@@ -600,49 +600,6 @@ JW and JB has received funding from European Union's Horizon 2020 research and i
 SF was supported by the Wellcome Trust (grant no. 210758/Z/18/Z). 
 The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript. 
 The findings and conclusions in this study are those of the authors and do not necessarily represent the official position of the funding agencies, the National Institutes of Health, or the U.S. Department of Health and Human Services.
-
-\pagebreak
-
-\section*{Supplementary Materials}
-\setcounter{figure}{0}
-\renewcommand{\thefigure}{S\arabic{figure}}
-
-\begin{figure}[!th]
-\includegraphics[width=\textwidth]{figure/figure_compare_rho.ggp.pdf}
-\caption{
-\textbf{Sensitivity of the estimates of the mean generation interval to the assumed values of the correlation coefficient of the lognormal distribution.}
-Lines and shaded regions represent maximum likelihood estimates and the corresponding 95\% confidence intervals for the Delta (black, solid lines) and Omicron variants (orange, dashed lines).
-For illustrative purposes we use within-household serial-interval data from the cohort of infectors who developed symptoms during weeks 50 (13--19 December) and 51 (20--26 December) of 2021.
-}
-\end{figure}
-
-\pagebreak
-
-\begin{figure}[!th]
-\includegraphics[width=\textwidth]{figure/figure_compare_stratified.ggp.pdf}
-\caption{
-\textbf{Estimated mean forward generation intervals of Delta and Omicron variants across different stratifications.}
-Sensitivity of the mean forward generation-interval estimates to assumed growth rates of the Delta and Omicron variants stratified by the types of transmission (within- vs between-household transmission) and the week of infectors' symptom onset (week 50, 13--19 December 2021, vs week 51, 20--26 December 2021,).
-Lines represent maximum likelihood estimates.
-Shaded regions represent the corresponding 95\% confidence intervals.
-}
-\end{figure}
-
-
-\pagebreak
-
-\begin{figure}[!th]
-\includegraphics[width=\textwidth]{figure/figure_reproduction_advantage_between.ggp.pdf}
-\caption{
-\textbf{Estimated time-varying reproduction number advantages of the Omicron variant using between-household generation-interval distributions.}
-(A) Estimated instantaneous reproduction numbers and their ratios over time while accounting for differences in the generation-interval distributions.
-(B) Estimated instantaneous reproduction numbers and their ratios over time while assuming identical generation-interval distributions.
-The instantaneous reproduction number of each variant is estimated using the renewal equation by shifting the smoothed case curves by one week (\fref{epidemic}C).
-The intrinsic generation-interval distribution is approximated by the maximum likelihood estimates of the forward generation-interval distributions for between-household transmission pairs based on $r=-0.05$ for the Delta variant (black) and $r=0.15$ for the Omicron variant (orange).
-Purple lines represent the ratio between the effective reproduction numbers of the Delta and Omicron variants.
-Lines and shaded regions represent medians and corresponding 95\% confidence intervals.
-}
-\end{figure}
 
 \pagebreak
 
